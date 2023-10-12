@@ -1,1 +1,1 @@
-!(capstone_wirefram.png)
+![wireframe](./capstone_wirefram.png)
