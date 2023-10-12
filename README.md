@@ -1,1 +1,1 @@
-![wireframe](capstone_wirefram.png)
+![wireframe](capstone_wireframe.png)
