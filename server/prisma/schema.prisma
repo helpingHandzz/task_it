@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tasker {
+  id           Int            @id @default(autoincrement())
+  fName        String
+  lName        String
+  email        String         @unique
+  password     String
+  phone        String
+  TaskerReview TaskerReview[]
+  Task         Task[]
+}
+
+model TaskerReview {
+  id       Int      @id @default(autoincrement())
+  taskerId Int
+  tasker   Tasker   @relation(fields: [taskerId], references: [id])
+  rating   Int
+  text     String
+  date     DateTime
+}
+
+model Taskee {
+  id           Int            @id @default(autoincrement())
+  fName        String
+  lName        String
+  email        String         @unique
+  password     String
+  phone        String
+  photo        String
+  city         String
+  state        String
+  workSchedule String[]
+  TaskeeReview TaskeeReview[]
+  Skills       Skills[]
+  Task         Task[]
+}
+
+model TaskeeReview {
+  id       Int      @id @default(autoincrement())
+  taskeeId Int
+  taskee   Taskee   @relation(fields: [taskeeId], references: [id])
+  rating   Int
+  text     String
+  date     DateTime
+}
+
+model Category {
+  id           Int           @id @default(autoincrement())
+  categoryName String
+  Subcategory  Subcategory[]
+  Skills       Skills[]
+  Task         Task[]
+}
+
+model Subcategory {
+  id         Int      @id @default(autoincrement())
+  subName    String
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+}
+
+model Skills {
+  taskeeId   Int
+  taskee     Taskee   @relation(fields: [taskeeId], references: [id])
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  price      Int
+  experience String
+
+  @@id([taskeeId, categoryId])
+}
+
+model Task {
+  id                Int      @id @default(autoincrement())
+  taskerId          Int
+  tasker            Tasker   @relation(fields: [taskerId], references: [id])
+  categoryId        Int
+  category          Category @relation(fields: [categoryId], references: [id])
+  description       String
+  isCompleted       Boolean
+  vehicleRequired   Boolean
+  isAssigned        Boolean
+  assignedTo        Int
+  taskee            Taskee   @relation(fields: [assignedTo], references: [id])
+  estTimeCommitment Int
+  startingStreet    String
+  startingCity      String
+  startingState     String
+  startingZip       String
+  startingSuite     String
+  endingStreet      String
+  endingCity        String
+  endingState       String
+  endingZip         String
+  endingSuite       String
+}
