@@ -2,3 +2,5 @@
 .env
 node_modules
 prisma/migrations
+.DS_Store
+server/.DS_Store
