@@ -56,8 +56,6 @@ model Category {
   id           Int           @id @default(autoincrement())
   categoryName String
   Subcategory  Subcategory[]
-  Skills       Skills[]
-  Task         Task[]
 }
 
 model Subcategory {
@@ -65,31 +63,33 @@ model Subcategory {
   subName    String
   categoryId Int
   category   Category @relation(fields: [categoryId], references: [id])
+  Skills     Skills[]
+  Task       Task[]
 }
 
 model Skills {
-  taskeeId   Int
-  taskee     Taskee   @relation(fields: [taskeeId], references: [id])
-  categoryId Int
-  category   Category @relation(fields: [categoryId], references: [id])
-  price      Int
-  experience String
+  taskeeId      Int
+  taskee        Taskee      @relation(fields: [taskeeId], references: [id])
+  subcategoryId Int
+  subcategory   Subcategory @relation(fields: [subcategoryId], references: [id])
+  price         Int
+  experience    String
 
-  @@id([taskeeId, categoryId])
+  @@id([taskeeId, subcategoryId])
 }
 
 model Task {
-  id                Int      @id @default(autoincrement())
+  id                Int         @id @default(autoincrement())
   taskerId          Int
-  tasker            Tasker   @relation(fields: [taskerId], references: [id])
-  categoryId        Int
-  category          Category @relation(fields: [categoryId], references: [id])
+  tasker            Tasker      @relation(fields: [taskerId], references: [id])
+  subcategoryId     Int
+  subcategory       Subcategory @relation(fields: [subcategoryId], references: [id])
   description       String
   isCompleted       Boolean
   vehicleRequired   Boolean
   isAssigned        Boolean
-  assignedTo        Int
-  taskee            Taskee   @relation(fields: [assignedTo], references: [id])
+  assignedTo        Int?
+  taskee            Taskee?     @relation(fields: [assignedTo], references: [id])
   estTimeCommitment Int
   startingStreet    String
   startingCity      String
