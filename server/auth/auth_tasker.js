@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const { query, body } = require("express-validator");
 const { PrismaClient } = require("@prisma/client");
+const jwt = require("jsonwebtoken");
 const prismaClient = new PrismaClient();
 const SALT_ROUNDS = 5;
 
@@ -45,8 +46,13 @@ router.post(
 				},
 			});
 
+			const token = jwt.sign(
+				createdUser.email,
+				process.env.JWT
+			);
+
 			res.status(201).json({
-				createdUser,
+				createdUser: { ...createdUser, token },
 			});
 		} catch (error) {
 			console.error(error.message);
