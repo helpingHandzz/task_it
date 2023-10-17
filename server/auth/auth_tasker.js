@@ -1,15 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const { query } = require("express-validator");
-const prismaClient = require("prisma");
+const { query, body } = require("express-validator");
+const { PrismaClient } = require("@prisma/client");
+const prismaClient = new PrismaClient();
 const SALT_ROUNDS = 5;
 
 // route handler for registering a user in
 router.post(
 	"/register",
-	body("email").isEmail(),
-	body("phone").isMobilePhone({ locale: "any" }),
+	// body("email").isEmail(),
+	// body("phone").isMobilePhone(),
 	async (req, res, next) => {
 		const { fName, lName, email, password, phone } =
 			req.body;
@@ -43,6 +44,7 @@ router.post(
 					phone,
 				},
 			});
+
 			res.status(201).json({
 				createdUser,
 			});
