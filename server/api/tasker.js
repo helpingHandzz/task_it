@@ -30,7 +30,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// get tasker by skill
+// get tasker 
 
 router.get("/reviews/:id", async (req, res, next) => {
   try {
