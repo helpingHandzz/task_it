@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getTaskerThunk } from "./store/tasker";
+import { getTaskerThunk } from "../store/tasker";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";

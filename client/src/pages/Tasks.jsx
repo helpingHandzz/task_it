@@ -13,7 +13,6 @@ function Tasks() {
 
   return (
     <div>
-      <h1>Tasks</h1>
       {tasks.map((task) => (
         <div key={task.id}>
             <h1>{task.description}</h1>

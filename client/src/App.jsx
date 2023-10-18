@@ -6,7 +6,7 @@ import Auth from "./pages/Auth";
 import Upload from "./components/Upload";
 import Tasks from "./pages/Tasks";
 import AllTaskers from "./pages/AllTaskers";
-import SingleTasker from "./SingleTasker";
+import SingleTasker from "./pages/SingleTasker";
 import SingleCategory from "./pages/SingleCategory";
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/categories/:id" element={<SingleCategory />} />
-        <Route path="/task" element={<Tasks />} />
+        <Route path="/tasks" element={<Tasks />} />
         <Route path="/taskers" element={<AllTaskers />} />
         <Route path="/taskers/:id" element={<SingleTasker />} />
       </Routes>
