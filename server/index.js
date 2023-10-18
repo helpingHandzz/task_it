@@ -16,7 +16,7 @@ app.use(
 	express.urlencoded({ limit: "50mb", extended: true })
 );
 
-app.use("/auth", require("./auth"));
+// app.use("/auth", require("./auth"));
 
 // app.use("/api", require("./api"));
 
