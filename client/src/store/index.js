@@ -4,15 +4,22 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import taskerReducer from "./tasker.js"
 
+import taskeeReducer from "./taskee";
+import categoryReducer from "./category";
+import taskReducer from "./task";
 
 const reducer = combineReducers({
-    tasker: taskerReducer,
+  taskee: taskeeReducer,
+  category: categoryReducer,
+  task: taskReducer,
+  tasker: taskerReducer,
 });
 
 const middleware = composeWithDevTools(
-    applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
+  applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
 
-const store = createStore(reducer, middleware)
+const store = createStore(reducer, middleware);
 
 export default store;
+
