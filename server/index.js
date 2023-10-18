@@ -9,7 +9,9 @@ app.use(cors());
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(
+	express.urlencoded({ limit: "50mb", extended: true })
+);
 
 // app.use("/auth", require("./auth"));
 
