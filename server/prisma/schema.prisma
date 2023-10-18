@@ -55,6 +55,7 @@ model TaskeeReview {
 model Category {
   id           Int           @id @default(autoincrement())
   categoryName String
+  image        String
   Subcategory  Subcategory[]
 }
 
