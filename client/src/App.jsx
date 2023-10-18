@@ -1,18 +1,22 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+
 import "./App.css";
-import Upload from "./components/Upload";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Categories from "./pages/Categories";
 import Auth from "./pages/Auth";
+import Upload from "./components/Upload";
 
 function App() {
-	const [count, setCount] = useState(0);
+  return (
+    <>
+    <Auth />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/categories" element={<Categories />} />
+      </Routes>
+    </>
+  );
 
-	return (
-		<>
-			<Auth />
-		</>
-	);
 }
 
 export default App;
