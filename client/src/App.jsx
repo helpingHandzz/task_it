@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Categories from "./pages/Categories";
 import Auth from "./pages/Auth";
 import Upload from "./components/Upload";
+import Tasks from "./pages/Tasks";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/task" element={<Tasks />} />
       </Routes>
     </>
   );
