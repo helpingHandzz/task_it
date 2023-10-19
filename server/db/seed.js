@@ -633,101 +633,140 @@ const subcategories = [
     id: 1,
     categoryId: 1,
     subName: "Home Repairs",
+    image:
+      "https://img.freepik.com/free-photo/man-woman-assembling-bed_23-2147782393.jpg?w=2000&t=st=1697745070~exp=1697745670~hmac=f01fbb8043e4bbf6414e3af787257cdf33cc65eac9eec006d62bfca2382b07e5",
   },
   {
     id: 2,
     categoryId: 1,
     subName: "Plumbing",
+    image:
+      "https://img.freepik.com/free-photo/plumbing-repair-service_181624-27146.jpg?w=2000&t=st=1697745112~exp=1697745712~hmac=9449dedbcc1298f1de5587c944809c1ec4e34f1fa5ff4924cc47850f6a87b4da",
   },
   {
     id: 3,
     categoryId: 2,
     subName: "Heavy Lifting",
+    image:
+      "https://img.freepik.com/free-photo/man-carrying-cardboard-boxes-warehouse_107420-96565.jpg?w=996&t=st=1697745175~exp=1697745775~hmac=0ab378d7205eb7e5096635ae67fa873d74969ab9caf7e2a7033bc9afbd35126b",
   },
   {
     id: 4,
     categoryId: 2,
     subName: "Packing Services",
+    image:
+      "https://img.freepik.com/free-photo/closeup-delivery-man-closing-carboard-box-with-tape-while-preparing-packages-shipment_637285-2244.jpg?w=2000&t=st=1697745198~exp=1697745798~hmac=05d5511c304cb7593547065e532930bb81e0c6baa5225d98e38cfaf145aa988c",
   },
   {
     id: 5,
     categoryId: 3,
     subName: "Desk Assembly",
+    image:
+      "https://img.freepik.com/free-photo/good-looking-young-man-building-himself-new-wooden-shelf-doing-some-diy-home-renovations_662251-617.jpg?w=1380&t=st=1697745226~exp=1697745826~hmac=07ba59a9e1152eb6943521bbcaefa5191ae3cf3ee3771d354e12cf07ec7fdbe3",
   },
   {
     id: 6,
     categoryId: 3,
     subName: "Bed Assembly",
+    image:
+      "https://img.freepik.com/free-photo/young-man-holding-mattress-bedroom_839833-2670.jpg?w=2000&t=st=1697745249~exp=1697745849~hmac=aa546d48e7ad9c54d4f188df1235c009b24613692a99bdfe16849c8f3593ae32",
   },
   {
     id: 7,
     categoryId: 4,
     subName: "TV Mounting",
+    image:
+      "https://img.freepik.com/free-photo/tv-hanged-wall-indoors_23-2149026088.jpg?w=2000&t=st=1697745297~exp=1697745897~hmac=0766398689a7dfd6057b6b276bc0daea9f38bd04146962560e46c0d207954c01",
   },
   {
     id: 8,
     categoryId: 4,
     subName: "Hang Pictures",
+    image:
+      "https://img.freepik.com/free-photo/empty-photo-frames-wall_74190-10006.jpg?w=2000&t=st=1697745321~exp=1697745921~hmac=d0f5ab71ab0e90aa1deed3d60135d9436e502634d90f6edf9ecdf48597120166",
   },
   {
     id: 9,
     categoryId: 5,
     subName: "Deep Cleaning",
+    image:
+      "https://img.freepik.com/free-photo/professional-cleaning-service-person-using-steam-cleaner-office_23-2150520636.jpg?w=2000&t=st=1697745362~exp=1697745962~hmac=749490f7ce90849d8bfc729c1126eb0e936b32d8af6999c2fc6dde3966dc51c6",
   },
   {
     id: 10,
     categoryId: 5,
     subName: "Car Washing",
+    image:
+      "https://img.freepik.com/free-photo/professional-washer-blue-uniform-washing-luxury-car-with-water-gun-open-air-car-wash_496169-333.jpg?w=2000&t=st=1697745388~exp=1697745988~hmac=3721b5bde7a0b992adaa5a61de05c9634261efc9eff18625113df6df318067fb",
   },
   {
     id: 11,
     categoryId: 6,
     subName: "Groceries",
+    image:
+      "https://img.freepik.com/free-photo/food-cart_1098-14618.jpg?w=2000&t=st=1697745413~exp=1697746013~hmac=df5f5f62ff5a93d89a61b55172eb24c4673efda0bf6932739d0dd71c6a6575a3",
   },
   {
     id: 12,
     categoryId: 6,
     subName: "Wait in Line",
+    image: "https://i.ytimg.com/vi/_mXvIe0IIRc/maxresdefault.jpg",
   },
   {
     id: 13,
     categoryId: 7,
     subName: "Lawn Mowing",
+    image:
+      "https://img.freepik.com/free-photo/female-legs-woman-using-lawn-mower_651396-1545.jpg?w=2000&t=st=1697745510~exp=1697746110~hmac=47da4a160e266a78182bd069fa8e97db0e53dfa835176b8fc3ead4bea75b35fa",
   },
   {
     id: 14,
     categoryId: 7,
     subName: "Hedge Trimming",
+    image:
+      "https://img.freepik.com/free-photo/old-gardener-cuts-bush-with-large-metal-old-pruning-shears_169016-10698.jpg?w=2000&t=st=1697745532~exp=1697746132~hmac=41cf5a6ca7db7f85a6778fc0b8302be81a91a30e3103ebbdb03f5331cff98678",
   },
   {
     id: 15,
     categoryId: 8,
     subName: "Contactless Delivery",
+    image:
+      "https://seattlerefined.com/resources/media/05e9e67b-7258-402f-91ef-c6ea29766c00-large16x9_GettyImages1214610802.jpg?1587770959840",
   },
   {
     id: 16,
     categoryId: 8,
     subName: "Running Your Errands",
+    image:
+      "https://img.freepik.com/free-photo/happy-beautiful-woman-with-colorful-shopping-bags-hand-cheerfully-jumping-air_231208-11913.jpg?w=2000&t=st=1697745600~exp=1697746200~hmac=ccb92c642fd67e30fe966ec8e2dec8290b6a0c279756b316cd448ce4d714deff",
   },
   {
     id: 17,
     categoryId: 9,
     subName: "Office Tech Setup",
+    image:
+      "https://img.freepik.com/free-photo/no-people-office-with-multiple-computers-customer-service-desk-call-center-helpline-support-give-telecommunication-assistance-empty-helpdesk-with-client-telephony-reception_482257-44009.jpg?w=1380&t=st=1697745621~exp=1697746221~hmac=00650f64b145a2497a481ef0bc0b808eafcf309c62f83643b7ccbd761aa76f4a",
   },
   {
     id: 18,
     categoryId: 9,
     subName: "Office Interior Design",
+    image:
+      "https://img.freepik.com/free-photo/modern-interior-design-office_181624-21578.jpg?w=2000&t=st=1697745643~exp=1697746243~hmac=d3a983b55f886a82e1a773fbf129c78fd7891b216044bcc6fedfe57a627c09c7",
   },
   {
     id: 19,
     categoryId: 10,
     subName: "Virtual Assistant",
+    image:
+      "https://img.freepik.com/free-photo/portrait-female-work-having-video-call_23-2148902302.jpg?w=2000&t=st=1697745662~exp=1697746262~hmac=5ad2ac650f18b30157c7e79dde64a851b8b859aafcf7c1b526b15ebd91840c84",
   },
   {
     id: 20,
     categoryId: 10,
     subName: "Data Entry",
+    image:
+      "https://img.freepik.com/free-photo/closeup-hands-using-computer-laptop-with-screen-showing-analysis-data_53876-23014.jpg?w=2000&t=st=1697745684~exp=1697746284~hmac=c4c2018e5162f1b647d5c67811d689f304dafbed99a4a2801f7214e2bc3974a5",
   },
 ];
 
@@ -1438,6 +1477,7 @@ async function main() {
           id: subcategory.id,
           categoryId: subcategory.categoryId,
           subName: subcategory.subName,
+          image: subcategory.image,
         },
       });
     })

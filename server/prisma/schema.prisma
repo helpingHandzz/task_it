@@ -63,6 +63,7 @@ model Subcategory {
   id         Int      @id @default(autoincrement())
   subName    String
   categoryId Int
+  image      String
   category   Category @relation(fields: [categoryId], references: [id])
   Skills     Skills[]
   Task       Task[]
