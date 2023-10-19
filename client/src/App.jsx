@@ -11,7 +11,7 @@ import SingleCategory from "./pages/SingleCategory";
 
 function App() {
   return (
-    <>
+    <section className="pt-14">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />
@@ -21,7 +21,7 @@ function App() {
         <Route path="/taskers" element={<AllTaskers />} />
         <Route path="/taskers/:id" element={<SingleTasker />} />
       </Routes>
-    </>
+    </section>
   );
 }
 

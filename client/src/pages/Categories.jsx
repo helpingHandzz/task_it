@@ -18,14 +18,18 @@ function Categories() {
         className="bg-center bg-no-repeat h-96 min-w-screen bg-cover"
         style={{ backgroundImage: `url(${background})` }}
       ></div>
-      <h1 className="text-center text-5xl my-5">Available Categories</h1>
+      <h1 className="text-center text-5xl py-5">Available Categories</h1>
       <div className="flex flex-wrap justify-center">
         {categories.map((category) => (
           <div key={category.id} className="border-2 my-3 w-96 h-80 sm:mx-5">
             <div className="h-40 w-96">
               <img className="h-40 w-80 mx-auto" src={category.image} />
             </div>
-            <Link key={category.id} to={`/categories/${category.id}`}>
+            <Link
+              className=" hover:text-cyan-700"
+              key={category.id}
+              to={`/categories/${category.id}`}
+            >
               <h1 className="text-3xl py-3 text-center">
                 {category.categoryName}
               </h1>
