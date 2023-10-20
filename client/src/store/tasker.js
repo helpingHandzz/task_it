@@ -4,7 +4,10 @@ const BASE_URL = "http://localhost:8080";
 
 const GET_TASKERS = "GET_TASKERS";
 const GET_TASKER = "GET_TASKER";
-// const GET_TASKER_REVIEWS = "GET_TASKER_REVIEWS"
+const GET_TASKER_REVIEWS = "GET_TASKER_REVIEWS";
+const POST_TASKER_REVIEW = "POST_TASKER_REVIEW";
+const EDIT_TASKER_REVIEW = "EDIT_TASKER_REVIEW";
+const DELETE_TASKER_REVIEW = "DELETE_TASKER_REVIEW";
 
 const getTaskers = (taskers) => ({
   type: GET_TASKERS,
@@ -16,38 +19,91 @@ const getTasker = (tasker) => ({
   payload: tasker,
 });
 
-const getTaskerReviews = (taskerReviews) => ({
+const getTaskerReviews = (reviews) => ({
   type: GET_TASKER_REVIEWS,
-  payload: taskerReviews,
+  payload: reviews,
 });
 
+const postTaskerReview = (review) => ({
+  type: POST_TASKER_REVIEW,
+  payload: review,
+});
+
+const editTaskerReview = (review) => ({
+  type: EDIT_TASKER_REVIEW,
+  payload: review,
+});
+
+const deleteTaskerReview = (review) => ({
+  type: DELETE_TASKER_REVIEW,
+  payload: review,
+});
+
+// ALL TASKERS
 export const getTaskersThunk = () => async (dispatch) => {
   try {
     const { data: taskers } = await axios.get(`${BASE_URL}/api/tasker`);
-    console.log("data", taskers);
     return dispatch(getTaskers(taskers));
   } catch (error) {
     console.error(error);
   }
 };
 
+// SINGLE TASKER
 export const getTaskerThunk = (id) => async (dispatch) => {
   try {
     const { data: tasker } = await axios.get(`${BASE_URL}/api/tasker/${id}`);
-    console.log("data", tasker);
     return dispatch(getTasker(tasker));
   } catch (error) {
     console.error(error);
   }
 };
 
+// SINGLE TASKER REVIEWS
 export const getTaskerReviewsThunk = (id) => async (dispatch) => {
   try {
-    const { data: taskerReview } = await axios.get(
-      `${BASE_URL}/api/taskers/reviews/${id}`
+    const { data: review } = await axios.get(
+      `${BASE_URL}/api/tasker/reviews/${id}`
     );
-    console.log("data", taskerReview);
-    return dispatch(getTaskerReviews(taskerReview));
+    return dispatch(getTaskerReviews(review));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// CREATE NEW TASKER REVIEW
+export const postTaskerReviewThunk = (data) => async (dispatch) => {
+  try {
+    const { data: review } = await axios.post(
+      `${BASE_URL}/api/tasker/reviews/new`,
+      { ...data }
+    );
+    return dispatch(postTaskerReview(review));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// EDIT TASKER REVIEW
+export const editTaskerReviewThunk = (data) => async (dispatch) => {
+  try {
+    const { data: review } = await axios.put(
+      `${BASE_URL}/api/tasker/reviews/edit/${data.id}`,
+      data
+    );
+    return dispatch(editTaskerReview(review));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// DELETE TASKER REVIEW
+export const deleteTaskerReviewThunk = (id) => async (dispatch) => {
+  try {
+    const { data: review } = await axios.delete(
+      `${BASE_URL}/api/tasker/reviews/delete/${id}`
+    );
+    return dispatch(deleteTaskerReview(review));
   } catch (error) {
     console.error(error);
   }
@@ -56,6 +112,7 @@ export const getTaskerReviewsThunk = (id) => async (dispatch) => {
 const initialState = {
   allTaskers: [],
   singleTasker: {},
+  taskerReviews: [],
 };
 
 export default function (state = initialState, action) {
@@ -64,6 +121,24 @@ export default function (state = initialState, action) {
       return { ...state, allTaskers: action.payload };
     case GET_TASKER:
       return { ...state, singleTasker: action.payload };
+    case GET_TASKER_REVIEWS:
+      return { ...state, taskerReviews: action.payload };
+    case POST_TASKER_REVIEW:
+      state.taskerReviews.push(action.payload);
+      return state;
+    case EDIT_TASKER_REVIEW:
+      return {
+        taskerReviews: state.taskerReviews.map((review) =>
+          review.id === action.payload.id ? action.payload : review
+        ),
+      };
+    case DELETE_TASKER_REVIEW:
+      return {
+        ...state,
+        taskerReviews: state.taskerReviews.filter(
+          (review) => review.id !== action.payload.id
+        ),
+      };
     default:
       return state;
   }
