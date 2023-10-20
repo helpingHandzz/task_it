@@ -2,6 +2,7 @@ const { randAvatar } = require("@ngneat/falso");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
+
 const taskers = [
 	{
 		// id: 1,
@@ -199,369 +200,429 @@ const taskees = [
 ];
 
 const taskeeReviews = [
-	{
-		taskeeId: 1,
-		rating: 4,
-		text: "Great service! Very satisfied.",
-		date: "2023-10-12T08:30:00Z",
-	},
-	{
-		taskeeId: 2,
-		rating: 2,
-		text: "Average experience. Could be better.",
-		date: "2023-10-12T09:15:00Z",
-	},
-	{
-		taskeeId: 3,
-		rating: 5,
-		text: "Exceptional service. Highly recommend.",
-		date: "2023-10-12T10:20:00Z",
-	},
-	{
-		taskeeId: 4,
-		rating: 3,
-		text: "Satisfactory job. Room for improvement.",
-		date: "2023-10-12T11:45:00Z",
-	},
-	{
-		taskeeId: 5,
-		rating: 1,
-		text: "Terrible experience. Avoid at all costs.",
-		date: "2023-10-12T12:10:00Z",
-	},
-	{
-		taskeeId: 6,
-		rating: 3,
-		text: "Decent service. Not great, not terrible.",
-		date: "2023-10-12T13:30:00Z",
-	},
-	{
-		taskeeId: 7,
-		rating: 4,
-		text: "Good job. Will hire again.",
-		date: "2023-10-12T14:20:00Z",
-	},
-	{
-		taskeeId: 8,
-		rating: 5,
-		text: "Outstanding work! Exceeded my expectations.",
-		date: "2023-10-12T15:45:00Z",
-	},
-	{
-		taskeeId: 9,
-		rating: 2,
-		text: "Not satisfied with the service. Needs improvement.",
-		date: "2023-10-12T16:10:00Z",
-	},
-	{
-		taskeeId: 10,
-		rating: 1,
-		text: "Worst service ever. Avoid this tasker.",
-		date: "2023-10-12T17:30:00Z",
-	},
-	{
-		taskeeId: 1,
-		rating: 4,
-		text: "Great service! Very satisfied.",
-		date: "2023-10-12T18:45:00Z",
-	},
-	{
-		taskeeId: 2,
-		rating: 2,
-		text: "Average experience. Could be better.",
-		date: "2023-10-12T19:20:00Z",
-	},
-	{
-		taskeeId: 3,
-		rating: 5,
-		text: "Exceptional service. Highly recommend.",
-		date: "2023-10-12T20:30:00Z",
-	},
-	{
-		taskeeId: 4,
-		rating: 3,
-		text: "Satisfactory job. Room for improvement.",
-		date: "2023-10-12T21:55:00Z",
-	},
-	{
-		taskeeId: 5,
-		rating: 1,
-		text: "Terrible experience. Avoid at all costs.",
-		date: "2023-10-12T22:15:00Z",
-	},
-	{
-		taskeeId: 6,
-		rating: 3,
-		text: "Decent service. Not great, not terrible.",
-		date: "2023-10-12T23:35:00Z",
-	},
-	{
-		taskeeId: 7,
-		rating: 4,
-		text: "Good job. Will hire again.",
-		date: "2023-10-12T00:25:00Z",
-	},
-	{
-		taskeeId: 8,
-		rating: 5,
-		text: "Outstanding work! Exceeded my expectations.",
-		date: "2023-10-12T01:50:00Z",
-	},
-	{
-		taskeeId: 9,
-		rating: 2,
-		text: "Not satisfied with the service. Needs improvement.",
-		date: "2023-10-12T02:15:00Z",
-	},
-	{
-		taskeeId: 10,
-		rating: 1,
-		text: "Worst service ever. Avoid this tasker.",
-		date: "2023-10-12T03:35:00Z",
-	},
-	{
-		taskeeId: 1,
-		rating: 4,
-		text: "Great service! Very satisfied.",
-		date: "2023-10-12T04:45:00Z",
-	},
-	{
-		taskeeId: 2,
-		rating: 2,
-		text: "Average experience. Could be better.",
-		date: "2023-10-12T05:20:00Z",
-	},
-	{
-		taskeeId: 3,
-		rating: 5,
-		text: "Exceptional service. Highly recommend.",
-		date: "2023-10-12T06:30:00Z",
-	},
-	{
-		taskeeId: 4,
-		rating: 3,
-		text: "Satisfactory job. Room for improvement.",
-		date: "2023-10-12T07:55:00Z",
-	},
-	{
-		taskeeId: 5,
-		rating: 1,
-		text: "Terrible experience. Avoid at all costs.",
-		date: "2023-10-12T08:15:00Z",
-	},
-	{
-		taskeeId: 6,
-		rating: 3,
-		text: "Decent service. Not great, not terrible.",
-		date: "2023-10-12T09:35:00Z",
-	},
-	{
-		taskeeId: 7,
-		rating: 4,
-		text: "Good job. Will hire again.",
-		date: "2023-10-12T10:25:00Z",
-	},
-	{
-		taskeeId: 8,
-		rating: 5,
-		text: "Outstanding work! Exceeded my expectations.",
-		date: "2023-10-12T11:50:00Z",
-	},
-	{
-		taskeeId: 9,
-		rating: 2,
-		text: "Not satisfied with the service. Needs improvement.",
-		date: "2023-10-12T12:15:00Z",
-	},
-	{
-		taskeeId: 10,
-		rating: 1,
-		text: "Worst service ever. Avoid this taskee.",
-		date: "2023-10-12T13:35:00Z",
-	},
+  {
+    taskeeId: 1,
+    rating: 4,
+    reviewedBy: 1,
+    text: "Great service! Very satisfied.",
+    date: "2023-10-12T08:30:00Z",
+  },
+  {
+    taskeeId: 2,
+    rating: 2,
+    reviewedBy: 1,
+    text: "Average experience. Could be better.",
+    date: "2023-10-12T09:15:00Z",
+  },
+  {
+    taskeeId: 3,
+    rating: 5,
+    reviewedBy: 1,
+    text: "Exceptional service. Highly recommend.",
+    date: "2023-10-12T10:20:00Z",
+  },
+  {
+    taskeeId: 4,
+    rating: 3,
+    reviewedBy: 2,
+    text: "Satisfactory job. Room for improvement.",
+    date: "2023-10-12T11:45:00Z",
+  },
+  {
+    taskeeId: 5,
+    rating: 1,
+    reviewedBy: 2,
+    text: "Terrible experience. Avoid at all costs.",
+    date: "2023-10-12T12:10:00Z",
+  },
+  {
+    taskeeId: 6,
+    rating: 3,
+    reviewedBy: 2,
+    text: "Decent service. Not great, not terrible.",
+    date: "2023-10-12T13:30:00Z",
+  },
+  {
+    taskeeId: 7,
+    rating: 4,
+    reviewedBy: 3,
+    text: "Good job. Will hire again.",
+    date: "2023-10-12T14:20:00Z",
+  },
+  {
+    taskeeId: 8,
+    rating: 5,
+    reviewedBy: 3,
+    text: "Outstanding work! Exceeded my expectations.",
+    date: "2023-10-12T15:45:00Z",
+  },
+  {
+    taskeeId: 9,
+    rating: 2,
+    reviewedBy: 3,
+    text: "Not satisfied with the service. Needs improvement.",
+    date: "2023-10-12T16:10:00Z",
+  },
+  {
+    taskeeId: 10,
+    rating: 1,
+    reviewedBy: 4,
+    text: "Worst service ever. Avoid this tasker.",
+    date: "2023-10-12T17:30:00Z",
+  },
+  {
+    taskeeId: 1,
+    rating: 4,
+    reviewedBy: 4,
+    text: "Great service! Very satisfied.",
+    date: "2023-10-12T18:45:00Z",
+  },
+  {
+    taskeeId: 2,
+    rating: 2,
+    reviewedBy: 4,
+    text: "Average experience. Could be better.",
+    date: "2023-10-12T19:20:00Z",
+  },
+  {
+    taskeeId: 3,
+    rating: 5,
+    reviewedBy: 5,
+    text: "Exceptional service. Highly recommend.",
+    date: "2023-10-12T20:30:00Z",
+  },
+  {
+    taskeeId: 4,
+    rating: 3,
+    reviewedBy: 5,
+    text: "Satisfactory job. Room for improvement.",
+    date: "2023-10-12T21:55:00Z",
+  },
+  {
+    taskeeId: 5,
+    rating: 1,
+    reviewedBy: 5,
+    text: "Terrible experience. Avoid at all costs.",
+    date: "2023-10-12T22:15:00Z",
+  },
+  {
+    taskeeId: 6,
+    rating: 3,
+    reviewedBy: 6,
+    text: "Decent service. Not great, not terrible.",
+    date: "2023-10-12T23:35:00Z",
+  },
+  {
+    taskeeId: 7,
+    rating: 4,
+    reviewedBy: 6,
+    text: "Good job. Will hire again.",
+    date: "2023-10-12T00:25:00Z",
+  },
+  {
+    taskeeId: 8,
+    rating: 5,
+    reviewedBy: 6,
+    text: "Outstanding work! Exceeded my expectations.",
+    date: "2023-10-12T01:50:00Z",
+  },
+  {
+    taskeeId: 9,
+    rating: 2,
+    reviewedBy: 7,
+    text: "Not satisfied with the service. Needs improvement.",
+    date: "2023-10-12T02:15:00Z",
+  },
+  {
+    taskeeId: 10,
+    rating: 1,
+    reviewedBy: 7,
+    text: "Worst service ever. Avoid this tasker.",
+    date: "2023-10-12T03:35:00Z",
+  },
+  {
+    taskeeId: 1,
+    rating: 4,
+    reviewedBy: 7,
+    text: "Great service! Very satisfied.",
+    date: "2023-10-12T04:45:00Z",
+  },
+  {
+    taskeeId: 2,
+    rating: 2,
+    reviewedBy: 8,
+    text: "Average experience. Could be better.",
+    date: "2023-10-12T05:20:00Z",
+  },
+  {
+    taskeeId: 3,
+    rating: 5,
+    reviewedBy: 8,
+    text: "Exceptional service. Highly recommend.",
+    date: "2023-10-12T06:30:00Z",
+  },
+  {
+    taskeeId: 4,
+    rating: 3,
+    reviewedBy: 8,
+    text: "Satisfactory job. Room for improvement.",
+    date: "2023-10-12T07:55:00Z",
+  },
+  {
+    taskeeId: 5,
+    rating: 1,
+    reviewedBy: 9,
+    text: "Terrible experience. Avoid at all costs.",
+    date: "2023-10-12T08:15:00Z",
+  },
+  {
+    taskeeId: 6,
+    rating: 3,
+    reviewedBy: 9,
+    text: "Decent service. Not great, not terrible.",
+    date: "2023-10-12T09:35:00Z",
+  },
+  {
+    taskeeId: 7,
+    rating: 4,
+    reviewedBy: 9,
+    text: "Good job. Will hire again.",
+    date: "2023-10-12T10:25:00Z",
+  },
+  {
+    taskeeId: 8,
+    rating: 5,
+    reviewedBy: 10,
+    text: "Outstanding work! Exceeded my expectations.",
+    date: "2023-10-12T11:50:00Z",
+  },
+  {
+    taskeeId: 9,
+    rating: 2,
+    reviewedBy: 10,
+    text: "Not satisfied with the service. Needs improvement.",
+    date: "2023-10-12T12:15:00Z",
+  },
+  {
+    taskeeId: 10,
+    rating: 1,
+    reviewedBy: 10,
+    text: "Worst service ever. Avoid this taskee.",
+    date: "2023-10-12T13:35:00Z",
+  },
 ];
 
 const taskerReviews = [
-	{
-		taskerId: 1,
-		rating: 5,
-		text: "Excellent job! Highly recommended!",
-		date: "2023-10-12T08:00:00Z",
-	},
-	{
-		taskerId: 2,
-		rating: 3,
-		text: "Good work, but could improve in some areas.",
-		date: "2023-10-12T09:15:00Z",
-	},
-	{
-		taskerId: 3,
-		rating: 4,
-		text: "Satisfied with the service provided.",
-		date: "2023-10-12T10:30:00Z",
-	},
-	{
-		taskerId: 4,
-		rating: 2,
-		text: "Not a great experience. Room for improvement.",
-		date: "2023-10-12T11:45:00Z",
-	},
-	{
-		taskerId: 5,
-		rating: 1,
-		text: "Terrible service. Would not recommend.",
-		date: "2023-10-12T13:00:00Z",
-	},
-	{
-		taskerId: 6,
-		rating: 3,
-		text: "Average job. Expected better.",
-		date: "2023-10-12T14:15:00Z",
-	},
-	{
-		taskerId: 7,
-		rating: 4,
-		text: "Satisfied with the service provided.",
-		date: "2023-10-12T15:30:00Z",
-	},
-	{
-		taskerId: 8,
-		rating: 5,
-		text: "Exceptional work! Would hire again.",
-		date: "2023-10-12T16:45:00Z",
-	},
-	{
-		taskerId: 9,
-		rating: 2,
-		text: "Not up to the mark. Disappointing.",
-		date: "2023-10-12T18:00:00Z",
-	},
-	{
-		taskerId: 10,
-		rating: 5,
-		text: "Outstanding service! Highly recommended!",
-		date: "2023-10-12T19:15:00Z",
-	},
-	{
-		taskerId: 1,
-		rating: 4,
-		text: "Good job overall. Thank you!",
-		date: "2023-10-12T20:30:00Z",
-	},
-	{
-		taskerId: 2,
-		rating: 3,
-		text: "Could improve in certain areas.",
-		date: "2023-10-12T21:45:00Z",
-	},
-	{
-		taskerId: 3,
-		rating: 2,
-		text: "Not entirely satisfied with the service.",
-		date: "2023-10-12T23:00:00Z",
-	},
-	{
-		taskerId: 4,
-		rating: 5,
-		text: "Exceptional work! Highly recommended!",
-		date: "2023-10-13T00:15:00Z",
-	},
-	{
-		taskerId: 5,
-		rating: 1,
-		text: "Terrible service. Would not recommend.",
-		date: "2023-10-13T01:30:00Z",
-	},
-	{
-		taskerId: 6,
-		rating: 4,
-		text: "Satisfied with the service provided.",
-		date: "2023-10-13T02:45:00Z",
-	},
-	{
-		taskerId: 7,
-		rating: 3,
-		text: "Average job. Expected better.",
-		date: "2023-10-13T04:00:00Z",
-	},
-	{
-		taskerId: 8,
-		rating: 5,
-		text: "Outstanding service! Highly recommended!",
-		date: "2023-10-13T05:15:00Z",
-	},
-	{
-		taskerId: 9,
-		rating: 2,
-		text: "Not up to the mark. Disappointing.",
-		date: "2023-10-13T06:30:00Z",
-	},
-	{
-		taskerId: 10,
-		rating: 4,
-		text: "Satisfactory service. Could be better.",
-		date: "2023-10-13T07:45:00Z",
-	},
-	{
-		taskerId: 1,
-		rating: 3,
-		text: "Decent service, but room for improvement.",
-		date: "2023-10-13T08:00:00Z",
-	},
-	{
-		taskerId: 2,
-		rating: 4,
-		text: "Good job. Satisfied with the work done.",
-		date: "2023-10-13T09:15:00Z",
-	},
-	{
-		taskerId: 3,
-		rating: 5,
-		text: "Excellent service! Highly recommended!",
-		date: "2023-10-13T10:30:00Z",
-	},
-	{
-		taskerId: 4,
-		rating: 2,
-		text: "Disappointed with the quality of work.",
-		date: "2023-10-13T11:45:00Z",
-	},
-	{
-		taskerId: 5,
-		rating: 1,
-		text: "Terrible experience. Avoid at all costs.",
-		date: "2023-10-13T13:00:00Z",
-	},
-	{
-		taskerId: 6,
-		rating: 3,
-		text: "Average service. Nothing exceptional.",
-		date: "2023-10-13T14:15:00Z",
-	},
-	{
-		taskerId: 7,
-		rating: 4,
-		text: "Satisfied with the service provided.",
-		date: "2023-10-13T15:30:00Z",
-	},
-	{
-		taskerId: 8,
-		rating: 5,
-		text: "Outstanding work! Will hire again.",
-		date: "2023-10-13T16:45:00Z",
-	},
-	{
-		taskerId: 9,
-		rating: 2,
-		text: "Not up to my expectations. Disappointing.",
-		date: "2023-10-13T18:00:00Z",
-	},
-	{
-		taskerId: 10,
-		rating: 4,
-		text: "Satisfactory service. Could be better.",
-		date: "2023-10-13T19:15:00Z",
-	},
+  {
+    taskerId: 1,
+    rating: 5,
+    reviewedBy: 1,
+    text: "Excellent job! Highly recommended!",
+    date: "2023-10-12T08:00:00Z",
+  },
+  {
+    taskerId: 2,
+    rating: 3,
+    reviewedBy: 1,
+    text: "Good work, but could improve in some areas.",
+    date: "2023-10-12T09:15:00Z",
+  },
+  {
+    taskerId: 3,
+    rating: 4,
+    reviewedBy: 1,
+    text: "Satisfied with the service provided.",
+    date: "2023-10-12T10:30:00Z",
+  },
+  {
+    taskerId: 4,
+    rating: 2,
+    reviewedBy: 2,
+    text: "Not a great experience. Room for improvement.",
+    date: "2023-10-12T11:45:00Z",
+  },
+  {
+    taskerId: 5,
+    rating: 1,
+    reviewedBy: 2,
+    text: "Terrible service. Would not recommend.",
+    date: "2023-10-12T13:00:00Z",
+  },
+  {
+    taskerId: 6,
+    rating: 3,
+    reviewedBy: 2,
+    text: "Average job. Expected better.",
+    date: "2023-10-12T14:15:00Z",
+  },
+  {
+    taskerId: 7,
+    rating: 4,
+    reviewedBy: 3,
+    text: "Satisfied with the service provided.",
+    date: "2023-10-12T15:30:00Z",
+  },
+  {
+    taskerId: 8,
+    rating: 5,
+    reviewedBy: 3,
+    text: "Exceptional work! Would hire again.",
+    date: "2023-10-12T16:45:00Z",
+  },
+  {
+    taskerId: 9,
+    rating: 2,
+    reviewedBy: 3,
+    text: "Not up to the mark. Disappointing.",
+    date: "2023-10-12T18:00:00Z",
+  },
+  {
+    taskerId: 10,
+    rating: 5,
+    reviewedBy: 4,
+    text: "Outstanding service! Highly recommended!",
+    date: "2023-10-12T19:15:00Z",
+  },
+  {
+    taskerId: 1,
+    rating: 4,
+    reviewedBy: 4,
+    text: "Good job overall. Thank you!",
+    date: "2023-10-12T20:30:00Z",
+  },
+  {
+    taskerId: 2,
+    rating: 3,
+    reviewedBy: 4,
+    text: "Could improve in certain areas.",
+    date: "2023-10-12T21:45:00Z",
+  },
+  {
+    taskerId: 3,
+    rating: 2,
+    reviewedBy: 5,
+    text: "Not entirely satisfied with the service.",
+    date: "2023-10-12T23:00:00Z",
+  },
+  {
+    taskerId: 4,
+    rating: 5,
+    reviewedBy: 5,
+    text: "Exceptional work! Highly recommended!",
+    date: "2023-10-13T00:15:00Z",
+  },
+  {
+    taskerId: 5,
+    rating: 1,
+    reviewedBy: 5,
+    text: "Terrible service. Would not recommend.",
+    date: "2023-10-13T01:30:00Z",
+  },
+  {
+    taskerId: 6,
+    rating: 4,
+    reviewedBy: 6,
+    text: "Satisfied with the service provided.",
+    date: "2023-10-13T02:45:00Z",
+  },
+  {
+    taskerId: 7,
+    rating: 3,
+    reviewedBy: 6,
+    text: "Average job. Expected better.",
+    date: "2023-10-13T04:00:00Z",
+  },
+  {
+    taskerId: 8,
+    rating: 5,
+    reviewedBy: 6,
+    text: "Outstanding service! Highly recommended!",
+    date: "2023-10-13T05:15:00Z",
+  },
+  {
+    taskerId: 9,
+    rating: 2,
+    reviewedBy: 7,
+    text: "Not up to the mark. Disappointing.",
+    date: "2023-10-13T06:30:00Z",
+  },
+  {
+    taskerId: 10,
+    rating: 4,
+    reviewedBy: 7,
+    text: "Satisfactory service. Could be better.",
+    date: "2023-10-13T07:45:00Z",
+  },
+  {
+    taskerId: 1,
+    rating: 3,
+    reviewedBy: 7,
+    text: "Decent service, but room for improvement.",
+    date: "2023-10-13T08:00:00Z",
+  },
+  {
+    taskerId: 2,
+    rating: 4,
+    reviewedBy: 8,
+    text: "Good job. Satisfied with the work done.",
+    date: "2023-10-13T09:15:00Z",
+  },
+  {
+    taskerId: 3,
+    rating: 5,
+    reviewedBy: 8,
+    text: "Excellent service! Highly recommended!",
+    date: "2023-10-13T10:30:00Z",
+  },
+  {
+    taskerId: 4,
+    rating: 2,
+    reviewedBy: 8,
+    text: "Disappointed with the quality of work.",
+    date: "2023-10-13T11:45:00Z",
+  },
+  {
+    taskerId: 5,
+    rating: 1,
+    reviewedBy: 9,
+    text: "Terrible experience. Avoid at all costs.",
+    date: "2023-10-13T13:00:00Z",
+  },
+  {
+    taskerId: 6,
+    rating: 3,
+    reviewedBy: 9,
+    text: "Average service. Nothing exceptional.",
+    date: "2023-10-13T14:15:00Z",
+  },
+  {
+    taskerId: 7,
+    rating: 4,
+    reviewedBy: 9,
+    text: "Satisfied with the service provided.",
+    date: "2023-10-13T15:30:00Z",
+  },
+  {
+    taskerId: 8,
+    rating: 5,
+    reviewedBy: 10,
+    text: "Outstanding work! Will hire again.",
+    date: "2023-10-13T16:45:00Z",
+  },
+  {
+    taskerId: 9,
+    rating: 2,
+    reviewedBy: 10,
+    text: "Not up to my expectations. Disappointing.",
+    date: "2023-10-13T18:00:00Z",
+  },
+  {
+    taskerId: 10,
+    rating: 4,
+    reviewedBy: 10,
+    text: "Satisfactory service. Could be better.",
+    date: "2023-10-13T19:15:00Z",
+  },
 ];
 
 const categories = [
@@ -1422,130 +1483,124 @@ const tasks = [
 ];
 
 async function main() {
-	salt_rounds = 5;
-	await Promise.all(
-		taskers.map(async (tasker) => {
-			const hashedPassword = await bcrypt.hash(
-				tasker.password,
-				salt_rounds
-			);
-			return prisma.tasker.create({
-				data: {
-					id: tasker.id,
-					fName: tasker.fName,
-					lName: tasker.lName,
-					email: tasker.email,
-					password: hashedPassword,
-					phone: tasker.phone,
-				},
-			});
-		})
-	);
-	await Promise.all(
-		taskees.map(async (taskee) => {
-			const hashedPassword = await bcrypt.hash(
-				taskee.password,
-				salt_rounds
-			);
-			return prisma.taskee.create({
-				data: {
-					id: taskee.id,
-					fName: taskee.fName,
-					lName: taskee.lName,
-					email: taskee.email,
-					phone: taskee.phone,
-					city: taskee.city,
-					photo: taskee.photo,
-					state: taskee.state,
-					password: hashedPassword,
-				},
-			});
-		})
-	);
-	await Promise.all(
-		taskeeReviews.map(async (review) => {
-			return prisma.taskeeReview.create({
-				data: {
-					taskeeId: review.taskeeId,
-					rating: review.rating,
-					text: review.text,
-					date: review.date,
-				},
-			});
-		})
-	);
-	await Promise.all(
-		taskerReviews.map(async (review) => {
-			return prisma.taskerReview.create({
-				data: {
-					taskerId: review.taskerId,
-					rating: review.taskerId,
-					text: review.text,
-					date: review.date,
-				},
-			});
-		})
-	);
-	await Promise.all(
-		categories.map(async (category) => {
-			return prisma.category.create({
-				data: {
-					id: category.id,
-					categoryName: category.categoryName,
-					image: category.image,
-				},
-			});
-		})
-	);
-	await Promise.all(
-		subcategories.map(async (subcategory) => {
-			return prisma.subcategory.create({
-				data: {
-					id: subcategory.id,
-					categoryId: subcategory.categoryId,
-					subName: subcategory.subName,
-					image: subcategory.image,
-				},
-			});
-		})
-	);
-	await Promise.all(
-		skills.map(async (skill) => {
-			return prisma.skills.create({
-				data: {
-					taskeeId: skill.taskeeId,
-					subcategoryId: skill.subcategoryId,
-					price: skill.price,
-					experience: skill.experience,
-				},
-			});
-		})
-	);
-	await Promise.all(
-		tasks.map(async (task) => {
-			return prisma.task.create({
-				data: {
-					taskerId: task.taskerId,
-					description: task.description,
-					subcategoryId: task.subcategoryId,
-					isCompleted: task.isCompleted,
-					vehicleRequired: task.vehicleRequired,
-					estTimeCommitment: task.estTimeCommitment,
-					isAssigned: task.isAssigned,
-					startingStreet: task.startingStreet,
-					startingCity: task.startingCity,
-					startingState: task.startingState,
-					startingZip: task.startingZip,
-					startingSuite: task.startingSuite,
-					endingStreet: task.endingStreet,
-					endingCity: task.endingCity,
-					endingState: task.endingState,
-					endingZip: task.endingZip,
-					endingSuite: task.endingSuite,
-				},
-			});
-		})
-	);
+  salt_rounds = 5;
+  await Promise.all(
+    taskers.map(async (tasker) => {
+      const hashedPassword = await bcrypt.hash(tasker.password, salt_rounds);
+      return prisma.tasker.create({
+        data: {
+          fName: tasker.fName,
+          lName: tasker.lName,
+          email: tasker.email,
+          password: hashedPassword,
+          phone: tasker.phone,
+        },
+      });
+    })
+  );
+  await Promise.all(
+    taskees.map(async (taskee) => {
+      const hashedPassword = await bcrypt.hash(taskee.password, salt_rounds);
+      return prisma.taskee.create({
+        data: {
+          fName: taskee.fName,
+          lName: taskee.lName,
+          email: taskee.email,
+          phone: taskee.phone,
+          city: taskee.city,
+          photo: taskee.photo,
+          state: taskee.state,
+          password: hashedPassword,
+        },
+      });
+    })
+  );
+  await Promise.all(
+    taskeeReviews.map(async (review) => {
+      return prisma.taskeeReview.create({
+        data: {
+          taskeeId: review.taskeeId,
+          rating: review.rating,
+          reviewedBy: review.reviewedBy,
+          text: review.text,
+          date: review.date,
+        },
+      });
+    })
+  );
+  await Promise.all(
+    taskerReviews.map(async (review) => {
+      return prisma.taskerReview.create({
+        data: {
+          taskerId: review.taskerId,
+          rating: review.taskerId,
+          reviewedBy: review.reviewedBy,
+          text: review.text,
+          date: review.date,
+        },
+      });
+    })
+  );
+  await Promise.all(
+    categories.map(async (category) => {
+      return prisma.category.create({
+        data: {
+          id: category.id,
+          categoryName: category.categoryName,
+          image: category.image,
+        },
+      });
+    })
+  );
+  await Promise.all(
+    subcategories.map(async (subcategory) => {
+      return prisma.subcategory.create({
+        data: {
+          id: subcategory.id,
+          categoryId: subcategory.categoryId,
+          subName: subcategory.subName,
+          image: subcategory.image,
+        },
+      });
+    })
+  );
+  await Promise.all(
+    skills.map(async (skill) => {
+      return prisma.skills.create({
+        data: {
+          taskeeId: skill.taskeeId,
+          subcategoryId: skill.subcategoryId,
+          price: skill.price,
+          experience: skill.experience,
+        },
+      });
+    })
+  );
+  await Promise.all(
+    tasks.map(async (task) => {
+      return prisma.task.create({
+        data: {
+          taskerId: task.taskerId,
+          description: task.description,
+          subcategoryId: task.subcategoryId,
+          isCompleted: task.isCompleted,
+          vehicleRequired: task.vehicleRequired,
+          estTimeCommitment: task.estTimeCommitment,
+          isAssigned: task.isAssigned,
+          startingStreet: task.startingStreet,
+          startingCity: task.startingCity,
+          startingState: task.startingState,
+          startingZip: task.startingZip,
+          startingSuite: task.startingSuite,
+          endingStreet: task.endingStreet,
+          endingCity: task.endingCity,
+          endingState: task.endingState,
+          endingZip: task.endingZip,
+          endingSuite: task.endingSuite,
+        },
+      });
+    })
+  );
 }
 
 main()

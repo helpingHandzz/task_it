@@ -16,15 +16,18 @@ model Tasker {
   phone        String
   TaskerReview TaskerReview[]
   Task         Task[]
+  TaskeeReview TaskeeReview[]
 }
 
 model TaskerReview {
-  id       Int      @id @default(autoincrement())
-  taskerId Int
-  tasker   Tasker   @relation(fields: [taskerId], references: [id])
-  rating   Int
-  text     String
-  date     DateTime
+  id         Int      @id @default(autoincrement())
+  taskerId   Int
+  tasker     Tasker   @relation(fields: [taskerId], references: [id])
+  reviewedBy Int
+  taskee     Taskee   @relation(fields: [reviewedBy], references: [id])
+  rating     Int
+  text       String
+  date       DateTime
 }
 
 model Taskee {
@@ -41,15 +44,18 @@ model Taskee {
   TaskeeReview TaskeeReview[]
   Skills       Skills[]
   Task         Task[]
+  TaskerReview TaskerReview[]
 }
 
 model TaskeeReview {
-  id       Int      @id @default(autoincrement())
-  taskeeId Int
-  taskee   Taskee   @relation(fields: [taskeeId], references: [id])
-  rating   Int
-  text     String
-  date     DateTime
+  id         Int      @id @default(autoincrement())
+  taskeeId   Int
+  taskee     Taskee   @relation(fields: [taskeeId], references: [id])
+  reviewedBy Int
+  tasker     Tasker   @relation(fields: [reviewedBy], references: [id])
+  rating     Int
+  text       String
+  date       DateTime
 }
 
 model Category {
