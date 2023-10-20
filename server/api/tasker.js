@@ -30,7 +30,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// get tasker 
+// get reviews by tasker id
 
 router.get("/reviews/:id", async (req, res, next) => {
   try {
@@ -38,8 +38,71 @@ router.get("/reviews/:id", async (req, res, next) => {
       where: {
         taskerId: Number(req.params.id),
       },
+      include: {
+        taskee: true,
+      },
     });
     res.send(singleTaskerReviews);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// create tasker review
+
+router.post("/reviews/new", async (req, res, next) => {
+  const { taskerId, rating, reviewedBy, text, date } = req.body;
+  try {
+    const newReview = await prisma.taskerReview.create({
+      data: {
+        taskerId,
+        rating,
+        reviewedBy,
+        text,
+        date,
+      },
+    });
+    res.status(200).json(newReview);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// edit tasker review
+
+router.put("/reviews/edit/:id", async (req, res, next) => {
+  const { id } = req.params;
+  const { taskerId, rating, reviewedBy, text, date } = req.body;
+  try {
+    const updatedReview = await prisma.taskerReview.update({
+      where: {
+        id: +id,
+      },
+      data: {
+        taskerId,
+        rating,
+        reviewedBy,
+        text,
+        date,
+      },
+    });
+    res.status(200).json(updatedReview);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// delete tasker review
+
+router.delete("reviews/delete/:id", async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const deletedReview = await prisma.taskerReview.delete({
+      where: {
+        id: +id,
+      },
+    });
+    res.status(200), json(deletedReview);
   } catch (error) {
     next(error);
   }
