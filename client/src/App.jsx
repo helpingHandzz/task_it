@@ -9,6 +9,7 @@ import AllTaskers from "./pages/AllTaskers";
 import SingleTasker from "./pages/SingleTasker";
 import SingleCategory from "./pages/SingleCategory";
 import Calendar from "./components/Calendar";
+import CreateTask from "./pages/CreateTask";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/taskers" element={<AllTaskers />} />
         <Route path="/taskers/:id" element={<SingleTasker />} />
+        <Route path="/create" element={<CreateTask />} />
       </Routes>
     </section>
   );
