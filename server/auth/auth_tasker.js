@@ -13,8 +13,8 @@ router.post(
 	// body("email").isEmail(),
 	// body("phone").isMobilePhone(),
 	async (req, res, next) => {
-		const { fName, lName, email, password, phone } =
-			req.body;
+		console.log(req.body);
+		const { fName, lName, email, password } = req.body;
 
 		try {
 			const hashedPassword = await bcrypt.hash(
@@ -42,7 +42,6 @@ router.post(
 					lName,
 					email,
 					password: hashedPassword,
-					phone,
 				},
 			});
 
@@ -66,6 +65,7 @@ router.post(
 	body("email").isEmail(),
 	async (req, res, next) => {
 		const { email, password: plainPassword } = req.body;
+		console.log(req.body);
 
 		try {
 			const foundUser =
