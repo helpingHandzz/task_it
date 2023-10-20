@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import Logo from "../assets/taskit-high-resolution-logo-color-on-transparent-background.png";
 import axios from "axios";
+import { useNavigate } from "react-router";
+import {
+	loginTaskerThunk,
+	registerTaskerThunk,
+} from "../store/tasker";
+import { useSelector, useDispatch } from "react-redux";
 
 const Auth = () => {
 	const [isLogin, setIsLogin] = useState(true);
+	const navigate = useNavigate();
 	const [credentials, setCredentials] = useState({
 		fName: "",
 		lName: "",
@@ -11,6 +18,7 @@ const Auth = () => {
 		password: "",
 		phone: "",
 	});
+	const dispatch = useDispatch();
 
 	const changeLoginMode = (e) => {
 		e.preventDefault();
@@ -49,18 +57,20 @@ const Auth = () => {
 		});
 	};
 
+	const handlePhoneChange = (e) => {
+		e.preventDefault();
+		setCredentials({
+			...credentials,
+			phone: e.target.value,
+		});
+	};
+
 	const loginHandler = async (e) => {
 		e.preventDefault();
-		console.log(credentials);
 		if (isLogin) {
 			try {
-				await axios.post(
-					"http://localhost:8080/auth/auth_tasker/login",
-					{
-						email: credentials.email,
-						password: credentials.password,
-					}
-				);
+				dispatch(loginTaskerThunk(credentials));
+				navigate("/categories");
 			} catch (error) {
 				console.error(error.message);
 				throw new Error(error);
@@ -74,15 +84,8 @@ const Auth = () => {
 
 		if (!isLogin) {
 			try {
-				await axios.post(
-					"http://localhost:8080/auth/auth_tasker/register",
-					{
-						fName: credentials.fName,
-						lName: credentials.lName,
-						email: credentials.email,
-						password: credentials.password,
-					}
-				);
+				dispatch(registerTaskerThunk(credentials));
+				navigate("/categories");
 			} catch (error) {
 				console.error(error.message);
 				throw new Error(error);
@@ -100,7 +103,7 @@ const Auth = () => {
 						alt="Your Company"
 					/>
 					<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-indigo-600">
-						Register an Tasker account now!
+						Register a Tasker account now!
 					</h2>
 				</div>
 
@@ -166,6 +169,25 @@ const Auth = () => {
 								/>
 							</div>
 						</div>
+						<div>
+							<label
+								htmlFor="phone"
+								className="block text-sm font-medium leading-6 text-gray-900 text-left">
+								Phone Number
+							</label>
+							<div className="mt-2">
+								<input
+									id="phone"
+									name="phone"
+									type="text"
+									autoComplete="phone"
+									required
+									className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 px-2 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+									value={credentials.phone}
+									onChange={handlePhoneChange}
+								/>
+							</div>
+						</div>
 
 						<div>
 							<div className="flex items-center">
@@ -194,8 +216,7 @@ const Auth = () => {
 							<button
 								type="submit"
 								className="flex w-full justify-center rounded-mdpx-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-								style={{ backgroundColor: "#374151" }}
-								onSubmit={registerHandler}>
+								style={{ backgroundColor: "#374151" }}>
 								Register Now
 							</button>
 						</div>

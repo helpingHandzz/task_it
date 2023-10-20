@@ -16,7 +16,6 @@ router.get("/", async (req, res, next) => {
 });
 
 // get tasker by id
-
 router.get("/:id", async (req, res, next) => {
   try {
     const taskerId = await prisma.tasker.findUnique({
@@ -30,8 +29,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// get tasker 
-
+// get tasker
 router.get("/reviews/:id", async (req, res, next) => {
   try {
     const singleTaskerReviews = await prisma.taskerReview.findMany({
