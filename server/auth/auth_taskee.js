@@ -35,7 +35,7 @@ router.post("/register", async (req, res, next) => {
 			});
 		}
 
-		const createdUser = await prismaClient.tasker.create({
+		const createdUser = await prismaClient.taskee.create({
 			data: {
 				fName,
 				lName,

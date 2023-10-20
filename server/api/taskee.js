@@ -32,10 +32,12 @@ router.get("/:id", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+
 });
 
 // Get reviews by taskee id
 router.get("/reviews/:id", async (req, res, next) => {
+
   try {
     const singleTaskeeReviews = await prisma.taskeeReview.findMany({
       where: {

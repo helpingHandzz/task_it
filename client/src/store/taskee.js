@@ -10,18 +10,18 @@ const EDIT_TASKEE_REVIEW = "EDIT_TASKEE_REVIEW";
 const DELETE_TASKEE_REVIEW = "DELETE_TASKEE_REVIEW";
 
 const getTaskees = (taskees) => ({
-  type: GET_TASKEES,
-  payload: taskees,
+	type: GET_TASKEES,
+	payload: taskees,
 });
 
 const getTaskee = (taskee) => ({
-  type: GET_TASKEE,
-  payload: taskee,
+	type: GET_TASKEE,
+	payload: taskee,
 });
 
 const getTaskeeReviews = (reviews) => ({
-  type: GET_TASKEE_REVIEWS,
-  payload: reviews,
+	type: GET_TASKEE_REVIEWS,
+	payload: reviews,
 });
 
 const postTaskeeReview = (review) => ({
@@ -41,23 +41,28 @@ const deleteTaskeeReview = (review) => ({
 
 //All TASKEES
 export const getTaskeesThunk = () => async (dispatch) => {
-  try {
-    const { data: taskees } = await axios.get(`${BASE_URL}/api/taskee`);
-    return dispatch(getTaskees(taskees));
-  } catch (error) {
-    console.error(error);
-  }
+	try {
+		const { data: taskees } = await axios.get(
+			`${BASE_URL}/api/taskee`
+		);
+		return dispatch(getTaskees(taskees));
+	} catch (error) {
+		console.error(error);
+	}
 };
 
 //SINGLE TASKEE
 export const getTaskeeThunk = (id) => async (dispatch) => {
-  try {
-    const { data: taskee } = await axios.get(`${BASE_URL}/api/taskee/${id}`);
-    return dispatch(getTaskee(taskee));
-  } catch (error) {
-    console.error;
-  }
+	try {
+		const { data: taskee } = await axios.get(
+			`${BASE_URL}/api/taskee/${id}`
+		);
+		return dispatch(getTaskee(taskee));
+	} catch (error) {
+		console.error;
+	}
 };
+
 
 //SINGLE TASKEE REVIEWS
 export const getTaskeeReviewsThunk = (id) => async (dispatch) => {
@@ -70,6 +75,7 @@ export const getTaskeeReviewsThunk = (id) => async (dispatch) => {
     console.error(error);
   }
 };
+
 
 // CEATE NEW TASKEE REVIEW
 export const postTaskeeReviewThunk = (data) => async (dispatch) => {
@@ -109,12 +115,13 @@ export const deleteTaskeeReviewThunk = (id) => async (dispatch) => {
 };
 
 const initialState = {
-  allTaskees: [],
-  singleTaskee: {},
-  taskeeReviews: [],
+	allTaskees: [],
+	singleTaskee: {},
+	taskeeReviews: [],
 };
 
 export default function (state = initialState, action) {
+
   switch (action.type) {
     case GET_TASKEES:
       return { ...state, allTaskees: action.payload };
@@ -141,4 +148,5 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
+
 }
