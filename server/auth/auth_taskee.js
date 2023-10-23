@@ -5,6 +5,44 @@ const { cloudinary } = require("../utils/cloudinary");
 const bcrypt = require("bcrypt");
 const prismaClient = new PrismaClient();
 
+// login handler for taskee
+router.post("/login", async (req, res, next) => {
+	const { email, password: plainPassword } = req.body;
+
+	try {
+		const foundUser = await prismaClient.taskee.findUnique({
+			where: {
+				email,
+			},
+		});
+
+		if (!foundUser) {
+			res.status(404).json({
+				message: "User not found!",
+			});
+		}
+
+		const { password } = foundUser;
+
+		const validPassword = await bcrypt.compare(
+			plainPassword,
+			password
+		);
+
+		if (!validPassword) {
+			res.status(404).json({
+				message: "Invalid password",
+			});
+		}
+
+		res.status(200).json(foundUser);
+	} catch (error) {
+		console.error(error.message);
+		next(error);
+	}
+});
+
+// register handler for taskee
 router.post("/register", async (req, res, next) => {
 	const {
 		fName,

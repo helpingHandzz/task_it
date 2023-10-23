@@ -12,21 +12,48 @@ import Calendar from "./components/Calendar";
 import ViewSked from "./pages/ViewSked";
 
 function App() {
-  return (
-    <section className="pt-14">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/categories" element={<Categories />} />
-        <Route path="/categories/:id" element={<SingleCategory />} />
-        <Route path="/tasks" element={<Tasks />} />
-        <Route path="/taskers" element={<AllTaskers />} />
-        <Route path="/taskers/:id" element={<SingleTasker />} />
-        <Route path="/calendar" element={<Calendar />} />
-        <Route path="/schedule" element={<ViewSked />} />
-      </Routes>
-    </section>
-  );
+	return (
+		<section className="pt-14">
+			<Routes>
+				<Route
+					path="/"
+					element={<Home />}
+				/>
+				<Route
+					path="/auth"
+					element={<Auth />}
+				/>
+				<Route
+					path="/categories"
+					element={<Categories />}
+				/>
+				<Route
+					path="/categories/:id"
+					element={<SingleCategory />}
+				/>
+				<Route
+					path="/tasks"
+					element={<Tasks />}
+				/>
+				<Route
+					path="/taskers"
+					element={<AllTaskers />}
+				/>
+				<Route
+					path="/taskers/:id"
+					element={<SingleTasker />}
+				/>
+				<Route
+					path="/calendar"
+					element={<Calendar />}
+				/>
+				<Route
+					path="/schedule"
+					element={<ViewSked />}
+				/>
+			</Routes>
+		</section>
+	);
 }
 
 export default App;
