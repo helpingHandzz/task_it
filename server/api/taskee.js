@@ -110,4 +110,24 @@ router.delete("/reviews/delete/:id", async (req, res, next) => {
   }
 });
 
+// Post to Taskee Work Schedule
+router.post("/schedule/new", async (req, res, next) => {
+  const { taskeeId, workSchedule } = req.body;
+  try {
+    const updatedTaskee = await prisma.taskee.update({
+      where: {
+        id: taskeeId,
+      },
+      data: {
+        workSchedule,
+      },
+    });
+
+    res.status(200).json(updatedTaskee);
+  } catch (error) {
+      next(error)
+  }
+})
+
+
 module.exports = router;
