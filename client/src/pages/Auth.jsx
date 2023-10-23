@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import {
 	loginTaskerThunk,
 	registerTaskerThunk,
-} from "../store/tasker";
+} from "../store/auth";
 import { useSelector, useDispatch } from "react-redux";
 
 const Auth = () => {
@@ -68,9 +68,9 @@ const Auth = () => {
 	const loginHandler = async (e) => {
 		e.preventDefault();
 		if (isLogin) {
+			const { email, password } = credentials;
 			try {
-				dispatch(loginTaskerThunk(credentials));
-				navigate("/categories");
+				dispatch(loginTaskerThunk({ email, password }));
 			} catch (error) {
 				console.error(error.message);
 				throw new Error(error);
@@ -80,7 +80,6 @@ const Auth = () => {
 
 	const registerHandler = async (e) => {
 		e.preventDefault();
-		console.log(credentials);
 
 		if (!isLogin) {
 			try {
