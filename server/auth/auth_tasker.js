@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const { query, body } = require("express-validator");
+const { body } = require("express-validator");
 const { PrismaClient } = require("@prisma/client");
 const jwt = require("jsonwebtoken");
 const prismaClient = new PrismaClient();
@@ -13,7 +13,6 @@ router.post(
 	body("email").isEmail(),
 	body("phone").isMobilePhone(),
 	async (req, res, next) => {
-		console.log(req.body);
 		const { fName, lName, email, password, phone } =
 			req.body;
 
@@ -62,6 +61,7 @@ router.post(
 	}
 );
 
+// login handler for tasker
 router.post(
 	"/login",
 	body("email").isEmail(),
