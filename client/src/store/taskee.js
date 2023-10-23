@@ -8,6 +8,8 @@ const GET_TASKEE_REVIEWS = "GET_TASKEE_REVIEWS";
 const POST_TASKEE_REVIEW = "POST_TASKEE_REVIEW";
 const EDIT_TASKEE_REVIEW = "EDIT_TASKEE_REVIEW";
 const DELETE_TASKEE_REVIEW = "DELETE_TASKEE_REVIEW";
+const POST_TASKEE_SCHEDULE = "POST_TASKEE_SCHEDULE";
+
 
 const getTaskees = (taskees) => ({
 	type: GET_TASKEES,
@@ -38,6 +40,12 @@ const deleteTaskeeReview = (review) => ({
   type: DELETE_TASKEE_REVIEW,
   payload: review,
 });
+
+const postTaskeeSchedule = (schedule) => ({
+  type: POST_TASKEE_SCHEDULE,
+  payload: schedule,
+});
+
 
 //All TASKEES
 export const getTaskeesThunk = () => async (dispatch) => {
@@ -77,7 +85,7 @@ export const getTaskeeReviewsThunk = (id) => async (dispatch) => {
 };
 
 
-// CEATE NEW TASKEE REVIEW
+// CREATE NEW TASKEE REVIEW
 export const postTaskeeReviewThunk = (data) => async (dispatch) => {
   try {
     const { data: review } = await axios.post(
@@ -114,10 +122,24 @@ export const deleteTaskeeReviewThunk = (id) => async (dispatch) => {
   }
 };
 
+// POST TASKEE WORK SCHEDULE
+export const postTaskeeScheduleThunk = (taskeeId, workSchedule) => async (dispatch) => {
+  try {
+    const { data: schedule } = await axios.post(
+      `${BASE_URL}/api/taskee/schedule/new`
+    );
+    return dispatch(postTaskeeSchedule(schedule))
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 const initialState = {
 	allTaskees: [],
 	singleTaskee: {},
 	taskeeReviews: [],
+  workSchedule: [],
 };
 
 export default function (state = initialState, action) {
@@ -145,6 +167,9 @@ export default function (state = initialState, action) {
           (review) => review.id !== action.payload.id
         ),
       };
+      case POST_TASKEE_SCHEDULE:
+        state.workSchedule.push(action.payload);
+        return state;
     default:
       return state;
   }

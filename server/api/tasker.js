@@ -101,7 +101,7 @@ router.delete("reviews/delete/:id", async (req, res, next) => {
         id: +id,
       },
     });
-    res.status(200), json(deletedReview);
+    res.status(200).json(deletedReview);
   } catch (error) {
     next(error);
   }

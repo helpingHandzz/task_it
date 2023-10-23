@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import TaskeeCalChoices from "./TaskeeCalChoices";
 
-
 export default function Calendar() {
     const [selectedDay, setSelectedDay] = useState(null);
     const [displayDate, setDisplayDate] = useState(new Date());
@@ -31,6 +30,10 @@ export default function Calendar() {
             setShowTaskeeCalChoices(true);
         }
     } 
+
+    const handleSetSchedule = () => {
+        dispatch(postTaskeeScheduleThunk(taskeeId, workSchedule))
+    }
 
     const daysInMonth = new Date(displayDate.getFullYear(), displayDate.getMonth() + 1, 0).getDate();
     const daysArray = Array.from({ length: daysInMonth }, (_, index) => index + 1);

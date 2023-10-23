@@ -1,6 +1,23 @@
 import React from 'react';
+import { useDispatch } from "react-redux";
+import { postTaskeeScheduleThunk } from "../store/taskee";
 
 export default function TaskeeCalChoices({ selectedDay, showErrorMessage }) {
+    const dispatch = useDispatch();
+    const [startTime, setStartTime] = useState({ hours: '', minutes: '', timeOfDay: 'AM' });
+    const [endTime, setEndTime] = useState({ hours: '', minutes: '', timeOfDay: 'AM' });
+
+    const handleSetSchedule = () => {
+        const startHours = parseInt(startTime.hours, 10) + (startTime.timeOfDay === 'PM' ? 12 : 0);
+        const startMinutes = parseInt(startTime.minutes, 10);
+        const endHours = parseInt(endTime.hours, 10) + (endTime.timeOfDay === 'PM' ? 12 : 0);
+        const endMinutes = parseInt(endTime.minutes, 10);
+    
+        const workSchedule = `${startHours.toString().padStart(2, '0')}:${startMinutes.toString().padStart(2, '0')} - ${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
+    
+        dispatch(postTaskeeScheduleThunk(taskeeId, workSchedule)); 
+      };
+
   return (
     <div>
       {selectedDay !== null && (
@@ -25,7 +42,7 @@ export default function TaskeeCalChoices({ selectedDay, showErrorMessage }) {
               </select>
             </div>
             <div className="border-b pb-4 border-gray-400 border-dashed pt-5 flex justify-center items-center">
-              <button className="setButton rounded-md text-2xl font-medium bg-blue-500 p-3 text-white hover:drop-shadow-2xl">SET SCHEDULE</button>
+              <button onClick={handleSetSchedule} className="setButton rounded-md text-2xl font-medium bg-blue-500 p-3 text-white hover:drop-shadow-2xl">SET SCHEDULE</button>
             </div>
             {showErrorMessage && (
               <div className="text-red-600 text-center mt-4"></div>
