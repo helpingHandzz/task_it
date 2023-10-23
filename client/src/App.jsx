@@ -9,6 +9,7 @@ import AllTaskers from "./pages/AllTaskers";
 import SingleTasker from "./pages/SingleTasker";
 import SingleCategory from "./pages/SingleCategory";
 import Calendar from "./components/Calendar";
+import ViewSked from "./pages/ViewSked";
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/taskers" element={<AllTaskers />} />
         <Route path="/taskers/:id" element={<SingleTasker />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/schedule" element={<ViewSked />} />
       </Routes>
     </section>
   );

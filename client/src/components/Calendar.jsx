@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import TaskeeCalChoices from "./TaskeeCalChoices";
 
-export default function IndexPage() {
+
+export default function Calendar() {
     const [selectedDay, setSelectedDay] = useState(null);
     const [displayDate, setDisplayDate] = useState(new Date());
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
+    const [showTaskeeCalChoices, setShowTaskeeCalChoices] = useState(false);
 
     const handlePrevMonth = () => {
         setDisplayDate(prevDate => {
@@ -19,8 +23,14 @@ export default function IndexPage() {
     }
 
     const handleDayClick = (day) => {
-        setSelectedDay(day);
-    }
+        const today = new Date();
+        const selectedDate = new Date(displayDate.getFullYear(), displayDate.getMonth(), day);
+    
+        if (selectedDate >= today) {
+            setSelectedDay(day);
+            setShowTaskeeCalChoices(true);
+        }
+    } 
 
     const daysInMonth = new Date(displayDate.getFullYear(), displayDate.getMonth() + 1, 0).getDate();
     const daysArray = Array.from({ length: daysInMonth }, (_, index) => index + 1);
@@ -37,11 +47,11 @@ export default function IndexPage() {
                                 {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long' }).format(displayDate)}
                             </h1>
                             <div className="flex items-center text-gray-800 dark:text-gray-100">
-                                <svg onClick={handlePrevMonth} xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left" width={24} height={24} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                <svg onClick={handlePrevMonth} xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left hover:bg-blue-500 rounded cursor-pointer" width={24} height={24} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <polyline points="15 6 9 12 15 18" />
                                 </svg>
-                                <svg onClick={handleNextMonth} xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler ml-3 icon-tabler-chevron-right" width={24} height={24} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                <svg onClick={handleNextMonth} xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler ml-3 icon-tabler-chevron-right hover:bg-blue-500 rounded cursor-pointer" width={24} height={24} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <polyline points="9 6 15 12 9 18" />
                                 </svg>
@@ -89,55 +99,45 @@ export default function IndexPage() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {Array.from({ length: Math.ceil((daysArray.length + firstDayOfWeek) / 7) }, (_, rowIndex) => (
-            <tr key={rowIndex}>
-                {[...Array(7).keys()].map((dayIndex) => {
-                    const day = rowIndex * 7 + dayIndex + 1 - firstDayOfWeek;
-                    const isCurrentDay = day === today; 
+                                    {Array.from({ length: Math.ceil((daysArray.length + firstDayOfWeek) / 7) }, (_, rowIndex) => (
+                                        <tr key={rowIndex}>
+                                            {[...Array(7).keys()].map((dayIndex) => {
+                                                const day = rowIndex * 7 + dayIndex + 1 - firstDayOfWeek;
+                                                const isCurrentMonth = displayDate.getMonth() === new Date().getMonth();
+                                                const isCurrentDay = day === today && isCurrentMonth;
 
-                    return (
-                        <td key={day}>
-                            {day > 0 && day <= daysInMonth && (
-                                <div className={`px-4 py-4 cursor-pointer flex w-full justify-center ${selectedDay === day ? 'bg-blue-500' : ''} ${isCurrentDay ? 'bg-blue-200' : ''}`} onClick={() => handleDayClick(day)}>
-                                    <p className={`text-2xl ${selectedDay === day ? 'text-white' : 'text-gray-500'} dark:text-gray-100 font-medium`}>{day}</p>
-                                </div>
-                            )}
-                        </td>
-                    );
-                })}
-            </tr>
-        ))}
+                                                return (
+                                                    <td key={day}>
+                                                        {day > 0 && day <= daysInMonth && (
+                                                            <div 
+                                                                className={
+                                                                    `px-4 py-4 cursor-pointer flex w-full justify-center rounded 
+                                                                    ${selectedDay === day ? 'bg-blue-500' : ''} 
+                                                                    ${isCurrentDay ? 'bg-blue-200' : ''}`} 
+                                                                    onClick={() => handleDayClick(day)}
+                                                                    >
+                                                                <p className={
+                                                                    `text-2xl 
+                                                                    ${selectedDay === day ? 'text-white' : 'text-gray-500'} 
+                                                                    dark:text-gray-100 font-medium`}
+                                                                    >
+                                                                        {day}
+                                                                        </p>
+                                                            </div>    
+                                                        )}
+                                                    </td>
+                                                );
+                                            })}
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <div className="md:py-8 py-5 md:px-16 px-5 dark:bg-gray-700 bg-gray-50 rounded-b ">
-                        <div className="px-4">
-                            <div className="border-b pb-4 border-gray-400 border-dashed flex justify-center items-center">
-                                <p className="text-xs font-light leading-3 text-gray-500 dark:text-gray-300">SET START TIME</p>
-                                <input type="text" placeholder="9" className="m-2 w-10"/>
-                                <input type="text" placeholder="30" className="m-2 w-10"/>
-                                <select name="timeOfDay" id="selector">
-                                    <option value="AM">AM</option>
-                                    <option value="PM">PM</option>
-                                </select>
-                            </div>
-                            <div className="border-b pb-4 border-gray-400 border-dashed pt-5 flex justify-center items-center">
-                                <p className="text-xs font-light leading-3 text-gray-500 dark:text-gray-300">SET END TIME</p>
-                                <input type="text" placeholder="9" className="m-2 w-10"/>
-                                <input type="text" placeholder="30" className="m-2 w-10"/>
-                                <select name="timeOfDay" id="selector">
-                                    <option value="PM">PM</option>
-                                    <option value="AM">AM</option>
-                                </select>
-                            </div>
-                            <div className="border-b pb-4 border-gray-400 border-dashed pt-5 flex justify-center items-center">
-                                <button className="setButton">SET SCHEDULE</button>
-                            </div>
-                        </div>
+                        {showTaskeeCalChoices && <TaskeeCalChoices selectedDay={selectedDay} showErrorMessage={showErrorMessage} />}
                     </div>
                 </div>
             </div>
+
         </>
     );
 }
