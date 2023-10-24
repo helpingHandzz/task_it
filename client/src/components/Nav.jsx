@@ -18,7 +18,7 @@ function Nav() {
 		navigate("/");
 	};
 
-	if (authContext?.token !== "") {
+	if (authContext.token !== "") {
 		return (
 			<nav className="h-14 bg-amber-100 w-full flex justify-between fixed">
 				<div className="flex flex-col justify-center ml-2">

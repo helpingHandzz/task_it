@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Logo from "../assets/taskit-high-resolution-logo-color-on-transparent-background.png";
 import { useNavigate } from "react-router";
 import {
-	loginTaskerThunk,
-	registerTaskerThunk,
+	loginTaskeeThunk,
+	registerTaskeeThunk,
 } from "../store/auth";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -66,12 +66,28 @@ const AuthTaskee = () => {
 		});
 	};
 
+	const handleStateChange = (e) => {
+		e.preventDefault();
+		setCredentials({
+			...credentials,
+			state: e.target.value,
+		});
+	};
+
+	const handleCityChange = (e) => {
+		e.preventDefault();
+		setCredentials({
+			...credentials,
+			city: e.target.value,
+		});
+	};
+
 	const loginHandler = async (e) => {
 		e.preventDefault();
 		if (isLogin) {
 			const { email, password } = credentials;
 			try {
-				dispatch(loginTaskerThunk({ email, password }));
+				dispatch(loginTaskeeThunk({ email, password }));
 				navigate("/");
 			} catch (error) {
 				console.error(error.message);
@@ -85,7 +101,7 @@ const AuthTaskee = () => {
 
 		if (!isLogin) {
 			try {
-				dispatch(registerTaskerThunk(credentials));
+				dispatch(registerTaskeeThunk(credentials));
 				navigate("/");
 			} catch (error) {
 				console.error(error.message);
@@ -190,6 +206,25 @@ const AuthTaskee = () => {
 								/>
 							</div>
 						</div>
+						<div>
+							<label
+								htmlFor="city"
+								className="block text-sm font-medium leading-6 text-gray-900 text-left">
+								City
+							</label>
+							<div className="mt-2">
+								<input
+									id="city"
+									name="city"
+									type="text"
+									autoComplete="city"
+									required
+									className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 px-2 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+									value={credentials.city}
+									onChange={handleCityChange}
+								/>
+							</div>
+						</div>
 						<div className="flex justify-center">
 							<label
 								htmlFor="state"
@@ -197,14 +232,11 @@ const AuthTaskee = () => {
 								State:
 							</label>
 							<select
-								className="border-stone-950 border-3"
+								className="border-solid border-black border"
 								name="state"
-								id="state">
-								<option
-									value=""
-									selected="selected">
-									Select a State
-								</option>
+								value={credentials.state}
+								id="state"
+								onChange={handleStateChange}>
 								<option value="AL">Alabama</option>
 								<option value="AK">Alaska</option>
 								<option value="AZ">Arizona</option>
