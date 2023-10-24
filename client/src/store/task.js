@@ -65,7 +65,7 @@ export const postTaskThunk = (data) => async (dispatch) => {
       },
       {
         headers: {
-          authorization: JSON.parse(window.sessionStorage.getItem("token")),
+          authorization: window.localStorage.getItem("token"),
         },
       }
     );
