@@ -2,6 +2,7 @@ import { getCategoryThunk } from "../store/category";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import SubCategoryItem from "../components/SubCategoryItem";
 
 function SingleCategory() {
 	const { id } = useParams();
@@ -30,29 +31,12 @@ function SingleCategory() {
 				</div>
 			</div>
 
-			{category.Subcategory &&
-				category.Subcategory.map((sub) => (
-					<div
-						key={sub.id}
-						className="flex h-52 border-2 m-5">
-						<div className="h-52 self-center pl-3 rounded">
-							<img
-								className="h-48 w-48 pt-5 rounded"
-								src={sub.image}
-							/>
-						</div>
-						<div className="flex flex-col">
-							<h2 className="pt-16 pl-10 text-2xl">
-								{sub.subName}
-							</h2>
-							<button className="border-2 border-black rounded px-3 w-28 ml-10 mt-5">
-								Book Now
-							</button>
-						</div>
-					</div>
-				))}
-		</div>
-	);
+      {category.Subcategory &&
+        category.Subcategory.map((sub) => (
+          <SubCategoryItem key={sub.id} sub={sub} />
+        ))}
+    </div>
+  );
 }
 
 export default SingleCategory;

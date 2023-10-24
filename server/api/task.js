@@ -116,12 +116,12 @@ router.delete("/delete/:id", verify, async (req, res) => {
     const deletedTask = await prisma.task.delete({
       where: { id: parseInt(id) },
     });
-    res.status(201).json(deletedTask)
+    res.status(201).json(deletedTask);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ 
-      error: 
-        "Error deleting task. Either task doesnt exist or there was a server error", 
+    res.status(500).json({
+      error:
+        "Error deleting task. Either task doesnt exist or there was a server error",
     });
   }
 });
@@ -192,6 +192,5 @@ router.put("/edit/:id", verify, async (req, res, next) => {
     });
   }
 });
-
 
 module.exports = router;
