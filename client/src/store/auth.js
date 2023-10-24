@@ -25,41 +25,63 @@ const logoutTasker = (tasker) => ({
   payload: tasker,
 });
 
-export const loginTaskerThunk = (credentials) => async (dispatch) => {
-  try {
-    const { email, password } = credentials;
-    const { data } = await axios
-      .post(`${BASE_URL}/auth/auth_tasker/login`, {
-        email,
-        password,
-      })
-      .catch((err) => {
-        console.log("error: ", err);
-        throw new Error(err.message);
-      });
 
-    const token = data.token;
-    window.sessionStorage.setItem("token", JSON.stringify(token));
-    return dispatch(
-      loginTasker({
-        token,
-        isTasker: true,
-        isTaskee: false,
-      })
-    );
-  } catch (error) {
-    console.error(error);
-  }
+const registerTaskee = (taskee) => ({
+	type: REGISTER_TASKEE,
+	payload: taskee,
+});
+
+const getToken = () => {
+	const token = localStorage.getItem("token");
+	if (token) {
+		return token;
+	}
+	return null;
 };
 
+export const loginTaskerThunk =
+	(credentials) => async (dispatch) => {
+		try {
+			const { email, password } = credentials;
+			const { data } = await axios
+				.post(`${BASE_URL}/auth/auth_tasker/login`, {
+					email,
+					password,
+				})
+				.catch((err) => {
+					console.log("error: ", err);
+					throw new Error(err.message);
+				});
+
+			const token = data.token;
+
+			if (!localStorage.getItem("token")) {
+				localStorage.setItem("token", token);
+			}
+
+			return dispatch(
+				loginTasker({
+					token,
+					isTasker: true,
+					isTaskee: false,
+				})
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 export const logoutTaskerThunk = () => async (dispatch) => {
-  dispatch(
-    logoutTasker({
-      token: "",
-      isTasker: false,
-      isTaskee: false,
-    })
-  );
+	if (localStorage.getItem("token")) {
+		localStorage.clear();
+	}
+	dispatch(
+		logoutTasker({
+			token: "",
+			isTasker: false,
+			isTaskee: false,
+		})
+	);
 };
 
 export const registerTaskerThunk = (credentials) => async (dispatch) => {
@@ -78,32 +100,126 @@ export const registerTaskerThunk = (credentials) => async (dispatch) => {
         throw new Error(err.message);
       });
 
-    console.log(`data: `, data);
-    return dispatch(registerTasker(data));
-  } catch (error) {
-    console.error(error);
-  }
-};
+			const { token } = data;
+
+			if (!localStorage.getItem("token")) {
+				localStorage.setItem("token", token);
+			}
+
+			return dispatch(
+				registerTasker({
+					token,
+					isTasker: true,
+					isTaskee: false,
+				})
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+export const loginTaskeeThunk =
+	(credentials) => async (dispatch) => {
+		try {
+			const { email, password } = credentials;
+			const { data } = await axios
+				.post(`${BASE_URL}/auth/auth_taskee/login`, {
+					email,
+					password,
+				})
+				.catch((err) => {
+					console.log("error: ", err);
+					throw new Error(err.message);
+				});
+
+			const token = data.token;
+
+			if (!localStorage.getItem("token")) {
+				localStorage.setItem("token", token);
+			}
+
+			return dispatch(
+				loginTasker({
+					token,
+					isTasker: true,
+					isTaskee: false,
+				})
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+export const registerTaskeeThunk =
+	(credentials) => async (dispatch) => {
+		try {
+			const {
+				fName,
+				lName,
+				email,
+				password,
+				phone,
+				city,
+				state,
+			} = credentials;
+
+			const { data } = await axios
+				.post(`${BASE_URL}/auth/auth_taskee/register`, {
+					fName,
+					lName,
+					email,
+					phone,
+					password,
+					city,
+					state,
+				})
+				.catch((err) => {
+					console.error(err.message);
+					throw new Error(err.message);
+				});
+
+			const token = data.token;
+
+			if (!localStorage.getItem("token")) {
+				localStorage.setItem("token", token);
+			}
+
+			return dispatch(
+				registerTaskee({
+					token,
+					isTaskee: true,
+					isTasker: false,
+				})
+			);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 // state
 const initialState = {
-  user: {
-    token: "",
-    isTasker: false,
-    isTaskee: false,
-  },
+	user: {
+		token: getToken(),
+		isTasker: false,
+		isTaskee: false,
+	},
 };
 
 // auth reducer
 export default function (state = initialState, action) {
-  switch (action.type) {
-    case REGISTER_TASKER:
-      return { ...state, user: action.payload };
-    case LOGIN_TASKER:
-      return { ...state, user: action.payload };
-    case LOGOUT_TASKER:
-      return { ...state, user: action.payload };
-    default:
-      return state;
-  }
+
+	switch (action.type) {
+		case REGISTER_TASKER:
+			return { ...state, user: action.payload };
+		case LOGIN_TASKER:
+			return { ...state, user: action.payload };
+		case LOGOUT_TASKER:
+			return { ...state, user: action.payload };
+		case REGISTER_TASKEE:
+			return { ...state, user: action.payload };
+		case LOGIN_TASKEE:
+			return { ...state, user: action.payload };
+		default:
+			return state;
+	}
 }
