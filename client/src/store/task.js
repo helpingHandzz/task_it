@@ -58,9 +58,17 @@ export const getTaskThunk = (id) => async (dispatch) => {
 //POST TASK
 export const postTaskThunk = (data) => async (dispatch) => {
   try {
-    const { data: task } = await axios.post(`${BASE_URL}/api/task/new`, {
-      ...data,
-    });
+    const { data: task } = await axios.post(
+      `${BASE_URL}/api/task/new`,
+      {
+        ...data,
+      },
+      {
+        headers: {
+          authorization: JSON.parse(window.sessionStorage.getItem("token")),
+        },
+      }
+    );
     return dispatch(postTask(task));
   } catch (error) {
     console.error(error);

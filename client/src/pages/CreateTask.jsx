@@ -29,13 +29,12 @@ function CreateTask({ sub }) {
     e.preventDefault();
     dispatch(
       postTaskThunk({
-        taskerId: 1,
         subcategoryId: state.subcat.id,
         description: description,
         isCompleted: false,
         vehicleRequired: vehicleRequired,
         isAssigned: false,
-        estTimeCommitment: estTimeCommit,
+        estTimeCommitment: +estTimeCommit,
         startingStreet: startStreet,
         startingCity: startCity,
         startingState: startState,

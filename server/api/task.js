@@ -34,11 +34,12 @@ router.get("/:id", async (req, res, next) => {
 
 // Post a new task (only accessible to taskers)
 router.post("/new", verify, async (req, res, next) => {
+  console.log("hit");
   try {
     const { tasker } = req;
 
     // Check if person is tasker
-    const foundTasker = await prisma.tasker.findUnique({
+    const foundTasker = await prisma.tasker.findFirst({
       where: { email: tasker },
     });
 
@@ -49,7 +50,7 @@ router.post("/new", verify, async (req, res, next) => {
     }
 
     const {
-      taskerId,
+      // taskerId,
       subcategoryId,
       description,
       isCompleted,
@@ -70,7 +71,7 @@ router.post("/new", verify, async (req, res, next) => {
 
     const newTask = await prisma.task.create({
       data: {
-        taskerId,
+        taskerId: foundTasker.id,
         subcategoryId,
         description,
         isCompleted,
