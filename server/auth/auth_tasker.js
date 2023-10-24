@@ -52,7 +52,8 @@ router.post(
 			);
 
 			res.status(201).json({
-				createdUser: { ...createdUser, token },
+				...createdUser,
+				token,
 			});
 		} catch (error) {
 			console.error(error.message);
@@ -95,8 +96,14 @@ router.post(
 				});
 			}
 
+			const token = jwt.sign(
+				foundUser.email,
+				process.env.JWT
+			);
+
 			res.status(200).json({
-				foundUser,
+				...foundUser,
+				token,
 			});
 		} catch (error) {
 			console.error(error.message);
