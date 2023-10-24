@@ -11,19 +11,20 @@ const LOGIN_TASKEE = "LOGIN_TASKEE";
 const LOGOUT_TASKEE = "LOGOUT_TASKEE";
 
 const registerTasker = (tasker) => ({
-	type: REGISTER_TASKER,
-	payload: tasker,
+  type: REGISTER_TASKER,
+  payload: tasker,
 });
 
 const loginTasker = (token) => ({
-	type: LOGIN_TASKER,
-	payload: token,
+  type: LOGIN_TASKER,
+  payload: token,
 });
 
 const logoutTasker = (tasker) => ({
-	type: LOGOUT_TASKER,
-	payload: tasker,
+  type: LOGOUT_TASKER,
+  payload: tasker,
 });
+
 
 const registerTaskee = (taskee) => ({
 	type: REGISTER_TASKEE,
@@ -83,23 +84,21 @@ export const logoutTaskerThunk = () => async (dispatch) => {
 	);
 };
 
-export const registerTaskerThunk =
-	(credentials) => async (dispatch) => {
-		try {
-			const { fName, lName, email, phone, password } =
-				credentials;
-			const { data } = await axios
-				.post(`${BASE_URL}/auth/auth_tasker/register`, {
-					fName,
-					lName,
-					email,
-					phone,
-					password,
-				})
-				.catch((err) => {
-					console.error(err.message);
-					throw new Error(err.message);
-				});
+export const registerTaskerThunk = (credentials) => async (dispatch) => {
+  try {
+    const { fName, lName, email, phone, password } = credentials;
+    const { data } = await axios
+      .post(`${BASE_URL}/auth/auth_tasker/register`, {
+        fName,
+        lName,
+        email,
+        phone,
+        password,
+      })
+      .catch((err) => {
+        console.error(err.message);
+        throw new Error(err.message);
+      });
 
 			const { token } = data;
 
@@ -208,6 +207,7 @@ const initialState = {
 
 // auth reducer
 export default function (state = initialState, action) {
+
 	switch (action.type) {
 		case REGISTER_TASKER:
 			return { ...state, user: action.payload };
