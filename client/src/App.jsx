@@ -14,11 +14,11 @@ import ViewSked from "./pages/ViewSked";
 import { useSelector } from "react-redux";
 
 function App() {
-	const authContext = useSelector(
-		(state) => state.auth.user
+	const token = useSelector(
+		(state) => state.auth.user?.token
 	);
 
-	if (!authContext) {
+	if (!token) {
 		return (
 			<section className="pt-14">
 				<Routes>
@@ -49,6 +49,10 @@ function App() {
 					<Route
 						path="/auth_taskee"
 						element={<AuthTaskee />}
+					/>
+					<Route
+						path="/auth_tasker"
+						element={<AuthTasker />}
 					/>
 					<Route
 						path="/calendar"
