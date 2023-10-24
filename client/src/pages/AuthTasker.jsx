@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Logo from "../assets/taskit-high-resolution-logo-color-on-transparent-background.png";
-import axios from "axios";
 import { useNavigate } from "react-router";
 import {
 	loginTaskerThunk,
@@ -8,7 +7,7 @@ import {
 } from "../store/auth";
 import { useSelector, useDispatch } from "react-redux";
 
-const Auth = () => {
+const AuthTasker = () => {
 	const [isLogin, setIsLogin] = useState(true);
 	const navigate = useNavigate();
 	const [credentials, setCredentials] = useState({
@@ -71,6 +70,7 @@ const Auth = () => {
 			const { email, password } = credentials;
 			try {
 				dispatch(loginTaskerThunk({ email, password }));
+				navigate("/");
 			} catch (error) {
 				console.error(error.message);
 				throw new Error(error);
@@ -84,7 +84,7 @@ const Auth = () => {
 		if (!isLogin) {
 			try {
 				dispatch(registerTaskerThunk(credentials));
-				navigate("/categories");
+				navigate("/");
 			} catch (error) {
 				console.error(error.message);
 				throw new Error(error);
@@ -94,7 +94,7 @@ const Auth = () => {
 
 	if (!isLogin) {
 		return (
-			<div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+			<div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 shadow-xl">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<img
 						className="mx-auto h-10 w-auto"
@@ -178,10 +178,11 @@ const Auth = () => {
 								<input
 									id="phone"
 									name="phone"
-									type="text"
+									type="tel"
 									autoComplete="phone"
 									required
 									className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 px-2 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+									pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
 									value={credentials.phone}
 									onChange={handlePhoneChange}
 								/>
@@ -236,7 +237,7 @@ const Auth = () => {
 	}
 
 	return (
-		<div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+		<div className="shadow-xl flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
 			<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 				<img
 					className="mx-auto h-10 w-auto"
@@ -321,4 +322,4 @@ const Auth = () => {
 	);
 };
 
-export default Auth;
+export default AuthTasker;
