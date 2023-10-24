@@ -3,7 +3,9 @@ const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const { cloudinary } = require("../utils/cloudinary");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const prismaClient = new PrismaClient();
+const SALT_ROUNDS = 5;
 
 // login handler for taskee
 router.post("/login", async (req, res, next) => {
@@ -24,6 +26,8 @@ router.post("/login", async (req, res, next) => {
 
 		const { password } = foundUser;
 
+		console.log(`foundUser: `, foundUser);
+
 		const validPassword = await bcrypt.compare(
 			plainPassword,
 			password
@@ -35,7 +39,12 @@ router.post("/login", async (req, res, next) => {
 			});
 		}
 
-		res.status(200).json(foundUser);
+		const token = jwt.sign(
+			foundUser.email,
+			process.env.JWT
+		);
+
+		res.status(200).json({ ...foundUser, token });
 	} catch (error) {
 		console.error(error.message);
 		next(error);
@@ -53,6 +62,8 @@ router.post("/register", async (req, res, next) => {
 		city,
 		state,
 	} = req.body;
+
+	const photo = "";
 
 	try {
 		const hashedPassword = await bcrypt.hash(
@@ -82,6 +93,7 @@ router.post("/register", async (req, res, next) => {
 				phone,
 				city,
 				state,
+				photo,
 			},
 		});
 

@@ -19,7 +19,7 @@ function App() {
 		(state) => state.auth.user
 	);
 
-	if (authContext?.token) {
+	if (!authContext) {
 		return (
 			<section className="pt-14">
 				<Routes>

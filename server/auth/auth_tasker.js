@@ -83,6 +83,8 @@ router.post(
 				});
 			}
 
+			console.log(`foundUser: `, foundUser);
+
 			const { password } = foundUser;
 
 			const validPassword = await bcrypt.compare(
