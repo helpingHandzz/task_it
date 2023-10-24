@@ -8,20 +8,22 @@ const GET_TASKEE_REVIEWS = "GET_TASKEE_REVIEWS";
 const POST_TASKEE_REVIEW = "POST_TASKEE_REVIEW";
 const EDIT_TASKEE_REVIEW = "EDIT_TASKEE_REVIEW";
 const DELETE_TASKEE_REVIEW = "DELETE_TASKEE_REVIEW";
+const POST_TASKEE_SCHEDULE = "POST_TASKEE_SCHEDULE";
+
 
 const getTaskees = (taskees) => ({
-  type: GET_TASKEES,
-  payload: taskees,
+	type: GET_TASKEES,
+	payload: taskees,
 });
 
 const getTaskee = (taskee) => ({
-  type: GET_TASKEE,
-  payload: taskee,
+	type: GET_TASKEE,
+	payload: taskee,
 });
 
 const getTaskeeReviews = (reviews) => ({
-  type: GET_TASKEE_REVIEWS,
-  payload: reviews,
+	type: GET_TASKEE_REVIEWS,
+	payload: reviews,
 });
 
 const postTaskeeReview = (review) => ({
@@ -39,25 +41,36 @@ const deleteTaskeeReview = (review) => ({
   payload: review,
 });
 
+const postTaskeeSchedule = (schedule) => ({
+  type: POST_TASKEE_SCHEDULE,
+  payload: schedule,
+});
+
+
 //All TASKEES
 export const getTaskeesThunk = () => async (dispatch) => {
-  try {
-    const { data: taskees } = await axios.get(`${BASE_URL}/api/taskee`);
-    return dispatch(getTaskees(taskees));
-  } catch (error) {
-    console.error(error);
-  }
+	try {
+		const { data: taskees } = await axios.get(
+			`${BASE_URL}/api/taskee`
+		);
+		return dispatch(getTaskees(taskees));
+	} catch (error) {
+		console.error(error);
+	}
 };
 
 //SINGLE TASKEE
 export const getTaskeeThunk = (id) => async (dispatch) => {
-  try {
-    const { data: taskee } = await axios.get(`${BASE_URL}/api/taskee/${id}`);
-    return dispatch(getTaskee(taskee));
-  } catch (error) {
-    console.error;
-  }
+	try {
+		const { data: taskee } = await axios.get(
+			`${BASE_URL}/api/taskee/${id}`
+		);
+		return dispatch(getTaskee(taskee));
+	} catch (error) {
+		console.error;
+	}
 };
+
 
 //SINGLE TASKEE REVIEWS
 export const getTaskeeReviewsThunk = (id) => async (dispatch) => {
@@ -71,7 +84,8 @@ export const getTaskeeReviewsThunk = (id) => async (dispatch) => {
   }
 };
 
-// CEATE NEW TASKEE REVIEW
+
+// CREATE NEW TASKEE REVIEW
 export const postTaskeeReviewThunk = (data) => async (dispatch) => {
   try {
     const { data: review } = await axios.post(
@@ -108,13 +122,28 @@ export const deleteTaskeeReviewThunk = (id) => async (dispatch) => {
   }
 };
 
+// POST TASKEE WORK SCHEDULE
+export const postTaskeeScheduleThunk = (taskeeId, workSchedule) => async (dispatch) => {
+  try {
+    const { data: schedule } = await axios.post(
+      `${BASE_URL}/api/taskee/schedule/new`, {taskeeId, workSchedule}
+    );
+    return dispatch(postTaskeeSchedule(schedule))
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 const initialState = {
-  allTaskees: [],
-  singleTaskee: {},
-  taskeeReviews: [],
+	allTaskees: [],
+	singleTaskee: {},
+	taskeeReviews: [],
+  workSchedule: [],
 };
 
 export default function (state = initialState, action) {
+
   switch (action.type) {
     case GET_TASKEES:
       return { ...state, allTaskees: action.payload };
@@ -138,7 +167,11 @@ export default function (state = initialState, action) {
           (review) => review.id !== action.payload.id
         ),
       };
+      case POST_TASKEE_SCHEDULE:
+        state.workSchedule.push(action.payload);
+        return state;
     default:
       return state;
   }
+
 }

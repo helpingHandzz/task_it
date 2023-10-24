@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const { query, body } = require("express-validator");
+const { body } = require("express-validator");
 const { PrismaClient } = require("@prisma/client");
 const jwt = require("jsonwebtoken");
 const prismaClient = new PrismaClient();
@@ -10,8 +10,8 @@ const SALT_ROUNDS = 5;
 // route handler for registering a user in
 router.post(
 	"/register",
-	// body("email").isEmail(),
-	// body("phone").isMobilePhone(),
+	body("email").isEmail(),
+	body("phone").isMobilePhone(),
 	async (req, res, next) => {
 		const { fName, lName, email, password, phone } =
 			req.body;
@@ -52,7 +52,8 @@ router.post(
 			);
 
 			res.status(201).json({
-				createdUser: { ...createdUser, token },
+				...createdUser,
+				token,
 			});
 		} catch (error) {
 			console.error(error.message);
@@ -61,6 +62,7 @@ router.post(
 	}
 );
 
+// login handler for tasker
 router.post(
 	"/login",
 	body("email").isEmail(),
@@ -94,8 +96,14 @@ router.post(
 				});
 			}
 
+			const token = jwt.sign(
+				foundUser.email,
+				process.env.JWT
+			);
+
 			res.status(200).json({
-				foundUser,
+				...foundUser,
+				token,
 			});
 		} catch (error) {
 			console.error(error.message);

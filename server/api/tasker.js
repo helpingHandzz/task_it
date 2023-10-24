@@ -16,7 +16,6 @@ router.get("/", async (req, res, next) => {
 });
 
 // get tasker by id
-
 router.get("/:id", async (req, res, next) => {
   try {
     const taskerId = await prisma.tasker.findUnique({
@@ -102,7 +101,7 @@ router.delete("reviews/delete/:id", async (req, res, next) => {
         id: +id,
       },
     });
-    res.status(200), json(deletedReview);
+    res.status(200).json(deletedReview);
   } catch (error) {
     next(error);
   }

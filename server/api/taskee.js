@@ -32,10 +32,12 @@ router.get("/:id", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+
 });
 
 // Get reviews by taskee id
 router.get("/reviews/:id", async (req, res, next) => {
+
   try {
     const singleTaskeeReviews = await prisma.taskeeReview.findMany({
       where: {
@@ -107,5 +109,25 @@ router.delete("/reviews/delete/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+// Post to Taskee Work Schedule
+router.post("/schedule/new", async (req, res, next) => {
+  const { taskeeId, workSchedule } = req.body;
+  try {
+    const updatedTaskee = await prisma.taskee.update({
+      where: {
+        id: taskeeId,
+      },
+      data: {
+        workSchedule,
+      },
+    });
+
+    res.status(200).json(updatedTaskee);
+  } catch (error) {
+      next(error)
+  }
+})
+
 
 module.exports = router;

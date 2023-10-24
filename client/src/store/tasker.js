@@ -5,19 +5,22 @@ const BASE_URL = "http://localhost:8080";
 const GET_TASKERS = "GET_TASKERS";
 const GET_TASKER = "GET_TASKER";
 const GET_TASKER_REVIEWS = "GET_TASKER_REVIEWS";
+
 const POST_TASKER_REVIEW = "POST_TASKER_REVIEW";
 const EDIT_TASKER_REVIEW = "EDIT_TASKER_REVIEW";
 const DELETE_TASKER_REVIEW = "DELETE_TASKER_REVIEW";
 
+
 const getTaskers = (taskers) => ({
-  type: GET_TASKERS,
-  payload: taskers,
+	type: GET_TASKERS,
+	payload: taskers,
 });
 
 const getTasker = (tasker) => ({
-  type: GET_TASKER,
-  payload: tasker,
+	type: GET_TASKER,
+	payload: tasker,
 });
+
 
 const getTaskerReviews = (reviews) => ({
   type: GET_TASKER_REVIEWS,
@@ -51,6 +54,7 @@ export const getTaskersThunk = () => async (dispatch) => {
 
 // SINGLE TASKER
 export const getTaskerThunk = (id) => async (dispatch) => {
+
   try {
     const { data: tasker } = await axios.get(`${BASE_URL}/api/tasker/${id}`);
     return dispatch(getTasker(tasker));
