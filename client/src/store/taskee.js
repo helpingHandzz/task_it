@@ -126,7 +126,7 @@ export const deleteTaskeeReviewThunk = (id) => async (dispatch) => {
 export const postTaskeeScheduleThunk = (taskeeId, workSchedule) => async (dispatch) => {
   try {
     const { data: schedule } = await axios.post(
-      `${BASE_URL}/api/taskee/schedule/new`
+      `${BASE_URL}/api/taskee/schedule/new`, {taskeeId, workSchedule}
     );
     return dispatch(postTaskeeSchedule(schedule))
   } catch (error) {

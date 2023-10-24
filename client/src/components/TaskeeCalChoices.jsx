@@ -1,12 +1,13 @@
 import React, { useState} from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postTaskeeScheduleThunk } from "../store/taskee";
 
 
 export default function TaskeeCalChoices({ selectedDay, showErrorMessage }) {
+    // const user = useSelector(state => state.auth)
     const dispatch = useDispatch();
-    const [startTime, setStartTime] = useState({ hours: '', minutes: '', timeOfDay: 'AM' });
-    const [endTime, setEndTime] = useState({ hours: '', minutes: '', timeOfDay: 'AM' });
+    const [startTime, setStartTime] = useState({ hours: '9', minutes: '30', timeOfDay: 'AM' });
+    const [endTime, setEndTime] = useState({ hours: '4', minutes: '30', timeOfDay: 'PM' });
 
     const handleSetSchedule = () => {
         const startHours = parseInt(startTime.hours, 10) + (startTime.timeOfDay === 'PM' ? 12 : 0);
@@ -15,8 +16,12 @@ export default function TaskeeCalChoices({ selectedDay, showErrorMessage }) {
         const endMinutes = parseInt(endTime.minutes, 10);
     
         const workSchedule = `${startHours.toString().padStart(2, '0')}:${startMinutes.toString().padStart(2, '0')} - ${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
+        console.log("x", startHours.toString().padStart(2, '0'))
+        console.log("start hours", startTime.hours)
+        console.log("start", startHours)
+        console.log("work sched",workSchedule)
     
-        dispatch(postTaskeeScheduleThunk(taskeeId, workSchedule)); 
+        dispatch(postTaskeeScheduleThunk(1,[workSchedule])); 
       };
 
   return (
@@ -26,8 +31,8 @@ export default function TaskeeCalChoices({ selectedDay, showErrorMessage }) {
           <div className="px-4">
             <div className="border-b pb-4 border-gray-400 border-dashed flex justify-center items-center text-2xl font-medium">
               <p className="text-xl font-medium pr-10 leading-3 text-gray-500 dark:text-gray-300 ">SET START TIME</p>
-              <input type="text" placeholder="9" className="m-2 w-10" />
-              <input type="text" placeholder="30" className="m-2 w-10" />
+              <input type="text" placeholder="9" className="m-2 w-10" value={startTime.hours} onChange={(e) => setStartTime({...startTime, hours: e.target.value })}/>
+              <input type="text" placeholder="30" className="m-2 w-10" value={startTime.minutes} onChange={(e) => setStartTime({...startTime, minutes: e.target.value })}/>
               <select name="timeOfDay" id="selector">
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
@@ -35,8 +40,8 @@ export default function TaskeeCalChoices({ selectedDay, showErrorMessage }) {
             </div>
             <div className="border-b pb-4 border-gray-400 border-dashed pt-5 flex justify-center items-center text-2xl font-medium">
               <p className="text-xl font-medium pr-10 leading-3 text-gray-500 dark:text-gray-300">SET END TIME</p>
-              <input type="text" placeholder="9" className="m-2 w-10 pl-3" />
-              <input type="text" placeholder="30" className="m-2 w-10 pl-1.5" />
+              <input type="text" placeholder="9" className="m-2 w-10 pl-3" value={endTime.hours} onChange={(e) => setEndTime({...endTime, hours: e.target.value })}/>
+              <input type="text" placeholder="30" className="m-2 w-10 pl-1.5" value={endTime.minutes} onChange={(e) => setEndTime({...endTime, minutes: e.target.value })}/>
               <select name="timeOfDay" id="selector">
                 <option value="PM">PM</option>
                 <option value="AM">AM</option>
