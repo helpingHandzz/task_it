@@ -53,31 +53,83 @@ function CreateTask({ sub }) {
     <div>
       <form onSubmit={(e) => handleCreateTask(e)}>
         {/* STARTING ADDRESS */}
-        <h2>Starting Address</h2>
-        <label>Street</label>
-        <input type="text" onChange={(e) => setStartStreet(e.target.value)} />
-        <label>City</label>
-        <input type="text" onChange={(e) => setStartCity(e.target.value)} />
-        <label>State</label>
-        <input type="text" onChange={(e) => setStartState(e.target.value)} />
-        <label>Zip Code</label>
-        <input type="text" onChange={(e) => setStartZip(e.target.value)} />
-        <label>Apt / Suite</label>
-        <input type="text" onChange={(e) => setStartSuite(e.target.value)} />
+        <h2 className="text-center">Starting Address</h2>
+        <div className="flex flex-col mx-5 text-center">
+          <input
+            className="text-center border-2"
+            placeholder="Street"
+            type="text"
+            onChange={(e) => setStartStreet(e.target.value)}
+          />
+          <div className="text-center">
+            <input
+              className="border-2"
+              placeholder="City"
+              type="text"
+              onChange={(e) => setStartCity(e.target.value)}
+            />
+            <input
+              className="border-2"
+              placeholder="State"
+              type="text"
+              onChange={(e) => setStartState(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              className="border-2"
+              placeholder="Apt / Suite"
+              type="text"
+              onChange={(e) => setStartSuite(e.target.value)}
+            />
+            <input
+              className="border-2"
+              placeholder="Zip Code"
+              type="text"
+              onChange={(e) => setStartZip(e.target.value)}
+            />
+          </div>
+        </div>
         {/* ENDING ADDRESS */}
-        <h2>Ending Address</h2>
-        <label>Street</label>
-        <input type="text" onChange={(e) => setEndStreet(e.target.value)} />
-        <label>City</label>
-        <input type="text" onChange={(e) => setEndCity(e.target.value)} />
-        <label>State</label>
-        <input type="text" onChange={(e) => setEndState(e.target.value)} />
-        <label>Zip Code</label>
-        <input type="text" onChange={(e) => setEndZip(e.target.value)} />
-        <label>Apt / Suite</label>
-        <input type="text" onChange={(e) => setEndSuite(e.target.value)} />
+        <h2 className="text-center">Ending Address</h2>
+        <div className="flex flex-col mx-5 text-center">
+          <input
+            className="border-2"
+            placeholder="Street"
+            type="text"
+            onChange={(e) => setEndStreet(e.target.value)}
+          />
+          <div>
+            <input
+              className="border-2"
+              placeholder="City"
+              type="text"
+              onChange={(e) => setEndCity(e.target.value)}
+            />
+            <input
+              className="border-2"
+              placeholder="State"
+              type="text"
+              onChange={(e) => setEndState(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              className="border-2"
+              placeholder="Zip Code"
+              type="text"
+              onChange={(e) => setEndZip(e.target.value)}
+            />
+            <input
+              className="border-2"
+              placeholder="Apt / Suite"
+              type="text"
+              onChange={(e) => setEndSuite(e.target.value)}
+            />
+          </div>
+        </div>
         {/* Vehicle and Time */}
-        <h2>Other Information</h2>
+        <h2 className="text-center">Other Information</h2>
         <p>Vehicle Required?</p>
         <input
           type="radio"
@@ -100,7 +152,9 @@ function CreateTask({ sub }) {
         <input type="text" onChange={(e) => setEstTimeCommit(e.target.value)} />
         <label>Description</label>
         <input type="text" onChange={(e) => setDescription(e.target.value)} />
-        <button type="submit">Continue</button>
+        <Link to={"/pick"} state={{ subcat: state.subcat }}>
+          <button type="submit">Continue</button>
+        </Link>
       </form>
     </div>
   );
