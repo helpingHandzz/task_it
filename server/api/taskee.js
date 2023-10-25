@@ -9,6 +9,7 @@ router.get("/", async (req, res, next) => {
     const allTaskees = await prisma.taskee.findMany({
       include: {
         Skills: true,
+        TaskeeReview: true,
       },
     });
     res.status(200).json(allTaskees);
@@ -32,12 +33,10 @@ router.get("/:id", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-
 });
 
 // Get reviews by taskee id
 router.get("/reviews/:id", async (req, res, next) => {
-
   try {
     const singleTaskeeReviews = await prisma.taskeeReview.findMany({
       where: {
@@ -125,9 +124,8 @@ router.post("/schedule/new", async (req, res, next) => {
 
     res.status(200).json(updatedTaskee);
   } catch (error) {
-      next(error)
+    next(error);
   }
-})
-
+});
 
 module.exports = router;

@@ -14,6 +14,7 @@ import Calendar from "./components/Calendar";
 import ViewSked from "./pages/ViewSked";
 import { useSelector } from "react-redux";
 import CreateTask from "./pages/CreateTask";
+import PickATaskee from "./pages/PickATaskee";
 
 function App() {
   const authContext = useSelector((state) => state.auth.user);
@@ -32,6 +33,7 @@ function App() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/schedule" element={<ViewSked />} />
           <Route path="/create" element={<CreateTask />} />
+          <Route path="/pick" element={<PickATaskee />} />
         </Routes>
       </section>
     );
