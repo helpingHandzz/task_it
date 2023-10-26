@@ -9,7 +9,11 @@ router.get("/", async (req, res, next) => {
     const allTaskees = await prisma.taskee.findMany({
       include: {
         Skills: true,
-        TaskeeReview: true,
+        TaskeeReview: {
+          include: {
+            tasker: true,
+          },
+        },
       },
     });
     res.status(200).json(allTaskees);
