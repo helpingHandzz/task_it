@@ -40,12 +40,22 @@ model Taskee {
   photo        String
   city         String
   state        String
-  workSchedule String[]
+  workSchedules WorkSchedule[] 
   TaskeeReview TaskeeReview[]
   Skills       Skills[]
   Task         Task[]
   TaskerReview TaskerReview[]
 }
+
+model WorkSchedule {
+  id        Int     @id @default(autoincrement())
+  date       String  
+  startTime DateTime  
+  endTime   DateTime
+  taskeeId  Int
+  taskee    Taskee  @relation(fields: [taskeeId], references: [id])
+}
+
 
 model TaskeeReview {
   id         Int      @id @default(autoincrement())

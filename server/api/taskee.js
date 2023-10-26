@@ -112,14 +112,35 @@ router.delete("/reviews/delete/:id", async (req, res, next) => {
 
 // Post to Taskee Work Schedule
 router.post("/schedule/new", async (req, res, next) => {
+  // console.log("hell from api")
   const { taskeeId, workSchedule } = req.body;
+
+  if (!taskeeId) {
+    res.status(400).send({ error: "Taskee ID is required" });
+    return 
+  }
+
+  if (!workSchedule) {
+    res.status(400).send({ error: "Work schedule is required" });
+    return 
+  }
+
+  // console.log("Hello API")
+  // console.log({taskeeId, workSchedule})
+
   try {
+    const task = await prisma.taskee.findUnique({
+      where: {
+        id: taskeeId,
+      },
+    });
+    
     const updatedTaskee = await prisma.taskee.update({
       where: {
         id: taskeeId,
       },
       data: {
-        workSchedule,
+        workSchedule: [...task.workSchedule,...workSchedule],
       },
     });
 

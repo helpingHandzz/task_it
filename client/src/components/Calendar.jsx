@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import TaskeeCalChoices from "./TaskeeCalChoices";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Calendar() {
-    const [selectedDay, setSelectedDay] = useState(null);
+    const [selectedDates, setSelectedDates] = useState([]);
     const [displayDate, setDisplayDate] = useState(new Date());
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const [showTaskeeCalChoices, setShowTaskeeCalChoices] = useState(false);
+    const taskeeId = useSelector(state => state.auth.user.taskeeId)
+    const dispatch = useDispatch();
 
     const handlePrevMonth = () => {
         setDisplayDate(prevDate => {
@@ -21,18 +24,34 @@ export default function Calendar() {
         });
     }
 
+    const formatDate = (dateObj) => {
+        return `${dateObj.getFullYear()}-${dateObj.getMonth() + 1}-${dateObj.getDate()}`;
+    }
+
     const handleDayClick = (day) => {
         const today = new Date();
         const selectedDate = new Date(displayDate.getFullYear(), displayDate.getMonth(), day);
     
         if (selectedDate >= today) {
-            setSelectedDay(day);
+            setSelectedDates(prevDates => {
+                const dateString = formatDate(selectedDate);
+                const existingDateIndex = prevDates.findIndex(d => d.date === dateString);
+                
+                if(existingDateIndex > -1){
+                    const newDates = [...prevDates];
+                    newDates.splice(existingDateIndex, 1)
+                    return newDates;
+                } else {
+                    return [...prevDates, { date: dateString, startTime: '', endTime: ''}];
+                }
+            });
             setShowTaskeeCalChoices(true);
         }
     } 
 
-    const handleSetSchedule = () => {
-        dispatch(postTaskeeScheduleThunk(taskeeId, workSchedule))
+    const isDateSelected = (day) => {
+        const checkDateString = formatDate(new Date(displayDate.getFullYear(), displayDate.getMonth(), day));
+        return selectedDates.some(d => d.date === checkDateString);
     }
 
     const daysInMonth = new Date(displayDate.getFullYear(), displayDate.getMonth() + 1, 0).getDate();
@@ -113,15 +132,16 @@ export default function Calendar() {
                                                     <td key={day}>
                                                         {day > 0 && day <= daysInMonth && (
                                                             <div 
-                                                                className={
-                                                                    `px-4 py-4 cursor-pointer flex w-full justify-center rounded 
-                                                                    ${selectedDay === day ? 'bg-blue-500' : ''} 
-                                                                    ${isCurrentDay ? 'bg-blue-200' : ''}`} 
-                                                                    onClick={() => handleDayClick(day)}
+                                                            className={
+                                                                `px-4 py-4 cursor-pointer flex w-full justify-center rounded 
+                                                                ${isDateSelected(day) ? 'bg-blue-500' : ''} 
+                                                                ${isCurrentDay ? 'bg-blue-200' : ''}`
+                                                            }
+                                                                onClick={() => handleDayClick(day)}
                                                                     >
                                                                 <p className={
                                                                     `text-2xl 
-                                                                    ${selectedDay === day ? 'text-white' : 'text-gray-500'} 
+                                                                    ${isDateSelected(day) ? 'text-white' : 'text-gray-500'} 
                                                                     dark:text-gray-100 font-medium`}
                                                                     >
                                                                         {day}
@@ -136,7 +156,7 @@ export default function Calendar() {
                                 </tbody>
                             </table>
                         </div>
-                        {showTaskeeCalChoices && <TaskeeCalChoices selectedDay={selectedDay} showErrorMessage={showErrorMessage} />}
+                        {showTaskeeCalChoices && <TaskeeCalChoices taskeeId={taskeeId} selectedDates={selectedDates} showErrorMessage={showErrorMessage} />}
                     </div>
                 </div>
             </div>
