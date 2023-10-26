@@ -152,7 +152,7 @@ export default function (state = initialState, action) {
     case GET_TASKEE_REVIEWS:
       return { ...state, taskeeReviews: action.payload };
     case POST_TASKEE_REVIEW:
-      state.taskeeReviews.push(action.payload);
+      state.taskeeReviews.push(action.payload);  
       return state;
     case EDIT_TASKEE_REVIEW:
       return {
@@ -168,8 +168,10 @@ export default function (state = initialState, action) {
         ),
       };
       case POST_TASKEE_SCHEDULE:
-        state.workSchedule.push(action.payload);
-        return state;
+        return {
+          ...state, 
+          workSchedule: [...state.workSchedule,action.payload],
+        }
     default:
       return state;
   }

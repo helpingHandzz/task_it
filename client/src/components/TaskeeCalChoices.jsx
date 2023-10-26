@@ -2,31 +2,39 @@ import React, { useState} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { postTaskeeScheduleThunk } from "../store/taskee";
 
+function formatDate(dateStr) {
+  return dateStr; 
+}
 
-export default function TaskeeCalChoices({ selectedDay, showErrorMessage }) {
-    // const user = useSelector(state => state.auth)
+export default function TaskeeCalChoices({ taskeeId, selectedDates, showErrorMessage }) {
+    
+    console.log("taskeeid from choices", taskeeId)
+
     const dispatch = useDispatch();
     const [startTime, setStartTime] = useState({ hours: '9', minutes: '30', timeOfDay: 'AM' });
     const [endTime, setEndTime] = useState({ hours: '4', minutes: '30', timeOfDay: 'PM' });
 
     const handleSetSchedule = () => {
-        const startHours = parseInt(startTime.hours, 10) + (startTime.timeOfDay === 'PM' ? 12 : 0);
-        const startMinutes = parseInt(startTime.minutes, 10);
-        const endHours = parseInt(endTime.hours, 10) + (endTime.timeOfDay === 'PM' ? 12 : 0);
-        const endMinutes = parseInt(endTime.minutes, 10);
-    
-        const workSchedule = `${startHours.toString().padStart(2, '0')}:${startMinutes.toString().padStart(2, '0')} - ${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
-        console.log("x", startHours.toString().padStart(2, '0'))
-        console.log("start hours", startTime.hours)
-        console.log("start", startHours)
-        console.log("work sched",workSchedule)
-    
-        dispatch(postTaskeeScheduleThunk(1,[workSchedule])); 
-      };
+      const startHours = parseInt(startTime.hours, 10) + (startTime.timeOfDay === 'PM' && startTime.hours !== '12' ? 12 : 0);
+      const startMinutes = parseInt(startTime.minutes, 10);
+      const endHours = parseInt(endTime.hours, 10) + (endTime.timeOfDay === 'PM' && endTime.hours !== '12' ? 12 : 0);
+      const endMinutes = parseInt(endTime.minutes, 10);
+  
+      selectedDates.forEach(({ date }) => {
+          const formattedDate = formatDate(date);
+          const scheduleObj = {
+              date: formattedDate,
+              startTime: `${startHours.toString().padStart(2, '0')}:${startMinutes.toString().padStart(2, '0')}`,
+              endTime: `${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`
+          };
+          dispatch(postTaskeeScheduleThunk(taskeeId, scheduleObj));
+      });
+  };
+  
 
   return (
     <div>
-      {selectedDay !== null && (
+      {selectedDates !== null && (
         <div className="md:py-8 py-5 md:px-16 px-5 dark:bg-gray-700 bg-gray-50 rounded-b ">
           <div className="px-4">
             <div className="border-b pb-4 border-gray-400 border-dashed flex justify-center items-center text-2xl font-medium">

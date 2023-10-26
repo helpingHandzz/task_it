@@ -31,6 +31,11 @@ const registerTaskee = (taskee) => ({
 	payload: taskee,
 });
 
+const loginTaskee = (data) => ({
+	type: LOGIN_TASKEE,
+	payload: data
+})
+
 const getToken = () => {
 	const token = localStorage.getItem("token");
 	if (token) {
@@ -139,10 +144,11 @@ export const loginTaskeeThunk =
 			}
 
 			return dispatch(
-				loginTasker({
+				loginTaskee({
 					token,
-					isTasker: true,
-					isTaskee: false,
+					isTasker: false,
+					isTaskee: true,
+					taskeeId: data.id,
 				})
 			);
 		} catch (error) {
@@ -202,6 +208,8 @@ const initialState = {
 		token: getToken(),
 		isTasker: false,
 		isTaskee: false,
+		taskeeId: null,
+		taskerId: null
 	},
 };
 
