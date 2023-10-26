@@ -9,6 +9,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 const AuthTaskee = () => {
 	const [isLogin, setIsLogin] = useState(true);
+	const [previewSource, setPreviewSource] = useState("");
+	const [fileInputState, setFileInputState] = useState("");
+
 	const navigate = useNavigate();
 	const [credentials, setCredentials] = useState({
 		fName: "",
@@ -18,8 +21,22 @@ const AuthTaskee = () => {
 		phone: "",
 		city: "",
 		state: "",
+		photo: "",
 	});
 	const dispatch = useDispatch();
+
+	const previewAvatar = (img) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(img);
+		reader.onloadend = () => {
+			setPreviewSource(reader.result);
+		};
+	};
+
+	const handleFileInputChange = (e) => {
+		const file = e.target.files[0];
+		previewAvatar(file);
+	};
 
 	const changeLoginMode = (e) => {
 		e.preventDefault();
@@ -97,7 +114,7 @@ const AuthTaskee = () => {
 	};
 
 	const registerHandler = async (e) => {
-		e.preventDefault();
+		e.preventDefault(); 
 
 		if (!isLogin) {
 			try {
@@ -126,8 +143,29 @@ const AuthTaskee = () => {
 
 				<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 					<form
+						encType="multipart/form-data"
 						className="space-y-6"
 						onSubmit={registerHandler}>
+						<div className="flex- justify-items-center align-middle">
+							<label
+								className="text-2xl text-center"
+								htmlFor="avatar">
+								Choose an Avatar
+							</label>
+							<input
+								type="file"
+								name="avatar"
+								id="avatar"
+								onChange={handleFileInputChange}
+								value={fileInputState}
+							/>
+							{previewSource && (
+								<img
+									src={previewSource}
+									style={{ height: "300px" }}
+								/>
+							)}
+						</div>
 						<div>
 							<label
 								htmlFor="fname"

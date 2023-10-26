@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutTaskerThunk } from "../store/auth";
 
 function Nav() {
-	const token = useSelector(
-		(state) => state?.auth?.user?.token
-	);
+	const token = useSelector((state) => state?.auth);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -16,7 +14,9 @@ function Nav() {
 		navigate("/");
 	};
 
-	if (token !== "") {
+	console.log("token: ", token);
+
+	if (!token) {
 		return (
 			<nav className="h-14 bg-amber-100 w-full flex justify-between fixed">
 				<div className="flex flex-col justify-center ml-2">
