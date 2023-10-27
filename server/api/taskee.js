@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
+const { ta } = require("date-fns/locale");
+const { daysToWeeks } = require("date-fns");
 const prisma = new PrismaClient();
 
 // Get all taskees
@@ -111,42 +113,58 @@ router.delete("/reviews/delete/:id", async (req, res, next) => {
 
 // Post to Taskee Work Schedule
 router.post("/schedule/new", async (req, res, next) => {
-  // console.log("hell from api")
-  const { taskeeId, workSchedule } = req.body;
 
-  if (!taskeeId) {
-    res.status(400).send({ error: "Taskee ID is required" });
-    return 
+  const { taskeeId, workSchedules } = req.body;
+
+  if (!Array.isArray(workSchedules)) {
+    return res.status(400).send("workSchedules must be an array.");
   }
-
-  if (!workSchedule) {
-    res.status(400).send({ error: "Work schedule is required" });
-    return 
-  }
-
-  // console.log("Hello API")
-  // console.log({taskeeId, workSchedule})
 
   try {
-    const task = await prisma.taskee.findUnique({
-      where: {
-        id: taskeeId,
-      },
-    });
-    
-    const updatedTaskee = await prisma.taskee.update({
-      where: {
-        id: taskeeId,
-      },
-      data: {
-        workSchedule: [...task.workSchedule,...workSchedule],
-      },
-    });
+    const createdOrUpdatedSchedules = [];
 
-    res.status(200).json(updatedTaskee);
+    for (let schedule of workSchedules) {
+      const { date, startTime, endTime } = schedule;
+
+      console.log("Date value:", schedule);
+
+      const startDateTime = new Date(`${date}T${startTime}:00Z`).toISOString();
+      const endDateTime = new Date(`${date}T${endTime}:00Z`).toISOString();
+
+      const existingSchedule = await prisma.workSchedule.findFirst({
+        where: {
+          taskeeId: taskeeId,
+          date: date
+        },
+      });
+      let newOrUpdatedSchedule;
+      if (existingSchedule) {
+        newOrUpdatedSchedule = await prisma.workSchedule.update({
+          where: {
+            id: existingSchedule.id
+          },
+          data: {
+            startTime: startDateTime,
+            endTime: endDateTime
+          }
+        });
+      } else {
+        newOrUpdatedSchedule = await prisma.workSchedule.create({
+          data: {
+            ...schedule,
+            startTime: startDateTime,
+            endTime: endDateTime,
+            taskeeId: taskeeId
+          },
+        });
+      }
+      createdOrUpdatedSchedules.push(newOrUpdatedSchedule)
+    }
+    res.status(200).send(createdOrUpdatedSchedules);
   } catch (error) {
-    next(error);
+    next (error)
   }
 });
+
 
 module.exports = router;
