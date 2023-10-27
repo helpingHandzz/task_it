@@ -53,38 +53,38 @@ function CreateTask({ sub }) {
     <div className="bg-slate-100 pt-7">
       <form onSubmit={(e) => handleCreateTask(e)}>
         {/* STARTING ADDRESS */}
-        <div className="border  mx-4 pb-8 rounded bg-white shadow">
+        <div className="border  mx-4 pb-8 rounded bg-white shadow xl:w-4/5 xl:mx-auto">
           <h2 className="text-center my-8 text-3xl">Starting Address</h2>
           <div className="flex flex-col mx-5 text-center">
             <input
-              className="text-center border border-black rounded h-9"
+              className="text-center border border-black rounded h-9 mx-3 lg:w-[44%] lg:text-left lg:pl-3"
               placeholder="Street Address"
               type="text"
               onChange={(e) => setStartStreet(e.target.value)}
             />
-            <div className="flex justify-around mt-5">
+            <div className="flex justify-between mx-3 mt-5">
               <input
-                className="border border-black rounded h-9 pl-2"
+                className="border border-black rounded h-9 w-[45%] pl-2 "
                 placeholder="City"
                 type="text"
                 onChange={(e) => setStartCity(e.target.value)}
               />
               <input
-                className="border border-black rounded h-9 pl-2"
+                className="border border-black rounded h-9 pl-2 w-[45%] "
                 placeholder="State"
                 type="text"
                 onChange={(e) => setStartState(e.target.value)}
               />
             </div>
-            <div className="flex justify-around mt-5">
+            <div className="flex justify-between mx-3 mt-5">
               <input
-                className="border border-black rounded h-9 pl-2"
+                className="border border-black rounded h-9 pl-2 w-[45%]"
                 placeholder="Apt / Suite"
                 type="text"
                 onChange={(e) => setStartSuite(e.target.value)}
               />
               <input
-                className="border border-black rounded h-9 pl-2"
+                className="border border-black rounded h-9 pl-2 w-[45%] "
                 placeholder="Zip Code"
                 type="text"
                 onChange={(e) => setStartZip(e.target.value)}
@@ -93,38 +93,38 @@ function CreateTask({ sub }) {
           </div>
         </div>
         {/* ENDING ADDRESS */}
-        <div className="border mt-4 mx-4 pb-8 rounded bg-white shadow">
+        <div className="border mt-4 mx-4 pb-8 rounded bg-white shadow xl:w-4/5 xl:mx-auto">
           <h2 className="text-center my-8 text-3xl">Ending Address</h2>
           <div className="flex flex-col mx-5 text-center">
             <input
-              className="text-center border border-black rounded h-9"
+              className="text-center border border-black rounded h-9 mx-3 lg:w-[44%] lg:text-left lg:pl-3"
               placeholder="Street Address"
               type="text"
               onChange={(e) => setEndStreet(e.target.value)}
             />
-            <div className="flex justify-around mt-5">
+            <div className="flex justify-between mx-3 mt-5">
               <input
-                className="border border-black rounded h-9 pl-2"
+                className="border border-black rounded h-9 pl-2 w-[45%]"
                 placeholder="City"
                 type="text"
                 onChange={(e) => setEndCity(e.target.value)}
               />
               <input
-                className="border border-black rounded h-9 pl-2"
+                className="border border-black rounded h-9 pl-2 w-[45%]"
                 placeholder="State"
                 type="text"
                 onChange={(e) => setEndState(e.target.value)}
               />
             </div>
-            <div className="flex justify-around mt-5">
+            <div className="flex justify-between mx-3 mt-5">
               <input
-                className="border border-black rounded h-9 pl-2"
+                className="border border-black rounded h-9 pl-2 w-[45%]"
                 placeholder="Zip Code"
                 type="text"
                 onChange={(e) => setEndZip(e.target.value)}
               />
               <input
-                className="border border-black rounded h-9 pl-2"
+                className="border border-black rounded h-9 pl-2 w-[45%]"
                 placeholder="Apt / Suite"
                 type="text"
                 onChange={(e) => setEndSuite(e.target.value)}
@@ -133,12 +133,12 @@ function CreateTask({ sub }) {
           </div>
         </div>
         {/* Vehicle and Time */}
-        <div className="border mt-4 mx-4 pb-8 rounded bg-white shadow">
+        <div className="border mt-4 mx-4 pb-8 rounded bg-white shadow xl:w-4/5 xl:mx-auto">
           <h2 className="text-center my-8 text-3xl">Other Information</h2>
-          <div className="flex justify-around">
-            <div className="">
-              <p>Vehicle Required?</p>
-              <div className="flex justify-center pt-2">
+          <div className="flex justify-between mx-8">
+            <div className="w-[45%]">
+              <p className="flex justify-center">Vehicle Required?</p>
+              <div className="flex justify-center pt-2 lg:content-center">
                 <input
                   type="radio"
                   id="yes"
@@ -164,18 +164,18 @@ function CreateTask({ sub }) {
             </div>
             <br />
             <input
-              className="border border-black rounded h-9 pl-2"
+              className="border border-black rounded h-9 pl-2 w-[45%]"
               placeholder="Est. Time Commitment"
               type="text"
               onChange={(e) => setEstTimeCommit(e.target.value)}
             />
           </div>
-          <div className="flex flex-col items-center mt-8">
+          <div className="flex flex-col items-center mt-8 lg:items-end lg:mx-8">
             <input
               type="text"
               placeholder="Description"
               onChange={(e) => setDescription(e.target.value)}
-              className="border border-black h-24 w-80 rounded pl-2"
+              className="border border-black h-24 w-80 rounded pl-2 lg:w-[45%]"
             />
           </div>
         </div>
