@@ -50,111 +50,145 @@ function CreateTask({ sub }) {
   };
 
   return (
-    <div>
+    <div className="bg-slate-100 pt-7">
       <form onSubmit={(e) => handleCreateTask(e)}>
         {/* STARTING ADDRESS */}
-        <h2 className="text-center">Starting Address</h2>
-        <div className="flex flex-col mx-5 text-center">
-          <input
-            className="text-center border-2"
-            placeholder="Street"
-            type="text"
-            onChange={(e) => setStartStreet(e.target.value)}
-          />
-          <div className="text-center">
+        <div className="border  mx-4 pb-8 rounded bg-white shadow">
+          <h2 className="text-center my-8 text-3xl">Starting Address</h2>
+          <div className="flex flex-col mx-5 text-center">
             <input
-              className="border-2"
-              placeholder="City"
+              className="text-center border border-black rounded h-9"
+              placeholder="Street Address"
               type="text"
-              onChange={(e) => setStartCity(e.target.value)}
+              onChange={(e) => setStartStreet(e.target.value)}
             />
-            <input
-              className="border-2"
-              placeholder="State"
-              type="text"
-              onChange={(e) => setStartState(e.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              className="border-2"
-              placeholder="Apt / Suite"
-              type="text"
-              onChange={(e) => setStartSuite(e.target.value)}
-            />
-            <input
-              className="border-2"
-              placeholder="Zip Code"
-              type="text"
-              onChange={(e) => setStartZip(e.target.value)}
-            />
+            <div className="flex justify-around mt-5">
+              <input
+                className="border border-black rounded h-9 pl-2"
+                placeholder="City"
+                type="text"
+                onChange={(e) => setStartCity(e.target.value)}
+              />
+              <input
+                className="border border-black rounded h-9 pl-2"
+                placeholder="State"
+                type="text"
+                onChange={(e) => setStartState(e.target.value)}
+              />
+            </div>
+            <div className="flex justify-around mt-5">
+              <input
+                className="border border-black rounded h-9 pl-2"
+                placeholder="Apt / Suite"
+                type="text"
+                onChange={(e) => setStartSuite(e.target.value)}
+              />
+              <input
+                className="border border-black rounded h-9 pl-2"
+                placeholder="Zip Code"
+                type="text"
+                onChange={(e) => setStartZip(e.target.value)}
+              />
+            </div>
           </div>
         </div>
         {/* ENDING ADDRESS */}
-        <h2 className="text-center">Ending Address</h2>
-        <div className="flex flex-col mx-5 text-center">
-          <input
-            className="border-2"
-            placeholder="Street"
-            type="text"
-            onChange={(e) => setEndStreet(e.target.value)}
-          />
-          <div>
+        <div className="border mt-4 mx-4 pb-8 rounded bg-white shadow">
+          <h2 className="text-center my-8 text-3xl">Ending Address</h2>
+          <div className="flex flex-col mx-5 text-center">
             <input
-              className="border-2"
-              placeholder="City"
+              className="text-center border border-black rounded h-9"
+              placeholder="Street Address"
               type="text"
-              onChange={(e) => setEndCity(e.target.value)}
+              onChange={(e) => setEndStreet(e.target.value)}
             />
-            <input
-              className="border-2"
-              placeholder="State"
-              type="text"
-              onChange={(e) => setEndState(e.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              className="border-2"
-              placeholder="Zip Code"
-              type="text"
-              onChange={(e) => setEndZip(e.target.value)}
-            />
-            <input
-              className="border-2"
-              placeholder="Apt / Suite"
-              type="text"
-              onChange={(e) => setEndSuite(e.target.value)}
-            />
+            <div className="flex justify-around mt-5">
+              <input
+                className="border border-black rounded h-9 pl-2"
+                placeholder="City"
+                type="text"
+                onChange={(e) => setEndCity(e.target.value)}
+              />
+              <input
+                className="border border-black rounded h-9 pl-2"
+                placeholder="State"
+                type="text"
+                onChange={(e) => setEndState(e.target.value)}
+              />
+            </div>
+            <div className="flex justify-around mt-5">
+              <input
+                className="border border-black rounded h-9 pl-2"
+                placeholder="Zip Code"
+                type="text"
+                onChange={(e) => setEndZip(e.target.value)}
+              />
+              <input
+                className="border border-black rounded h-9 pl-2"
+                placeholder="Apt / Suite"
+                type="text"
+                onChange={(e) => setEndSuite(e.target.value)}
+              />
+            </div>
           </div>
         </div>
         {/* Vehicle and Time */}
-        <h2 className="text-center">Other Information</h2>
-        <p>Vehicle Required?</p>
-        <input
-          type="radio"
-          id="yes"
-          name="vehicleRequired"
-          value={true}
-          onChange={() => setVehicleRequired(true)}
-        />
-        <label htmlFor="yes">Yes</label>
-        <input
-          type="radio"
-          id="no"
-          name="vehicleRequired"
-          value={false}
-          onChange={() => setVehicleRequired(false)}
-        />
-        <label htmlFor="no">No</label>
-        <br />
-        <label>Estimated Time Commitment</label>
-        <input type="text" onChange={(e) => setEstTimeCommit(e.target.value)} />
-        <label>Description</label>
-        <input type="text" onChange={(e) => setDescription(e.target.value)} />
-        <Link to={"/pick"} state={{ subcat: state.subcat }}>
-          <button type="submit">Continue</button>
-        </Link>
+        <div className="border mt-4 mx-4 pb-8 rounded bg-white shadow">
+          <h2 className="text-center my-8 text-3xl">Other Information</h2>
+          <div className="flex justify-around">
+            <div className="">
+              <p>Vehicle Required?</p>
+              <div className="flex justify-center pt-2">
+                <input
+                  type="radio"
+                  id="yes"
+                  name="vehicleRequired"
+                  value={true}
+                  onChange={() => setVehicleRequired(true)}
+                />
+                <label htmlFor="yes" className="pl-2">
+                  Yes
+                </label>
+                <input
+                  className="ml-3"
+                  type="radio"
+                  id="no"
+                  name="vehicleRequired"
+                  value={false}
+                  onChange={() => setVehicleRequired(false)}
+                />
+                <label htmlFor="no" className="pl-2">
+                  No
+                </label>
+              </div>
+            </div>
+            <br />
+            <input
+              className="border border-black rounded h-9 pl-2"
+              placeholder="Est. Time Commitment"
+              type="text"
+              onChange={(e) => setEstTimeCommit(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col items-center mt-8">
+            <input
+              type="text"
+              placeholder="Description"
+              onChange={(e) => setDescription(e.target.value)}
+              className="border border-black h-24 w-80 rounded pl-2"
+            />
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <Link to={"/pick"} state={{ subcat: state.subcat }}>
+            <button
+              type="submit"
+              className="my-8 border-2 border-black hover:bg-green-200 rounded-full px-5 py-2"
+            >
+              Continue
+            </button>
+          </Link>
+        </div>
       </form>
     </div>
   );
