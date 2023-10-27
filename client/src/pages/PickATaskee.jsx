@@ -1,13 +1,13 @@
 import { getTaskeesThunk } from "../store/taskee";
 import { useLocation } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import TaskeeBlockItems from "../components/TaskeeBlockItems";
 
 function PickATaskee() {
   let { state } = useLocation();
   const dispatch = useDispatch();
-  const [buttonPopup, setButtonPopup] = useState(false);
+
   const taskees = useSelector((state) => state.taskee.allTaskees);
   useEffect(() => {
     dispatch(getTaskeesThunk());
@@ -32,12 +32,7 @@ function PickATaskee() {
       </div>
       <div className="lg:w-full lg:mr-7">
         {filteredBySkill.map((taskee) => (
-          <TaskeeBlockItems
-            key={taskee.id}
-            taskee={taskee}
-            buttonPopup={buttonPopup}
-            setButtonPopup={setButtonPopup}
-          />
+          <TaskeeBlockItems key={taskee.id} taskee={taskee} />
         ))}
       </div>
     </div>

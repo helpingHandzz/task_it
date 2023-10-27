@@ -2,7 +2,8 @@ import { useState } from "react";
 import StarRatings from "react-star-ratings";
 import ProfilePopup from "./ProfilePopup";
 
-function TaskeeBlockItems({ taskee, buttonPopup, setButtonPopup }) {
+function TaskeeBlockItems({ taskee }) {
+  const [buttonPopup, setButtonPopup] = useState(false);
   console.log("popup", buttonPopup);
   return (
     <div
