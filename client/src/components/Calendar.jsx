@@ -25,14 +25,19 @@ export default function Calendar() {
     }
 
     const formatDate = (dateObj) => {
-        return `${dateObj.getFullYear()}-${dateObj.getMonth() + 1}-${dateObj.getDate()}`;
+        const year = dateObj.getFullYear();
+        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');  
+        const day = dateObj.getDate().toString().padStart(2, '0');           
+        return `${year}-${month}-${day}`;
     }
 
     const handleDayClick = (day) => {
         const today = new Date();
         const selectedDate = new Date(displayDate.getFullYear(), displayDate.getMonth(), day);
+        const todayReset = new Date();
+        todayReset.setHours(0, 0, 0, 0);
     
-        if (selectedDate >= today) {
+        if (selectedDate >= todayReset) {
             setSelectedDates(prevDates => {
                 const dateString = formatDate(selectedDate);
                 const existingDateIndex = prevDates.findIndex(d => d.date === dateString);
@@ -48,6 +53,13 @@ export default function Calendar() {
             setShowTaskeeCalChoices(true);
         }
     } 
+
+    const isInPast = (day) => {
+        const dateToCheck = new Date(displayDate.getFullYear(), displayDate.getMonth(), day);
+        const todayReset = new Date();
+        todayReset.setHours(0, 0, 0, 0);
+        return dateToCheck < todayReset;
+    };
 
     const isDateSelected = (day) => {
         const checkDateString = formatDate(new Date(displayDate.getFullYear(), displayDate.getMonth(), day));
@@ -140,9 +152,12 @@ export default function Calendar() {
                                                                 onClick={() => handleDayClick(day)}
                                                                     >
                                                                 <p className={
-                                                                    `text-2xl 
-                                                                    ${isDateSelected(day) ? 'text-white' : 'text-gray-500'} 
-                                                                    dark:text-gray-100 font-medium`}
+                                                                     `text-2xl 
+                                                                     ${isDateSelected(day) ? 'text-white' : 'text-gray-500'} 
+                                                                     dark:text-gray-100 font-medium 
+                                                                     ${isInPast(day) ? 'text-red-900 line-through' : ''}`
+                                                                }
+                                                                    
                                                                     >
                                                                         {day}
                                                                         </p>

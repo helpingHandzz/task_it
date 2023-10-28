@@ -123,16 +123,33 @@ export const deleteTaskeeReviewThunk = (id) => async (dispatch) => {
 };
 
 // POST TASKEE WORK SCHEDULE
-export const postTaskeeScheduleThunk = (taskeeId, workSchedule) => async (dispatch) => {
+export const postTaskeeScheduleThunk = (taskeeId, workSchedules) => async (dispatch) => {
+  
+  console.log("Taskee Id", taskeeId)
+  console.log("WorkSchedules", workSchedules)
+  
   try {
+
+    const payload = {
+      taskeeId: taskeeId,
+      workSchedules: workSchedules  
+    };
+
+   
+
+    console.log('Sending payload:', payload); 
+
     const { data: schedule } = await axios.post(
-      `${BASE_URL}/api/taskee/schedule/new`, {taskeeId, workSchedule}
+      `${BASE_URL}/api/taskee/schedule/new`, payload
     );
+
     return dispatch(postTaskeeSchedule(schedule))
   } catch (error) {
     console.error(error);
   }
+
 };
+
 
 
 const initialState = {
