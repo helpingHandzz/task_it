@@ -51,6 +51,7 @@ function CreateTask({ sub }) {
 
   return (
     <div className="bg-slate-100 pt-7">
+      <h1 className="text-3xl font-bold pl-4 pb-8">{state.subcat.subName}</h1>
       <form onSubmit={(e) => handleCreateTask(e)}>
         {/* STARTING ADDRESS */}
         <div className="border  mx-4 pb-8 rounded bg-white shadow xl:w-4/5 xl:mx-auto">
@@ -183,7 +184,7 @@ function CreateTask({ sub }) {
           <Link to={"/pick"} state={{ subcat: state.subcat }}>
             <button
               type="submit"
-              className="my-8 border-2 border-black hover:bg-green-200 rounded-full px-5 py-2"
+              className="my-8 bg-cyan-700 text-white font-bold hover:bg-cyan-900 rounded-full px-5 py-2"
             >
               Continue
             </button>
