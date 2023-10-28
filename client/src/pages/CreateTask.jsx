@@ -184,7 +184,7 @@ function CreateTask({ sub }) {
           <Link to={"/pick"} state={{ subcat: state.subcat }}>
             <button
               type="submit"
-              className="my-8 bg-cyan-700 text-white font-bold hover:bg-cyan-900 rounded-full px-5 py-2"
+              className="my-8 bg-cyan-700 text-white font-bold hover:bg-cyan-900 rounded-full px-5 py-3"
             >
               Continue
             </button>
