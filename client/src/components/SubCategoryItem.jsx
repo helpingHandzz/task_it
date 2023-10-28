@@ -3,14 +3,17 @@ import { Link } from "react-router-dom";
 function SubCategoryItem({ sub }) {
   console.log("sub", sub);
   return (
-    <div className="flex h-52 border-2 m-5">
-      <div className="h-52 self-center pl-3 rounded">
-        <img className="h-48 w-48 pt-5 rounded" src={sub.image} />
+    <div className="flex h-64 border shadow-md m-5 bg-white rounded">
+      <div className=" w-1/3 self-center pl-3 rounded">
+        <img className="h-44 w-full rounded" src={sub.image} />
       </div>
-      <div className="flex flex-col">
-        <h2 className="pt-16 pl-10 text-2xl">{sub.subName}</h2>
+      <div className="flex flex-col justify-around pb-6 w-2/3">
+        <h2 className="pt-5 pl-10 text-2xl text-bold font-bold">
+          {sub.subName}
+        </h2>
+        <h3 className="pl-10 pr-4 pt-3 text-md">{sub.description}</h3>
         <Link to={"/create"} state={{ subcat: sub }}>
-          <button className="border-2 border-black rounded px-3 w-28 ml-10 mt-5">
+          <button className="bg-cyan-700 text-white font-bold hover:bg-cyan-900 py-2 rounded px-3 w-28 ml-10 mt-5">
             Book Now
           </button>
         </Link>
