@@ -26,7 +26,7 @@ function PickATaskee() {
 
   console.log("test", filteredBySkill);
   return (
-    <div className="flex-col lg:flex lg:flex-row min-w-screen lg:mx-5 xl:mx-10 2xl:mx-16">
+    <div className="flex-col lg:flex lg:flex-row min-w-screen lg:mx-5 xl:mx-20 2xl:mx-44 bg-slate-100">
       <div className="lg:bg-slate-400 lg:w-1/3 lg:mr-3 xl:mr-5 lg:mt-5 lg:h-80">
         <div className=""></div>
       </div>

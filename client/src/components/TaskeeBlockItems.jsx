@@ -8,55 +8,58 @@ function TaskeeBlockItems({ taskee }) {
   return (
     <div
       key={taskee.id}
-      className="border-2 rounded flex my-5 mx-5 h-80 lg:w-full lg:mr-5 md:bg-red-400 sm:bg-blue-400 lg:bg-yellow-300 xl:bg-purple-500 2xl:bg-green-500"
+      className="border-2 rounded my-5 mx-5 min-h-min lg:w-full lg:mr-5 bg-white shadow-md"
     >
-      <div className="text-center w-40 lg:w-56">
-        <img
-          src={taskee.photo}
-          alt={taskee.lName}
-          className="rounded-full h-30 w-36 mt-3 ml-5 lg:w-48 lg:h-48"
-        />
-        <button
-          onClick={() => setButtonPopup(true)}
-          className="rounded-full bg-orange-400 mt-5 ml-8 p-2"
-        >
-          View Profile
-        </button>
-      </div>
-      <div className="flex-col ml-10 w-3/4">
-        <div className="flex justify-between pr-5 mt-3 w-full">
-          <h3 className="text-xl lg:text-2xl">
-            {taskee.fName} {taskee.lName}
-          </h3>
-          <h3 className="text-xl lg:text-2xl">
-            ${taskee.Skills.map((skill) => skill.price) / 100} / hr
-          </h3>
-        </div>
-        <div className={`my-4 ${buttonPopup === true ? "hidden" : ""}`}>
-          <StarRatings
-            rating={
-              taskee.TaskeeReview.reduce(
-                (acc, curr) => (acc += curr.rating),
-                0
-              ) / taskee.TaskeeReview.length
-            }
-            starRatedColor="gold"
-            numberOfStars={5}
-            starDimension="25px"
-            starSpacing="1px"
+      <div className="h-1/2 w-full flex justify-around sm:justify-normal">
+        <div className="text-center flex px-3 items-center sm:mb-4">
+          <img
+            src={taskee.photo}
+            alt={taskee.lName}
+            className="rounded-full h-30 w-36 lg:w-48 lg:h-48"
           />
         </div>
-        <div className="bg-slate-200 mr-3 rounded h-32">
-          <h3 className="mt-10 text-xl p-2">Experience:</h3>
+        <div className="flex flex-col justify-around mt-3 sm:mr-16 sm:ml-24 sm:justify-between">
+          <div className="sm:flex">
+            <h3 className="text-xl lg:text-2xl font-bold">
+              {taskee.fName} {taskee.lName}
+            </h3>
+            <h3 className="text-xl lg:text-2xl pt-3 sm:pt-0 sm:ml-10">
+              ${taskee.Skills.map((skill) => skill.price) / 100} / hr
+            </h3>
+          </div>
+          <div className={`my-4 ${buttonPopup === true ? "hidden" : ""}`}>
+            <StarRatings
+              rating={
+                taskee.TaskeeReview.reduce(
+                  (acc, curr) => (acc += curr.rating),
+                  0
+                ) / taskee.TaskeeReview.length
+              }
+              starRatedColor="gold"
+              numberOfStars={5}
+              starDimension="25px"
+              starSpacing="1px"
+            />
+          </div>
+          <button
+            onClick={() => setButtonPopup(true)}
+            className="rounded-full bg-cyan-700 text-white font-bold hover:bg-cyan-900 mb-2 mr-3 py-2 w-40"
+          >
+            View Profile
+          </button>
+        </div>
+      </div>
+
+      <div className="w-full flex flex-col h-1/2">
+        <div className="bg-slate-200 mx-3 rounded h-32">
+          <h3 className="pt-2 text-xl p-2">Experience:</h3>
           <p className="p-2">
             {taskee.Skills.map((skill) => skill.experience)}
           </p>
         </div>
-        <div className="text-center">
-          <button className="rounded-full bg-green-400 py-2 px-5 mt-3">
-            Select Taskee
-          </button>
-        </div>
+        <button className="rounded-full bg-cyan-700 text-white font-bold hover:bg-cyan-900 py-2 px-5 my-3 mx-3">
+          Select Taskee
+        </button>
       </div>
       <ProfilePopup trigger={buttonPopup} setTrigger={setButtonPopup}>
         <div className="flex">

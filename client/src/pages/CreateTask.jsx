@@ -51,7 +51,9 @@ function CreateTask({ sub }) {
 
   return (
     <div className="bg-slate-100 pt-7">
-      <h1 className="text-3xl font-bold pl-4 pb-8">{state.subcat.subName}</h1>
+      <h1 className="text-3xl font-bold pl-4 pb-8 xl:pl-0  xl:w-4/5 mx-auto">
+        {state.subcat.subName}
+      </h1>
       <form onSubmit={(e) => handleCreateTask(e)}>
         {/* STARTING ADDRESS */}
         <div className="border  mx-4 pb-8 rounded bg-white shadow xl:w-4/5 xl:mx-auto">
