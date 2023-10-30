@@ -13,6 +13,10 @@ const ImageUpload = () => {
 					uploadPreset: "mundane",
 				},
 				(err, result) => {
+					if (err) {
+						console.error(err.message);
+						return new Error(err.message);
+					}
 					console.log(`result: `, result);
 				}
 			);
@@ -22,7 +26,7 @@ const ImageUpload = () => {
 	return (
 		<div>
 			<button
-				className="btn"
+				className="btn border-2 border-black p-2"
 				onClick={() => widgetRef.current.open()}>
 				Upload an Avatar
 			</button>
