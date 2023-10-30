@@ -9,6 +9,7 @@ import AllTaskers from "./pages/AllTaskers";
 import SingleTasker from "./pages/SingleTasker";
 import SingleCategory from "./pages/SingleCategory";
 import Calendar from "./components/Calendar";
+import ImageUpload from "./components/ImageUpload";
 
 import ViewSked from "./pages/ViewSked";
 import { useSelector } from "react-redux";

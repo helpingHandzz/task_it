@@ -9,53 +9,48 @@ const SALT_ROUNDS = 5;
 const fileUploadAvatars = require("../middleware/file-upload");
 
 // login handler for taskee
-router.post(
-	"/login",
-	fileUploadAvatars.single(""),
-	async (req, res, next) => {
-		const { email, password: plainPassword } = req.body;
+router.post("/login", async (req, res, next) => {
+	const { email, password: plainPassword } = req.body;
 
-		try {
-			const foundUser =
-				await prismaClient.taskee.findUnique({
-					where: {
-						email,
-					},
-				});
+	try {
+		const foundUser = await prismaClient.taskee.findUnique({
+			where: {
+				email,
+			},
+		});
 
-			if (!foundUser) {
-				res.status(404).json({
-					message: "User not found!",
-				});
-			}
-
-			const { password } = foundUser;
-
-			console.log(`foundUser: `, foundUser);
-
-			const validPassword = await bcrypt.compare(
-				plainPassword,
-				password
-			);
-
-			if (!validPassword) {
-				res.status(404).json({
-					message: "Invalid password",
-				});
-			}
-
-			const token = jwt.sign(
-				foundUser.email,
-				process.env.JWT
-			);
-
-			res.status(200).json({ ...foundUser, token });
-		} catch (error) {
-			console.error(error.message);
-			next(error);
+		if (!foundUser) {
+			res.status(404).json({
+				message: "User not found!",
+			});
 		}
+
+		const { password } = foundUser;
+
+		console.log(`foundUser: `, foundUser);
+
+		const validPassword = await bcrypt.compare(
+			plainPassword,
+			password
+		);
+
+		if (!validPassword) {
+			res.status(404).json({
+				message: "Invalid password",
+			});
+		}
+
+		const token = jwt.sign(
+			foundUser.email,
+			process.env.JWT
+		);
+
+		res.status(200).json({ ...foundUser, token });
+	} catch (error) {
+		console.error(error.message);
+		next(error);
 	}
-);
+});
 
 // register handler for taskee
 router.post(

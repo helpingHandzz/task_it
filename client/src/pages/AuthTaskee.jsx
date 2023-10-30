@@ -6,11 +6,12 @@ import {
 	registerTaskeeThunk,
 } from "../store/auth";
 import { useSelector, useDispatch } from "react-redux";
+import ImageUpload from "../components/ImageUpload";
+import { AdvancedImage } from "@cloudinary/react";
 
 const AuthTaskee = () => {
 	const [isLogin, setIsLogin] = useState(true);
 	const [previewSource, setPreviewSource] = useState("");
-	const [fileInputState, setFileInputState] = useState("");
 
 	const navigate = useNavigate();
 	const [credentials, setCredentials] = useState({
@@ -27,12 +28,13 @@ const AuthTaskee = () => {
 
 	const previewAvatar = (img) => {
 		const reader = new FileReader();
-		reader.readAsDataURL(img);
-		reader.onloadend = () => {
-			setPreviewSource(reader.result);
-		};
+		reader.onloadend(() => {
+			setCredentials({
+				...credentials,
+				photo: img,
+			});
+		});
 	};
-
 	const handleFileInputChange = (e) => {
 		const file = e.target.files[0];
 		previewAvatar(file);
@@ -114,9 +116,10 @@ const AuthTaskee = () => {
 	};
 
 	const registerHandler = async (e) => {
-		e.preventDefault(); 
+		e.preventDefault();
 
 		if (!isLogin) {
+			console.log(`credentials: `, credentials);
 			try {
 				dispatch(registerTaskeeThunk(credentials));
 				navigate("/");
@@ -144,27 +147,15 @@ const AuthTaskee = () => {
 				<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 					<form
 						encType="multipart/form-data"
-						className="space-y-6"
+						className="px-4 py-6"
 						onSubmit={registerHandler}>
-						<div className="flex- justify-items-center align-middle">
+						<div className="flex content-center items-center flex-col">
 							<label
-								className="text-2xl text-center"
+								className="text-2xl text-center block"
 								htmlFor="avatar">
 								Choose an Avatar
 							</label>
-							<input
-								type="file"
-								name="avatar"
-								id="avatar"
-								onChange={handleFileInputChange}
-								value={fileInputState}
-							/>
-							{previewSource && (
-								<img
-									src={previewSource}
-									style={{ height: "300px" }}
-								/>
-							)}
+							<ImageUpload className="" />
 						</div>
 						<div>
 							<label
