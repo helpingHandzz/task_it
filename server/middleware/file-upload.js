@@ -16,13 +16,14 @@ const storageAvatars = multer.diskStorage({
 		let destPath = path.join(
 			__dirname,
 			"../",
-			"./uploads/avatars"
+			"./uploads/"
 		);
 		callback(null, destPath);
 	},
 
 	filename: (req, file, callback) => {
 		const extension = MIME_TYPE_MAP[file?.mimetype];
+		console.log(`file: `, file);
 		callback(null, uuidv4() + "." + extension);
 	},
 
@@ -34,3 +35,9 @@ const storageAvatars = multer.diskStorage({
 		callback(error, isValidImage);
 	},
 });
+
+const fileUploadAvatars = multer({
+	storage: storageAvatars,
+});
+
+module.exports = fileUploadAvatars;

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import TaskeeCalChoices from "./TaskeeCalChoices";
 import { useSelector, useDispatch } from "react-redux";
-
 export default function Calendar() {
     const [selectedDates, setSelectedDates] = useState([]);
     const [displayDate, setDisplayDate] = useState(new Date());
@@ -9,39 +8,33 @@ export default function Calendar() {
     const [showTaskeeCalChoices, setShowTaskeeCalChoices] = useState(false);
     const taskeeId = useSelector(state => state.auth.user.taskeeId)
     const dispatch = useDispatch();
-
     const handlePrevMonth = () => {
         setDisplayDate(prevDate => {
             const newDate = new Date(prevDate.getFullYear(), prevDate.getMonth() - 1, 1);
             return newDate;
         });
     }
-    
     const handleNextMonth = () => {
         setDisplayDate(prevDate => {
             const newDate = new Date(prevDate.getFullYear(), prevDate.getMonth() + 1, 1);
             return newDate;
         });
     }
-
     const formatDate = (dateObj) => {
         const year = dateObj.getFullYear();
-        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');  
-        const day = dateObj.getDate().toString().padStart(2, '0');           
+        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+        const day = dateObj.getDate().toString().padStart(2, '0');
         return `${year}-${month}-${day}`;
     }
-
     const handleDayClick = (day) => {
         const today = new Date();
         const selectedDate = new Date(displayDate.getFullYear(), displayDate.getMonth(), day);
         const todayReset = new Date();
         todayReset.setHours(0, 0, 0, 0);
-    
         if (selectedDate >= todayReset) {
             setSelectedDates(prevDates => {
                 const dateString = formatDate(selectedDate);
                 const existingDateIndex = prevDates.findIndex(d => d.date === dateString);
-                
                 if(existingDateIndex > -1){
                     const newDates = [...prevDates];
                     newDates.splice(existingDateIndex, 1)
@@ -52,25 +45,21 @@ export default function Calendar() {
             });
             setShowTaskeeCalChoices(true);
         }
-    } 
-
+    }
     const isInPast = (day) => {
         const dateToCheck = new Date(displayDate.getFullYear(), displayDate.getMonth(), day);
         const todayReset = new Date();
         todayReset.setHours(0, 0, 0, 0);
         return dateToCheck < todayReset;
     };
-
     const isDateSelected = (day) => {
         const checkDateString = formatDate(new Date(displayDate.getFullYear(), displayDate.getMonth(), day));
         return selectedDates.some(d => d.date === checkDateString);
     }
-
     const daysInMonth = new Date(displayDate.getFullYear(), displayDate.getMonth() + 1, 0).getDate();
     const daysArray = Array.from({ length: daysInMonth }, (_, index) => index + 1);
     const firstDayOfWeek = new Date(displayDate.getFullYear(), displayDate.getMonth(), 1).getDay();
     const today = new Date().getDate();
-
     return (
         <>
             <div className="flex items-center justify-center py-8 px-4">
@@ -139,29 +128,27 @@ export default function Calendar() {
                                                 const day = rowIndex * 7 + dayIndex + 1 - firstDayOfWeek;
                                                 const isCurrentMonth = displayDate.getMonth() === new Date().getMonth();
                                                 const isCurrentDay = day === today && isCurrentMonth;
-
                                                 return (
                                                     <td key={day}>
                                                         {day > 0 && day <= daysInMonth && (
-                                                            <div 
+                                                            <div
                                                             className={
-                                                                `px-4 py-4 cursor-pointer flex w-full justify-center rounded 
-                                                                ${isDateSelected(day) ? 'bg-blue-500' : ''} 
+                                                                `px-4 py-4 cursor-pointer flex w-full justify-center rounded
+                                                                ${isDateSelected(day) ? 'bg-blue-500' : ''}
                                                                 ${isCurrentDay ? 'bg-blue-200' : ''}`
                                                             }
                                                                 onClick={() => handleDayClick(day)}
                                                                     >
                                                                 <p className={
-                                                                     `text-2xl 
-                                                                     ${isDateSelected(day) ? 'text-white' : 'text-gray-500'} 
-                                                                     dark:text-gray-100 font-medium 
+                                                                     `text-2xl
+                                                                     ${isDateSelected(day) ? 'text-white' : 'text-gray-500'}
+                                                                     dark:text-gray-100 font-medium
                                                                      ${isInPast(day) ? 'text-red-900 line-through' : ''}`
                                                                 }
-                                                                    
                                                                     >
                                                                         {day}
                                                                         </p>
-                                                            </div>    
+                                                            </div>
                                                         )}
                                                     </td>
                                                 );
@@ -175,7 +162,6 @@ export default function Calendar() {
                     </div>
                 </div>
             </div>
-
         </>
     );
 }

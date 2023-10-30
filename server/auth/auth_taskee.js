@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const prismaClient = new PrismaClient();
 const SALT_ROUNDS = 5;
+const fileUploadAvatars = require("../middleware/file-upload");
 
 // login handler for taskee
 router.post("/login", async (req, res, next) => {
@@ -52,63 +53,71 @@ router.post("/login", async (req, res, next) => {
 });
 
 // register handler for taskee
-router.post("/register", async (req, res, next) => {
-	const {
-		fName,
-		lName,
-		email,
-		password,
-		phone,
-		city,
-		state,
-	} = req.body;
-
-	const photo = "";
-
-	try {
-		const hashedPassword = await bcrypt.hash(
+router.post(
+	"/register",
+	fileUploadAvatars.single("avatar"),
+	async (req, res, next) => {
+		const {
+			fName,
+			lName,
+			email,
 			password,
-			SALT_ROUNDS
-		);
+			phone,
+			city,
+			state,
+		} = req.body;
 
-		// checks to see if user is already logged in with the same email
-		const foundUser = await prismaClient.tasker.findUnique({
-			where: {
-				email,
-			},
-		});
+		const photo = "";
 
-		if (foundUser) {
-			res.status(500).json({
-				message: "User already exists!",
+		// console.log(`req: `, req?.file, req.body);
+		console.log(`req.file: `, req);
+
+		try {
+			const hashedPassword = await bcrypt.hash(
+				password,
+				SALT_ROUNDS
+			);
+
+			// checks to see if user is already logged in with the same email
+			const foundUser =
+				await prismaClient.tasker.findUnique({
+					where: {
+						email,
+					},
+				});
+
+			if (foundUser) {
+				res.status(500).json({
+					message: "User already exists!",
+				});
+			}
+
+			const createdUser = await prismaClient.taskee.create({
+				data: {
+					fName,
+					lName,
+					email,
+					password: hashedPassword,
+					phone,
+					city,
+					state,
+					photo,
+				},
 			});
+
+			const token = jwt.sign(
+				createdUser.email,
+				process.env.JWT
+			);
+
+			// res.status(201).send({
+			// 	createdUser: { ...createdUser, token },
+			// });
+		} catch (error) {
+			console.error(error.message);
+			next(error);
 		}
-
-		const createdUser = await prismaClient.taskee.create({
-			data: {
-				fName,
-				lName,
-				email,
-				password: hashedPassword,
-				phone,
-				city,
-				state,
-				photo,
-			},
-		});
-
-		const token = jwt.sign(
-			createdUser.email,
-			process.env.JWT
-		);
-
-		res.status(201).json({
-			createdUser: { ...createdUser, token },
-		});
-	} catch (error) {
-		console.error(error.message);
-		next(error);
 	}
-});
+);
 
 module.exports = router;
