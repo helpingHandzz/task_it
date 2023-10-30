@@ -123,16 +123,33 @@ export const deleteTaskeeReviewThunk = (id) => async (dispatch) => {
 };
 
 // POST TASKEE WORK SCHEDULE
-export const postTaskeeScheduleThunk = (taskeeId, workSchedule) => async (dispatch) => {
+export const postTaskeeScheduleThunk = (taskeeId, workSchedules) => async (dispatch) => {
+  
+  console.log("Taskee Id", taskeeId)
+  console.log("WorkSchedules", workSchedules)
+  
   try {
+
+    const payload = {
+      taskeeId: taskeeId,
+      workSchedules: workSchedules  
+    };
+
+   
+
+    console.log('Sending payload:', payload); 
+
     const { data: schedule } = await axios.post(
-      `${BASE_URL}/api/taskee/schedule/new`, {taskeeId, workSchedule}
+      `${BASE_URL}/api/taskee/schedule/new`, payload
     );
+
     return dispatch(postTaskeeSchedule(schedule))
   } catch (error) {
     console.error(error);
   }
+
 };
+
 
 
 const initialState = {
@@ -152,7 +169,7 @@ export default function (state = initialState, action) {
     case GET_TASKEE_REVIEWS:
       return { ...state, taskeeReviews: action.payload };
     case POST_TASKEE_REVIEW:
-      state.taskeeReviews.push(action.payload);
+      state.taskeeReviews.push(action.payload);  
       return state;
     case EDIT_TASKEE_REVIEW:
       return {
@@ -168,8 +185,10 @@ export default function (state = initialState, action) {
         ),
       };
       case POST_TASKEE_SCHEDULE:
-        state.workSchedule.push(action.payload);
-        return state;
+        return {
+          ...state, 
+          workSchedule: [...state.workSchedule,action.payload],
+        }
     default:
       return state;
   }

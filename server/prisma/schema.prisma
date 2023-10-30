@@ -31,20 +31,29 @@ model TaskerReview {
 }
 
 model Taskee {
-  id           Int            @id @default(autoincrement())
-  fName        String
-  lName        String
-  email        String         @unique
-  password     String
-  phone        String
-  photo        String
-  city         String
-  state        String
-  workSchedule String[]
-  TaskeeReview TaskeeReview[]
-  Skills       Skills[]
-  Task         Task[]
-  TaskerReview TaskerReview[]
+  id            Int            @id @default(autoincrement())
+  fName         String
+  lName         String
+  email         String         @unique
+  password      String
+  phone         String
+  photo         String
+  city          String
+  state         String
+  workSchedules WorkSchedule[]
+  TaskeeReview  TaskeeReview[]
+  Skills        Skills[]
+  Task          Task[]
+  TaskerReview  TaskerReview[]
+}
+
+model WorkSchedule {
+  id        Int      @id @default(autoincrement())
+  date      String
+  startTime DateTime
+  endTime   DateTime
+  taskeeId  Int
+  taskee    Taskee   @relation(fields: [taskeeId], references: [id])
 }
 
 model TaskeeReview {
@@ -66,13 +75,14 @@ model Category {
 }
 
 model Subcategory {
-  id         Int      @id @default(autoincrement())
-  subName    String
-  categoryId Int
-  image      String
-  category   Category @relation(fields: [categoryId], references: [id])
-  Skills     Skills[]
-  Task       Task[]
+  id          Int      @id @default(autoincrement())
+  subName     String
+  categoryId  Int
+  description String
+  image       String
+  category    Category @relation(fields: [categoryId], references: [id])
+  Skills      Skills[]
+  Task        Task[]
 }
 
 model Skills {
