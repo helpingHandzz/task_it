@@ -7,7 +7,11 @@ router.get("/", async (req, res, next) => {
   try {
     const allCategories = await prisma.category.findMany({
       include: {
-        Subcategory: true,
+        Subcategory: {
+          include: {
+            Skills: true,
+          },
+        },
       },
     });
     res.send(allCategories);
