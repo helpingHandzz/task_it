@@ -36,6 +36,7 @@ export default function Calendar() {
         const selectedDate = new Date(displayDate.getFullYear(), displayDate.getMonth(), day);
         const todayReset = new Date();
         todayReset.setHours(0, 0, 0, 0);
+        console.log('Inside handleDayClick, taskeeId:', taskeeId, 'taskerId:', taskerId);
 
         if (selectedDate >= todayReset) {
             setSelectedDates(prevDates => {
@@ -52,10 +53,9 @@ export default function Calendar() {
             });
             if (taskeeId) {
                 setShowTaskeeCalChoices(true); 
-                setShowTaskeeCalChoices(false); 
             } else if (taskerId) {
                 setShowTaskerCalChoices(true);
-                setShowTaskerCalChoices(false);
+                console.log("ShowTaskerChoice", showTaskerCalChoices);
             }
         }
     }

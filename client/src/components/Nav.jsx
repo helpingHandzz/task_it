@@ -49,6 +49,14 @@ function Nav() {
 						{"|"}
 					</section>
 					<Link
+						className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
+						to={"/calendar"}>
+						Calendar
+					</Link>
+					<section className="flex flex-col justify-center mr-5">
+						{"|"}
+					</section>
+					<Link
 						className="flex flex-col justify-center mr-3 text-xl font-bold  hover:text-cyan-700"
 						onClick={logout}>
 						Logout
