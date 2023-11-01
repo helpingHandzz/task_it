@@ -14,11 +14,12 @@ import ViewSked from "./pages/ViewSked";
 import CreateTask from "./pages/CreateTask";
 import PickATaskee from "./pages/PickATaskee";
 import BookingPage from "./pages/BookingPage";
+import { useSelector } from "react-redux";
 
 function App() {
-  const token = window.localStorage.getItem("token")
-    ? window.localStorage.getItem("token")
-    : null;
+
+  const token = useSelector((state) => state.auth.user.token);
+  console.log("app token", token);
 
   if (token) {
     return (
