@@ -17,8 +17,10 @@ import BookingPage from "./pages/BookingPage";
 import { useSelector } from "react-redux";
 
 function App() {
+
   const token = useSelector((state) => state.auth.user.token);
   console.log("app token", token);
+
   if (token) {
     return (
       <section className="pt-14">

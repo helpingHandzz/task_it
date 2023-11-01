@@ -18,6 +18,7 @@ function Nav() {
     navigate("/");
   };
 
+
   // if token is present, render Navbar with Logout
   if (token) {
     return (
@@ -50,6 +51,7 @@ function Nav() {
       </nav>
     );
   }
+
 
   return (
     <nav className="h-14 bg-amber-100 w-full flex justify-between fixed">

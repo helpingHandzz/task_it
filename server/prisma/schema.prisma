@@ -109,6 +109,8 @@ model Task {
   assignedTo        Int?
   taskee            Taskee?     @relation(fields: [assignedTo], references: [id])
   estTimeCommitment Int
+  startTime         DateTime
+  
   startingStreet    String
   startingCity      String
   startingState     String
