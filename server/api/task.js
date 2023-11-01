@@ -152,6 +152,7 @@ router.put("/edit/:id", verify, async (req, res, next) => {
       vehicleRequired,
       isAssigned,
       estTimeCommitment,
+      startTime,
       startingStreet,
       startingCity,
       startingState,
@@ -163,6 +164,7 @@ router.put("/edit/:id", verify, async (req, res, next) => {
       endingZip,
       endingSuite,
     } = req.body;
+
     const updatedTask = await prisma.task.update({
       where: { id: parseInt(id) },
       data: {
@@ -173,6 +175,7 @@ router.put("/edit/:id", verify, async (req, res, next) => {
         vehicleRequired,
         isAssigned,
         estTimeCommitment,
+        startTime,
         startingStreet,
         startingCity,
         startingState,

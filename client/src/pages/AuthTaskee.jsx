@@ -7,7 +7,7 @@ import {
 } from "../store/auth";
 import { useSelector, useDispatch } from "react-redux";
 import ImageUpload from "../components/ImageUpload";
-import { AdvancedImage } from "@cloudinary/react";
+
 
 const AuthTaskee = () => {
 	const [isLogin, setIsLogin] = useState(true);
