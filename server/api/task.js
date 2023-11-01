@@ -145,6 +145,7 @@ router.put("/edit/:id", verify, async (req, res, next) => {
 
     const { id } = req.params;
     const {
+      assignedTo,
       taskerId,
       subcategoryId,
       description,
@@ -169,6 +170,7 @@ router.put("/edit/:id", verify, async (req, res, next) => {
       where: { id: parseInt(id) },
       data: {
         taskerId,
+        assignedTo,
         subcategoryId,
         description,
         isCompleted,
@@ -186,6 +188,14 @@ router.put("/edit/:id", verify, async (req, res, next) => {
         endingState,
         endingZip,
         endingSuite,
+      },
+      include: {
+        taskee: {
+          include: {
+            Skills: true,
+          },
+        },
+        subcategory: true,
       },
     });
     res.status(201).json(updatedTask);

@@ -5,7 +5,6 @@ import { postTaskThunk } from "../store/task";
 
 function CreateTask({ sub }) {
   let { state } = useLocation();
-  console.log("subcat", state.subcat);
   const dispatch = useDispatch();
   //STARTING
   const [startStreet, setStartStreet] = useState("");
@@ -25,8 +24,8 @@ function CreateTask({ sub }) {
   const [estTimeCommit, setEstTimeCommit] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleCreateTask = (e) => {
-    e.preventDefault();
+  const handleCreateTask = () => {
+    // e.preventDefault();
     dispatch(
       postTaskThunk({
         subcategoryId: state.subcat.id,
@@ -54,7 +53,7 @@ function CreateTask({ sub }) {
       <h1 className="text-3xl font-bold pl-4 pb-8 xl:pl-0  xl:w-4/5 mx-auto">
         {state.subcat.subName}
       </h1>
-      <form onSubmit={(e) => handleCreateTask(e)}>
+      <form>
         {/* STARTING ADDRESS */}
         <div className="border  mx-4 pb-8 rounded bg-white shadow xl:w-4/5 xl:mx-auto">
           <h2 className="text-center my-8 text-3xl">Starting Address</h2>
@@ -182,12 +181,9 @@ function CreateTask({ sub }) {
             />
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center" onClick={handleCreateTask}>
           <Link to={"/pick"} state={{ subcat: state.subcat }}>
-            <button
-              type="submit"
-              className="my-8 bg-cyan-700 text-white font-bold hover:bg-cyan-900 rounded-full px-5 py-2"
-            >
+            <button className="my-8 bg-cyan-700 text-white font-bold hover:bg-cyan-900 rounded-full px-5 py-2">
               Continue
             </button>
           </Link>
