@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 function SubCategoryItem({ sub }) {
-  console.log("sub", sub);
   return (
     <div className="flex h-64 border shadow-md m-5 bg-white rounded">
       <div className=" w-1/3 self-center pl-3 rounded">

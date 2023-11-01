@@ -80,7 +80,12 @@ export const editTaskThunk = (data) => async (dispatch) => {
   try {
     const { data: task } = await axios.put(
       `${BASE_URL}/api/task/edit/${data.id}`,
-      data
+      data,
+      {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      }
     );
     return dispatch(editTask(task));
   } catch (error) {
@@ -103,6 +108,7 @@ export const deleteTaskThunk = (id) => async (dispatch) => {
 const initialState = {
   allTasks: [],
   singleTask: {},
+  postedTask: {},
 };
 
 export default function (state = initialState, action) {
@@ -112,14 +118,9 @@ export default function (state = initialState, action) {
     case GET_TASK:
       return { ...state, singleTask: action.payload };
     case POST_TASK:
-      state.allTasks.push(action.payload);
-      return state;
+      return { ...state, postedTask: action.payload };
     case EDIT_TASK:
-      return {
-        allTasks: state.allTasks.map((task) =>
-          task.id === action.payload.id ? action.payload : task
-        ),
-      };
+      return { ...state, postedTask: action.payload };
     case DELETE_TASK:
       return {
         ...state,

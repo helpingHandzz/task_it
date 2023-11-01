@@ -1,10 +1,27 @@
 import { useState } from "react";
 import StarRatings from "react-star-ratings";
 import ProfilePopup from "./ProfilePopup";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { editTaskThunk } from "../store/task";
+import { useSelector } from "react-redux";
 
 function TaskeeBlockItems({ taskee }) {
   const [buttonPopup, setButtonPopup] = useState(false);
-  console.log("popup", buttonPopup);
+  const dispatch = useDispatch();
+  const currentTask = useSelector((state) => state.task.postedTask);
+  console.log("currentTask", currentTask);
+  console.log("taskee id", taskee.id);
+  const handleUpdateTask = () => {
+    dispatch(
+      editTaskThunk({
+        ...currentTask,
+        assignedTo: taskee.id,
+        isAssigned: true,
+      })
+    );
+  };
+
   return (
     <div
       key={taskee.id}
@@ -57,9 +74,13 @@ function TaskeeBlockItems({ taskee }) {
             {taskee.Skills.map((skill) => skill.experience)}
           </p>
         </div>
-        <button className="rounded-full bg-cyan-700 text-white font-bold hover:bg-cyan-900 py-2 px-5 my-3 mx-3">
-          Select Taskee
-        </button>
+        <div onClick={handleUpdateTask}>
+          <Link to={"/booking"}>
+            <button className="rounded-full bg-cyan-700 text-white font-bold hover:bg-cyan-900 py-2 px-5 my-3 mx-3">
+              Select Taskee
+            </button>
+          </Link>
+        </div>
       </div>
       <ProfilePopup trigger={buttonPopup} setTrigger={setButtonPopup}>
         <div className="flex">

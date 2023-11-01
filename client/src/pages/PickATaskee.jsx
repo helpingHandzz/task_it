@@ -9,6 +9,7 @@ function PickATaskee() {
   const dispatch = useDispatch();
 
   const taskees = useSelector((state) => state.taskee.allTaskees);
+
   useEffect(() => {
     dispatch(getTaskeesThunk());
   }, []);
@@ -24,7 +25,6 @@ function PickATaskee() {
     (taskee) => taskee.Skills.length > 0
   );
 
-  console.log("test", filteredBySkill);
   return (
     <div className="flex-col lg:flex lg:flex-row min-w-screen lg:mx-5 xl:mx-20 2xl:mx-44 bg-slate-100">
       <div className="lg:bg-slate-400 lg:w-1/3 lg:mr-3 xl:mr-5 lg:mt-5 lg:h-80">
