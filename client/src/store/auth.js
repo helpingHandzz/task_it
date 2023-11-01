@@ -68,6 +68,7 @@ export const loginTaskerThunk =
 					token,
 					isTasker: true,
 					isTaskee: false,
+					taskerId: data.id,
 				})
 			);
 		} catch (error) {

@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import TaskeeCalChoices from "./TaskeeCalChoices";
+import TaskerCalChoices from "./TaskerCalChoices";
 import { useSelector, useDispatch } from "react-redux";
+
+
 export default function Calendar() {
     const [selectedDates, setSelectedDates] = useState([]);
     const [displayDate, setDisplayDate] = useState(new Date());
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const [showTaskeeCalChoices, setShowTaskeeCalChoices] = useState(false);
+    const [showTaskerCalChoices, setShowTaskerCalChoices] = useState(false);
     const taskeeId = useSelector(state => state.auth.user.taskeeId)
-    const dispatch = useDispatch();
+    const taskerId = useSelector(state => state.auth.user.taskerId)
+
     const handlePrevMonth = () => {
         setDisplayDate(prevDate => {
             const newDate = new Date(prevDate.getFullYear(), prevDate.getMonth() - 1, 1);
@@ -31,10 +36,13 @@ export default function Calendar() {
         const selectedDate = new Date(displayDate.getFullYear(), displayDate.getMonth(), day);
         const todayReset = new Date();
         todayReset.setHours(0, 0, 0, 0);
+        console.log('Inside handleDayClick, taskeeId:', taskeeId, 'taskerId:', taskerId);
+
         if (selectedDate >= todayReset) {
             setSelectedDates(prevDates => {
                 const dateString = formatDate(selectedDate);
                 const existingDateIndex = prevDates.findIndex(d => d.date === dateString);
+                
                 if(existingDateIndex > -1){
                     const newDates = [...prevDates];
                     newDates.splice(existingDateIndex, 1)
@@ -43,23 +51,32 @@ export default function Calendar() {
                     return [...prevDates, { date: dateString, startTime: '', endTime: ''}];
                 }
             });
-            setShowTaskeeCalChoices(true);
+            if (taskeeId) {
+                setShowTaskeeCalChoices(true); 
+            } else if (taskerId) {
+                setShowTaskerCalChoices(true);
+                console.log("ShowTaskerChoice", showTaskerCalChoices);
+            }
         }
     }
+
     const isInPast = (day) => {
         const dateToCheck = new Date(displayDate.getFullYear(), displayDate.getMonth(), day);
         const todayReset = new Date();
         todayReset.setHours(0, 0, 0, 0);
         return dateToCheck < todayReset;
     };
+
     const isDateSelected = (day) => {
         const checkDateString = formatDate(new Date(displayDate.getFullYear(), displayDate.getMonth(), day));
         return selectedDates.some(d => d.date === checkDateString);
     }
+
     const daysInMonth = new Date(displayDate.getFullYear(), displayDate.getMonth() + 1, 0).getDate();
     const daysArray = Array.from({ length: daysInMonth }, (_, index) => index + 1);
     const firstDayOfWeek = new Date(displayDate.getFullYear(), displayDate.getMonth(), 1).getDay();
     const today = new Date().getDate();
+    
     return (
         <>
             <div className="flex items-center justify-center py-8 px-4">
@@ -159,6 +176,7 @@ export default function Calendar() {
                             </table>
                         </div>
                         {showTaskeeCalChoices && <TaskeeCalChoices taskeeId={taskeeId} selectedDates={selectedDates} showErrorMessage={showErrorMessage} />}
+                        {showTaskerCalChoices && <TaskerCalChoices taskerId={taskerId} selectedDates={selectedDates} showErrorMessage={showErrorMessage} />}
                     </div>
                 </div>
             </div>
