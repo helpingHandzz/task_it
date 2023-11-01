@@ -21,7 +21,7 @@ app.use("/auth", require("./auth"));
 app.use("/api", require("./api"));
 
 app.listen(PORT, () => {
-	console.log("On port" + PORT);
+	console.log("\n LISTENING ON PORT " + PORT);
 });
 
 app.use((err, req, res, next) => {
