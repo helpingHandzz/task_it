@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { editTaskThunk } from "../store/task";
 import { useSelector } from "react-redux";
+import CalendarPopup from "./CalendarPopup";
 
 function TaskeeBlockItems({ taskee }) {
-  const [buttonPopup, setButtonPopup] = useState(false);
+  const [profileButtonPopup, setProfileButtonPopup] = useState(false);
+  const [calendarButtonPopup, setCalendarButtonPopup] = useState(false);
   const dispatch = useDispatch();
   const currentTask = useSelector((state) => state.task.postedTask);
   console.log("currentTask", currentTask);
@@ -44,7 +46,9 @@ function TaskeeBlockItems({ taskee }) {
               ${taskee.Skills.map((skill) => skill.price) / 100} / hr
             </h3>
           </div>
-          <div className={`my-4 ${buttonPopup === true ? "hidden" : ""}`}>
+          <div
+            className={`my-4 ${profileButtonPopup === true ? "hidden" : ""}`}
+          >
             <StarRatings
               rating={
                 taskee.TaskeeReview.reduce(
@@ -59,7 +63,7 @@ function TaskeeBlockItems({ taskee }) {
             />
           </div>
           <button
-            onClick={() => setButtonPopup(true)}
+            onClick={() => setProfileButtonPopup(true)}
             className="rounded-full bg-cyan-700 text-white font-bold hover:bg-cyan-900 mb-2 mr-3 py-2 w-40"
           >
             View Profile
@@ -75,14 +79,18 @@ function TaskeeBlockItems({ taskee }) {
           </p>
         </div>
         <div onClick={handleUpdateTask}>
-          <Link to={"/booking"}>
-            <button className="rounded-full bg-cyan-700 text-white font-bold hover:bg-cyan-900 py-2 px-5 my-3 mx-3">
-              Select Taskee
-            </button>
-          </Link>
+          <button
+            className="rounded-full bg-cyan-700 text-white font-bold hover:bg-cyan-900 py-2 px-5 my-3 mx-3"
+            onClick={() => setCalendarButtonPopup(true)}
+          >
+            Select Taskee
+          </button>
         </div>
       </div>
-      <ProfilePopup trigger={buttonPopup} setTrigger={setButtonPopup}>
+      <ProfilePopup
+        trigger={profileButtonPopup}
+        setTrigger={setProfileButtonPopup}
+      >
         <div className="flex">
           <img
             src={taskee.photo}
@@ -140,6 +148,11 @@ function TaskeeBlockItems({ taskee }) {
           ))}
         </div>
       </ProfilePopup>
+      <CalendarPopup
+        trigger={calendarButtonPopup}
+        setTrigger={setCalendarButtonPopup}
+        currentTask={currentTask}
+      ></CalendarPopup>
     </div>
   );
 }
