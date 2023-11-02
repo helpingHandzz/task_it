@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { editTaskThunk } from "../store/task";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function TaskerCalChoices({ selectedDates, currentTask }) {
   console.log("currTask", currentTask);
@@ -78,12 +79,16 @@ export default function TaskerCalChoices({ selectedDates, currentTask }) {
               </select>
             </div>
             <div className="flex justify-center items-center mt-5">
-              <button
-                onClick={handleSetSchedule}
-                className="setButton rounded-md text-2xl font-medium bg-blue-500 p-3 text-white hover:drop-shadow-2xl"
-              >
-                CONTINUE
-              </button>
+              <div onClick={handleSetSchedule}>
+                <Link to={"/booking"}>
+                  <button
+                    onClick={handleSetSchedule}
+                    className="setButton rounded-md text-2xl font-medium bg-blue-500 p-3 text-white hover:drop-shadow-2xl"
+                  >
+                    CONTINUE
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
