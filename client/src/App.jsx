@@ -19,10 +19,10 @@ import { useSelector } from "react-redux";
 
 function App() {
 
-	const token = useSelector((state) => state.auth.user?.token);
+	  const token = useSelector((state) => state.auth.user?.token);
   	const isTasker = useSelector((state) => state.auth.user?.isTasker);
   	const isTaskee = useSelector((state) => state.auth.user?.isTaskee);
-
+  
 	  return (
       <>
         <Nav
