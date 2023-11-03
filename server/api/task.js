@@ -131,7 +131,7 @@ router.delete("/delete/:id", verify, async (req, res) => {
 router.put("/edit/:id", verify, async (req, res, next) => {
   try {
     const { tasker } = req;
-
+    console.log(req.body);
     // Check if person is tasker
     const foundTasker = await prisma.tasker.findUnique({
       where: { email: tasker },

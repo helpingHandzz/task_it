@@ -12,6 +12,7 @@ function TaskeeBlockItems({ taskee }) {
   const [calendarButtonPopup, setCalendarButtonPopup] = useState(false);
   const dispatch = useDispatch();
   const currentTask = useSelector((state) => state.task.postedTask);
+
   console.log("currentTask", currentTask);
   console.log("taskee id", taskee.id);
   const handleUpdateTask = () => {

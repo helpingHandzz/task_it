@@ -77,6 +77,7 @@ export const postTaskThunk = (data) => async (dispatch) => {
 
 //EDIT TASK
 export const editTaskThunk = (data) => async (dispatch) => {
+  console.log("data", data);
   try {
     const { data: task } = await axios.put(
       `${BASE_URL}/api/task/edit/${data.id}`,
@@ -87,6 +88,7 @@ export const editTaskThunk = (data) => async (dispatch) => {
         },
       }
     );
+    console.log("TASK", task);
     return dispatch(editTask(task));
   } catch (error) {
     console.error(error);

@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import PayButton from "../components/PayButton";
 
 function BookingPage() {
   const currentTask = useSelector((state) => state.task.postedTask);
@@ -23,18 +24,22 @@ function BookingPage() {
     "November",
     "December",
   ];
-  const formattedDate = currentTask.date.split("-");
+  const formattedDate = currentTask.date?.split("-");
+
+  if (!formattedDate) {
+    return <div>LOADING...</div>;
+  }
 
   const amPm =
-    Number(currentTask.startTime.slice(0, 2)) <= 12 ? "A.M." : "P.M.";
+    Number(currentTask.startTime?.slice(0, 2)) <= 12 ? "A.M." : "P.M.";
 
   const formattedTime =
-    Number(currentTask.startTime.slice(0, 2)) <= 12
+    Number(currentTask.startTime?.slice(0, 2)) <= 12
       ? currentTask.startTime
-      : Number(currentTask.startTime.slice(0, 2)) -
+      : Number(currentTask.startTime?.slice(0, 2)) -
         12 +
         ":" +
-        currentTask.startTime.slice(3, 5);
+        currentTask.startTime?.slice(3, 5);
 
   const vehicleRequired = currentTask.vehicleRequired ? "Yes" : "No";
   return (
@@ -56,8 +61,8 @@ function BookingPage() {
         </h2>
         <h1 className="text-2xl font-bold">Date & Time</h1>
         <h2>
-          {months[formattedDate[1] - 1]} {formattedDate[2]}, {formattedDate[0]}{" "}
-          {formattedTime} {amPm}
+          {months[formattedDate[1] - 1]} {formattedDate[2]}th,{" "}
+          {formattedDate[0]} {formattedTime} {amPm}
         </h2>
         <h1 className="text-2xl font-bold">Vehicle Required?</h1>
         <h2>{vehicleRequired}</h2>
@@ -88,6 +93,7 @@ function BookingPage() {
               100
             ).toFixed(2)}
           </h2>
+          <PayButton currentTask={currentTask} />
         </div>
       </div>
     </div>
