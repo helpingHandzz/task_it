@@ -93,7 +93,7 @@ function BookingPage() {
               100
             ).toFixed(2)}
           </h2>
-          <PayButton currentTask={currentTask} />
+          <PayButton currentTask={currentTask} filteredSkill={filtered} />
         </div>
       </div>
     </div>
