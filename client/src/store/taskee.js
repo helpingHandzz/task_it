@@ -5,6 +5,7 @@ const BASE_URL = "http://localhost:8080";
 const GET_TASKEES = "GET_TASKEES";
 const GET_TASKEE = "GET_TASKEE";
 const GET_TASKEE_REVIEWS = "GET_TASKEE_REVIEWS";
+const GET_TASKEE_SCHEDULE = "GET_TASKEE_SCHEDULE";
 const POST_TASKEE_REVIEW = "POST_TASKEE_REVIEW";
 const EDIT_TASKEE_REVIEW = "EDIT_TASKEE_REVIEW";
 const DELETE_TASKEE_REVIEW = "DELETE_TASKEE_REVIEW";
@@ -24,6 +25,11 @@ const getTaskee = (taskee) => ({
 const getTaskeeReviews = (reviews) => ({
 	type: GET_TASKEE_REVIEWS,
 	payload: reviews,
+});
+
+const getTaskeeSchedule = (schedule) => ({
+  type: GET_TASKEE_SCHEDULE,
+  payload: schedule,
 });
 
 const postTaskeeReview = (review) => ({
@@ -81,6 +87,19 @@ export const getTaskeeReviewsThunk = (id) => async (dispatch) => {
     return dispatch(getTaskeeReviews(reviews));
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const getTaskeeScheduleThunk = (id) => async (dispatch) => {
+  try {
+    console.log(`Attempting to fetch schedule for taskee with id: ${id}`);
+    const { data: schedule } = await axios.get(
+      `${BASE_URL}/api/taskee/schedule/${id}`
+    );
+    console.log('Received schedule data:', schedule);
+    return dispatch(getTaskeeSchedule(schedule));
+  } catch (error) {
+    console.error('Error fetching schedule:', error);
   }
 };
 
@@ -168,8 +187,10 @@ export default function (state = initialState, action) {
       return { ...state, singleTaskee: action.payload };
     case GET_TASKEE_REVIEWS:
       return { ...state, taskeeReviews: action.payload };
+    case GET_TASKEE_SCHEDULE:
+      return { ...state, workSchedule: action.payload };
     case POST_TASKEE_REVIEW:
-      state.taskeeReviews.push(action.payload);  
+      state.taskeeReviews.push(action.payload);
       return state;
     case EDIT_TASKEE_REVIEW:
       return {
@@ -184,11 +205,11 @@ export default function (state = initialState, action) {
           (review) => review.id !== action.payload.id
         ),
       };
-      case POST_TASKEE_SCHEDULE:
-        return {
-          ...state, 
-          workSchedule: [...state.workSchedule,action.payload],
-        }
+    case POST_TASKEE_SCHEDULE:
+      return {
+        ...state,
+        workSchedule: [...state.workSchedule, action.payload],
+      };
     default:
       return state;
   }

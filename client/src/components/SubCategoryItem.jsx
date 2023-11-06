@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function SubCategoryItem({ sub }) {
+
+  const isAuthenticated = useSelector((state) => !!state.auth.user?.token)
+
+  const linkTo = isAuthenticated ? "/create" : "/auth_tasker";
+
   return (
     <div className="flex h-64 border shadow-md m-5 bg-white rounded">
       <div className=" w-1/3 self-center pl-3 rounded">
@@ -11,7 +17,7 @@ function SubCategoryItem({ sub }) {
           {sub.subName}
         </h2>
         <h3 className="pl-10 pr-4 pt-3 text-md">{sub.description}</h3>
-        <Link to={"/create"} state={{ subcat: sub }}>
+        <Link to={linkTo} state={{ subcat: sub }}>
           <button className="bg-cyan-700 text-white font-bold hover:bg-cyan-900 py-2 rounded px-3 w-28 ml-10 mt-5">
             Book Now
           </button>
