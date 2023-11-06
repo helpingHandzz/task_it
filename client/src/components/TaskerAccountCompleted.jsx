@@ -1,6 +1,8 @@
-import React from "react";
+import { useState } from "react";
+import ReviewByTaskerPopup from "./ReviewByTaskerPopup";
 
 function TaskerAccountCompleted({ task }) {
+  const [reviewPopupButton, setReviewPopupButton] = useState(false);
   const months = [
     "January",
     "February",
@@ -31,6 +33,8 @@ function TaskerAccountCompleted({ task }) {
         12 +
         ":" +
         task.startTime?.slice(3, 5);
+
+  const vehicleRequired = task.vehicleRequired ? "Yes" : "No";
   return (
     <div key={task.id} className="border shadow-md bg-white m-4">
       <h3>{task.subcategory.subName}</h3>
@@ -75,14 +79,28 @@ function TaskerAccountCompleted({ task }) {
           {task.endingStreet}, {task.endingSuite}, {task.endingCity},{" "}
           {task.endingState} {task.endingZip}
         </h2>
-        <div>
-          <h2>Date & Time</h2>
-          <h2>
-            {months[formattedDate[1] - 1]} {formattedDate[2]}th,{" "}
-            {formattedDate[0]} {formattedTime} {amPm}
-          </h2>
-        </div>
       </div>
+      <div>
+        <h2 className="font-bold">Date & Time</h2>
+        <h2>
+          {months[formattedDate[1] - 1]} {formattedDate[2]}th,{" "}
+          {formattedDate[0]} {formattedTime} {amPm}
+        </h2>
+      </div>
+      <div>
+        <h2 className="font-bold">Vehicle Required?</h2>
+        <h2>{vehicleRequired}</h2>
+      </div>
+      <button
+        onClick={() => setReviewPopupButton(true)}
+        className="rounded-full text-white bg-cyan-700 font-bold hover:bg-cyan-900 p-3"
+      >
+        Review
+      </button>
+      <ReviewByTaskerPopup
+        trigger={reviewPopupButton}
+        setTrigger={setReviewPopupButton}
+      ></ReviewByTaskerPopup>
     </div>
   );
 }
