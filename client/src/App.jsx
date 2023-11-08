@@ -25,73 +25,62 @@ import Vehicles from "./pages/TaskeeProfileOptions/Vehicles";
 import Tools from "./pages/TaskeeProfileOptions/Tools";
 import TaskerAccount from "./pages/TaskerAccount";
 
-
 function App() {
   const token = useSelector((state) => state.auth.user?.token);
   const isTasker = useSelector((state) => state.auth.user?.isTasker);
   const isTaskee = useSelector((state) => state.auth.user?.isTaskee);
 
-
-	  const token = useSelector((state) => state.auth.user?.token);
-  	const isTasker = useSelector((state) => state.auth.user?.isTasker);
-  	const isTaskee = useSelector((state) => state.auth.user?.isTaskee);
-  
-	  return (
-      <>
-        <Nav
-          isAuthenticated={!!token}
-          isTasker={isTasker}
-          isTaskee={isTaskee}
-        />
-        <section className="pt-14">
-          <Routes>
-            {token ? (
-              <>
-                {isTasker && (
-                  <>
-				  {/* Tasker Routes */}
-                    <Route path="/" element={<Home />} />
-                    <Route path="/categories" element={<Categories />} />
-                    <Route path="/categories/:id" element={<SingleCategory />} />
-                    <Route path="/tasks" element={<Tasks />} />
-					          <Route path="/booking" element={<BookingPage />} />
-                    <Route path="/create" element={<CreateTask />} />
-                    <Route path="/pick" element={<PickATaskee />} />
-                    <Route path="/tasker/:id" element={<TaskerAccount />} />
-                  </>
-                )}
-                {isTaskee && (
-                  <>
-				  {/* Taskee Routes */}
-					<Route path="/" element={<Home />} />
-					<Route path="/tasks" element={<Tasks />} />
-                    <Route path="/calendar" element={<Calendar />} />
-					<Route path="/schedule" element={<ViewSked />} />
-					<Route path="/account" element={<TaskeeAccount />} />
-					<Route path="/skills" element={<TaskeeSkills />} />
-					<Route path="/profile" element={<TaskeeProfile />} />
-					<Route path="/tools" element={<Tools />} />
-					<Route path="/about" element={<AboutMe />} />
-					<Route path="/facts" element={<OtherFacts />} />
-					<Route path="/vehicles" element={<Vehicles />} />
-                  </>
-                )}
-              </>
-            ) : (
-              <>
-                {/* Non Logged In Users */}
-                <Route path="/" element={<Home />} />
-                <Route path="/auth_tasker" element={<AuthTasker />} />
-                <Route path="/auth_taskee" element={<AuthTaskee />} />
-                <Route path="/categories" element={<Categories />} />
-                <Route path="/categories/:id" element={<SingleCategory />} />
-              </>
-            )}
-          </Routes>
-        </section>
-      </>
-    );
-
+  return (
+    <>
+      <Nav isAuthenticated={!!token} isTasker={isTasker} isTaskee={isTaskee} />
+      <section className="pt-14">
+        <Routes>
+          {token ? (
+            <>
+              {isTasker && (
+                <>
+                  {/* Tasker Routes */}
+                  <Route path="/" element={<Home />} />
+                  <Route path="/categories" element={<Categories />} />
+                  <Route path="/categories/:id" element={<SingleCategory />} />
+                  <Route path="/tasks" element={<Tasks />} />
+                  <Route path="/booking" element={<BookingPage />} />
+                  <Route path="/create" element={<CreateTask />} />
+                  <Route path="/pick" element={<PickATaskee />} />
+                  <Route path="/tasker/:id" element={<TaskerAccount />} />
+                </>
+              )}
+              {isTaskee && (
+                <>
+                  {/* Taskee Routes */}
+                  <Route path="/" element={<Home />} />
+                  <Route path="/tasks" element={<Tasks />} />
+                  <Route path="/calendar" element={<Calendar />} />
+                  <Route path="/schedule" element={<ViewSked />} />
+                  <Route path="/account" element={<TaskeeAccount />} />
+                  <Route path="/skills" element={<TaskeeSkills />} />
+                  <Route path="/profile" element={<TaskeeProfile />} />
+                  <Route path="/tools" element={<Tools />} />
+                  <Route path="/about" element={<AboutMe />} />
+                  <Route path="/facts" element={<OtherFacts />} />
+                  <Route path="/vehicles" element={<Vehicles />} />
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              {/* Non Logged In Users */}
+              <Route path="/" element={<Home />} />
+              <Route path="/auth_tasker" element={<AuthTasker />} />
+              <Route path="/auth_taskee" element={<AuthTaskee />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/categories/:id" element={<SingleCategory />} />
+            </>
+          )}
+        </Routes>
+      </section>
+    </>
+  );
 }
 
 export default App;
