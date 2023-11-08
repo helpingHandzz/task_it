@@ -4,6 +4,7 @@ import { getTaskerThunk } from "../store/tasker";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import TaskerAccountCompleted from "../components/TaskerAccountCompleted";
+import TaskerAccountIncomplete from "../components/TaskerAccountIncomplete";
 
 function TaskerAccount() {
   const { id } = useParams();
@@ -30,7 +31,9 @@ function TaskerAccount() {
         Hi, {tasker.fName} {tasker.lName}
       </h1>
       <h2 className="font-bold">Open Tasks</h2>
-      {}
+      {incompleteTasks.map((task) => (
+        <TaskerAccountIncomplete key={task.id} task={task} />
+      ))}
       <h2 className="font-bold">Completed Tasks</h2>
       {completedTasks.map((task) => (
         <TaskerAccountCompleted key={task.id} task={task} />

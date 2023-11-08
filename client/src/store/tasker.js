@@ -54,6 +54,7 @@ export const getTaskersThunk = () => async (dispatch) => {
 export const getTaskerThunk = (id) => async (dispatch) => {
   try {
     const { data: tasker } = await axios.get(`${BASE_URL}/api/tasker/${id}`);
+    console.log("taskerthunk", tasker);
     return dispatch(getTasker(tasker));
   } catch (error) {
     console.error(error);

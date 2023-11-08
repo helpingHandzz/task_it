@@ -1,13 +1,6 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { postTaskeeReviewThunk } from "../store/taskee";
-import ReviewByTaskerPopup from "./ReviewByTaskerPopup";
+import React from "react";
 
-function TaskerAccountCompleted({ task }) {
-  const dispatch = useDispatch();
-  const [reviewPopupButton, setReviewPopupButton] = useState(false);
-  const [rating, setRating] = useState(null);
-  const [reviewText, setReviewText] = useState("");
+function TaskerAccountIncomplete({ task }) {
   const months = [
     "January",
     "February",
@@ -40,22 +33,6 @@ function TaskerAccountCompleted({ task }) {
         task.startTime?.slice(3, 5);
 
   const vehicleRequired = task.vehicleRequired ? "Yes" : "No";
-  console.log("test", task.assignedTo);
-  const currentDate = new Date();
-
-  const handleSubmitReview = (e) => {
-    e.preventDefault();
-    dispatch(
-      postTaskeeReviewThunk({
-        taskeeId: task.taskee.id,
-        rating: +rating,
-        reviewedBy: task.taskerId,
-        text: reviewText,
-        date: currentDate.toISOString(),
-      })
-    );
-  };
-
   return (
     <div key={task.id} className="border shadow-md bg-white m-4">
       <h3>{task.subcategory.subName}</h3>
@@ -113,31 +90,8 @@ function TaskerAccountCompleted({ task }) {
         <h2 className="font-bold">Vehicle Required?</h2>
         <h2>{vehicleRequired}</h2>
       </div>
-      <button
-        onClick={() => setReviewPopupButton(true)}
-        className="rounded-full text-white bg-cyan-700 font-bold hover:bg-cyan-900 p-3"
-      >
-        Review
-      </button>
-      <ReviewByTaskerPopup
-        trigger={reviewPopupButton}
-        setTrigger={setReviewPopupButton}
-      >
-        <form onSubmit={handleSubmitReview} className="flex flex-col">
-          <label>Rating</label>
-          <input type="text" onChange={(e) => setRating(e.target.value)} />
-          <label>Review</label>
-          <input type="text" onChange={(e) => setReviewText(e.target.value)} />
-          <button
-            type="submit"
-            className="rounded-full text-white bg-cyan-700 font-bold hover:bg-cyan-900 p-3 w-1/2 mx-auto"
-          >
-            Submit
-          </button>
-        </form>
-      </ReviewByTaskerPopup>
     </div>
   );
 }
 
-export default TaskerAccountCompleted;
+export default TaskerAccountIncomplete;
