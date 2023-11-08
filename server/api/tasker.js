@@ -22,6 +22,19 @@ router.get("/:id", async (req, res, next) => {
       where: {
         id: Number(req.params.id),
       },
+      include: {
+        Task: {
+          include: {
+            subcategory: true,
+            taskee: {
+              include: {
+                TaskeeReview: true,
+                Skills: true,
+              },
+            },
+          },
+        },
+      },
     });
     res.send(taskerId);
   } catch (error) {

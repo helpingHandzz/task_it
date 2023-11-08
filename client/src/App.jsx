@@ -16,14 +16,21 @@ import PickATaskee from "./pages/PickATaskee";
 import BookingPage from "./pages/BookingPage";
 import TaskeeAccount from "./pages/TaskeeAccount";
 import { useSelector } from "react-redux";
+
 import TaskeeSkills from "./pages/TaskeeSkills";
 import TaskeeProfile from "./pages/TaskeeProfile";
 import AboutMe from "./pages/TaskeeProfileOptions/AboutMe";
 import OtherFacts from "./pages/TaskeeProfileOptions/OtherFacts";
 import Vehicles from "./pages/TaskeeProfileOptions/Vehicles";
 import Tools from "./pages/TaskeeProfileOptions/Tools";
+import TaskerAccount from "./pages/TaskerAccount";
+
 
 function App() {
+  const token = useSelector((state) => state.auth.user?.token);
+  const isTasker = useSelector((state) => state.auth.user?.isTasker);
+  const isTaskee = useSelector((state) => state.auth.user?.isTaskee);
+
 
 	  const token = useSelector((state) => state.auth.user?.token);
   	const isTasker = useSelector((state) => state.auth.user?.isTasker);
@@ -47,11 +54,10 @@ function App() {
                     <Route path="/categories" element={<Categories />} />
                     <Route path="/categories/:id" element={<SingleCategory />} />
                     <Route path="/tasks" element={<Tasks />} />
-                    <Route path="/taskers" element={<AllTaskers />} />
-                    <Route path="/taskers/:id" element={<SingleTasker />} />
-					<Route path="/booking" element={<BookingPage />} />
+					          <Route path="/booking" element={<BookingPage />} />
                     <Route path="/create" element={<CreateTask />} />
                     <Route path="/pick" element={<PickATaskee />} />
+                    <Route path="/tasker/:id" element={<TaskerAccount />} />
                   </>
                 )}
                 {isTaskee && (
@@ -85,6 +91,7 @@ function App() {
         </section>
       </>
     );
+
 }
 
 export default App;
