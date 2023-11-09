@@ -1,13 +1,8 @@
-import { useState } from "react";
+import { editTaskThunk } from "../store/task";
 import { useDispatch } from "react-redux";
-import { postTaskeeReviewThunk } from "../store/taskee";
-import ReviewByTaskerPopup from "./ReviewByTaskerPopup";
 
-function TaskerAccountCompleted({ task }) {
+function TaskerAccountIncomplete({ task }) {
   const dispatch = useDispatch();
-  const [reviewPopupButton, setReviewPopupButton] = useState(false);
-  const [rating, setRating] = useState(null);
-  const [reviewText, setReviewText] = useState("");
   const months = [
     "January",
     "February",
@@ -23,19 +18,22 @@ function TaskerAccountCompleted({ task }) {
     "December",
   ];
 
+  const handleSetCompleted = () => {
+    dispatch(
+      editTaskThunk({
+        ...task,
+        isCompleted: true,
+      })
+    );
+  };
+
   const formattedDate = task.date?.split("-");
 
   if (!formattedDate) {
-    return <div>LOADING...</div>;
+    return "";
   }
 
   const amPm = Number(task.startTime?.slice(0, 2)) <= 12 ? "A.M." : "P.M.";
-
-  const taskReview = task.taskee.TaskeeReview.filter(
-    (review) => review.reviewedBy === task.taskerId
-  );
-
-  console.log("task review", taskReview);
 
   const formattedTime =
     Number(task.startTime?.slice(0, 2)) <= 12
@@ -46,22 +44,6 @@ function TaskerAccountCompleted({ task }) {
         task.startTime?.slice(3, 5);
 
   const vehicleRequired = task.vehicleRequired ? "Yes" : "No";
-  console.log("test", task.assignedTo);
-  const currentDate = new Date();
-
-  const handleSubmitReview = (e) => {
-    e.preventDefault();
-    dispatch(
-      postTaskeeReviewThunk({
-        taskeeId: task.taskee.id,
-        rating: +rating,
-        reviewedBy: task.taskerId,
-        text: reviewText,
-        date: currentDate.toISOString(),
-      })
-    );
-  };
-
   return (
     <div key={task.id} className="border shadow-md bg-white m-4">
       <h3>{task.subcategory.subName}</h3>
@@ -120,30 +102,13 @@ function TaskerAccountCompleted({ task }) {
         <h2>{vehicleRequired}</h2>
       </div>
       <button
-        onClick={() => setReviewPopupButton(true)}
-        className="rounded-full text-white bg-cyan-700 font-bold hover:bg-cyan-900 p-3"
+        onClick={handleSetCompleted}
+        className="rounded-full p-3 font-bold text-white bg-cyan-700 hover:bg-cyan-900"
       >
-        Review
+        Mark as Completed
       </button>
-      <ReviewByTaskerPopup
-        trigger={reviewPopupButton}
-        setTrigger={setReviewPopupButton}
-      >
-        <form onSubmit={handleSubmitReview} className="flex flex-col">
-          <label>Rating</label>
-          <input type="text" onChange={(e) => setRating(e.target.value)} />
-          <label>Review</label>
-          <input type="text" onChange={(e) => setReviewText(e.target.value)} />
-          <button
-            type="submit"
-            className="rounded-full text-white bg-cyan-700 font-bold hover:bg-cyan-900 p-3 w-1/2 mx-auto"
-          >
-            Submit
-          </button>
-        </form>
-      </ReviewByTaskerPopup>
     </div>
   );
 }
 
-export default TaskerAccountCompleted;
+export default TaskerAccountIncomplete;
