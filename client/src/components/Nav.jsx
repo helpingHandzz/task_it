@@ -3,8 +3,7 @@ import logo from "../assets/taskit-high-resolution-logo-color-on-transparent-bac
 import { useDispatch, useSelector } from "react-redux";
 import { logoutTaskerThunk } from "../store/auth";
 
-function Nav( { isAuthenticated, isTasker, isTaskee } ) {
-
+function Nav({ isAuthenticated, isTasker, isTaskee }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -14,7 +13,6 @@ function Nav( { isAuthenticated, isTasker, isTaskee } ) {
     dispatch(logoutTaskerThunk());
     navigate("/");
   };
-
 
   // if token is present && isTasker is true, render Navbar with Logout
   if (isAuthenticated) {
@@ -92,18 +90,14 @@ function Nav( { isAuthenticated, isTasker, isTaskee } ) {
             >
               Tasks
             </Link>
-            <section className="flex flex-col justify-center">
-              {"|"}
-            </section>
+            <section className="flex flex-col justify-center">{"|"}</section>
             <Link
               className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
               to={"/schedule"}
             >
               Schedule
             </Link>
-            <section className="flex flex-col justify-center">
-              {"|"}
-            </section>
+            <section className="flex flex-col justify-center">{"|"}</section>
             <Link
               className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
               to={"/account"}
@@ -160,6 +154,6 @@ function Nav( { isAuthenticated, isTasker, isTaskee } ) {
         </div>
       </nav>
     );
-  };
+  }
 }
 export default Nav;

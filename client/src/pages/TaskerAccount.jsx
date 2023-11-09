@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import React from "react";
+import { useEffect, useState } from "react";
 import { getTaskerThunk } from "../store/tasker";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -9,9 +10,13 @@ import TaskerAccountIncomplete from "../components/TaskerAccountIncomplete";
 function TaskerAccount() {
   const { id } = useParams();
   const dispatch = useDispatch();
+
   const tasker = useSelector((state) => state.tasker.singleTasker);
   const postedTask = useSelector((state) => state.task.postedTask);
   console.log("tasker", tasker);
+
+  const [_, updateState] = useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
 
   useEffect(() => {
     dispatch(getTaskerThunk(id));
@@ -38,7 +43,11 @@ function TaskerAccount() {
       ))}
       <h2 className="font-bold">Completed Tasks</h2>
       {completedTasks.map((task) => (
-        <TaskerAccountCompleted key={task.id} task={task} />
+        <TaskerAccountCompleted
+          key={task.id}
+          task={task}
+          forceUpdate={forceUpdate}
+        />
       ))}
     </div>
   );

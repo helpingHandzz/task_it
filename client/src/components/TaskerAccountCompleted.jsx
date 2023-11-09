@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { postTaskeeReviewThunk } from "../store/taskee";
 import ReviewByTaskerPopup from "./ReviewByTaskerPopup";
 
-function TaskerAccountCompleted({ task }) {
+function TaskerAccountCompleted({ task, forceUpdate }) {
   const dispatch = useDispatch();
   const [reviewPopupButton, setReviewPopupButton] = useState(false);
   const [rating, setRating] = useState(null);
@@ -31,12 +31,6 @@ function TaskerAccountCompleted({ task }) {
 
   const amPm = Number(task.startTime?.slice(0, 2)) <= 12 ? "A.M." : "P.M.";
 
-  const taskReview = task.taskee.TaskeeReview.filter(
-    (review) => review.reviewedBy === task.taskerId
-  );
-
-  console.log("task review", taskReview);
-
   const formattedTime =
     Number(task.startTime?.slice(0, 2)) <= 12
       ? task.startTime
@@ -46,13 +40,14 @@ function TaskerAccountCompleted({ task }) {
         task.startTime?.slice(3, 5);
 
   const vehicleRequired = task.vehicleRequired ? "Yes" : "No";
-  console.log("test", task.assignedTo);
+
   const currentDate = new Date();
 
   const handleSubmitReview = (e) => {
     e.preventDefault();
     dispatch(
       postTaskeeReviewThunk({
+        taskId: task.id,
         taskeeId: task.taskee.id,
         rating: +rating,
         reviewedBy: task.taskerId,
@@ -60,6 +55,8 @@ function TaskerAccountCompleted({ task }) {
         date: currentDate.toISOString(),
       })
     );
+    setReviewPopupButton(false);
+    forceUpdate();
   };
 
   return (
@@ -119,12 +116,20 @@ function TaskerAccountCompleted({ task }) {
         <h2 className="font-bold">Vehicle Required?</h2>
         <h2>{vehicleRequired}</h2>
       </div>
-      <button
-        onClick={() => setReviewPopupButton(true)}
-        className="rounded-full text-white bg-cyan-700 font-bold hover:bg-cyan-900 p-3"
-      >
-        Review
-      </button>
+      {task.taskeeReview ? (
+        <div>
+          <h2>{task.taskeeReview.rating}</h2>
+          <h2>{task.taskeeReview.text}</h2>
+        </div>
+      ) : (
+        <button
+          onClick={() => setReviewPopupButton(true)}
+          className="rounded-full text-white bg-cyan-700 font-bold hover:bg-cyan-900 p-3"
+        >
+          Review
+        </button>
+      )}
+
       <ReviewByTaskerPopup
         trigger={reviewPopupButton}
         setTrigger={setReviewPopupButton}
