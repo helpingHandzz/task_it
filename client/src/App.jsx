@@ -17,13 +17,14 @@ import { useSelector } from "react-redux";
 import TaskeeSkills from "./pages/TaskeeSkills";
 import TaskeeProfile from "./pages/TaskeeProfile";
 import TaskerAccount from "./pages/TaskerAccount";
+import TaskeeTasks from "./pages/TaskeeTasks";
+import TaskeeReviews from "./pages/TaskeeReviews";
 
 function App() {
   const token = useSelector((state) => state.auth.user?.token);
   const isTasker = useSelector((state) => state.auth.user?.isTasker);
   const isTaskee = useSelector((state) => state.auth.user?.isTaskee);
 
-  
 	  return (
       <>
         <Nav
@@ -52,12 +53,13 @@ function App() {
                   <>
                     {/* Taskee Routes */}
                     <Route path="/" element={<Home />} />
-                    <Route path="/tasks" element={<Tasks />} />
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/schedule" element={<ViewSked />} />
                     <Route path="/account" element={<TaskeeAccount />} />
                     <Route path="/skills" element={<TaskeeSkills />} />
                     <Route path="/profile" element={<TaskeeProfile />} />
+                    <Route path="/taskee/tasks" element={<TaskeeTasks />} />
+                    <Route path="/taskee/reviews" element={<TaskeeReviews/>} />
                   </>
                 )}
               </>
@@ -75,8 +77,5 @@ function App() {
         </section>
       </>
     );
-
-
 }
-
 export default App;

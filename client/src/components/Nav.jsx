@@ -88,7 +88,7 @@ function Nav( { isAuthenticated, isTasker, isTaskee } ) {
             </section>
             <Link
               className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
-              to={"/tasks"}
+              to={"/taskee/tasks"}
             >
               Tasks
             </Link>
