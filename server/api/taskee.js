@@ -68,6 +68,7 @@ router.get("/reviews/:id", async (req, res, next) => {
 });
 
 // Get Taskee Work Schedule by id
+
 router.get("/schedule/:id", async (req, res, next) => {
   try {
     const taskeeId = parseInt(req.params.id);
@@ -79,6 +80,7 @@ router.get("/schedule/:id", async (req, res, next) => {
     next(error);
   }
 });
+
 
 // Create taskee review
 router.post("/reviews/new", async (req, res, next) => {
