@@ -14,20 +14,19 @@ const POST_TASKEE_SCHEDULE = "POST_TASKEE_SCHEDULE";
 const DELETE_TASKEE_SCHEDULE = "DELETE_TASKEE_SCHEDULE";
 
 
-
 const getTaskees = (taskees) => ({
-	type: GET_TASKEES,
-	payload: taskees,
+  type: GET_TASKEES,
+  payload: taskees,
 });
 
 const getTaskee = (taskee) => ({
-	type: GET_TASKEE,
-	payload: taskee,
+  type: GET_TASKEE,
+  payload: taskee,
 });
 
 const getTaskeeReviews = (reviews) => ({
-	type: GET_TASKEE_REVIEWS,
-	payload: reviews,
+  type: GET_TASKEE_REVIEWS,
+  payload: reviews,
 });
 
 const getTaskeeSchedule = (schedule) => ({
@@ -60,35 +59,32 @@ const postTaskeeSchedule = (schedule) => ({
   payload: schedule,
 });
 
+
 const deleteTaskeeSchedule = (schedule) => ({
   type: DELETE_TASKEE_SCHEDULE,
   payload: schedule,
 })
 
+
 //All TASKEES
 export const getTaskeesThunk = () => async (dispatch) => {
-	try {
-		const { data: taskees } = await axios.get(
-			`${BASE_URL}/api/taskee`
-		);
-		return dispatch(getTaskees(taskees));
-	} catch (error) {
-		console.error(error);
-	}
+  try {
+    const { data: taskees } = await axios.get(`${BASE_URL}/api/taskee`);
+    return dispatch(getTaskees(taskees));
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 //SINGLE TASKEE
 export const getTaskeeThunk = (id) => async (dispatch) => {
-	try {
-		const { data: taskee } = await axios.get(
-			`${BASE_URL}/api/taskee/${id}`
-		);
-		return dispatch(getTaskee(taskee));
-	} catch (error) {
-		console.error;
-	}
+  try {
+    const { data: taskee } = await axios.get(`${BASE_URL}/api/taskee/${id}`);
+    return dispatch(getTaskee(taskee));
+  } catch (error) {
+    console.error;
+  }
 };
-
 
 //SINGLE TASKEE REVIEWS
 export const getTaskeeReviewsThunk = (id) => async (dispatch) => {
@@ -108,6 +104,7 @@ export const getTaskeeScheduleThunk = (id) => async (dispatch) => {
     const { data: schedule } = await axios.get(
       `${BASE_URL}/api/taskee/schedule/${id}`
     );
+
     return dispatch(getTaskeeSchedule(schedule));
   } catch (error) {
     console.error(error);
@@ -165,6 +162,7 @@ export const deleteTaskeeReviewThunk = (id) => async (dispatch) => {
 };
 
 // POST TASKEE WORK SCHEDULE
+
 export const postTaskeeScheduleThunk = (taskeeId, workSchedules) => async (dispatch) => {
   
   try {
@@ -197,16 +195,21 @@ export const deleteTaskeeScheduleThunk = (scheduleId) => async (dispatch) => {
 };
 
 
+      return dispatch(postTaskeeSchedule(schedule));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 const initialState = {
-	allTaskees: [],
-	singleTaskee: {},
-	taskeeReviews: [],
+  allTaskees: [],
+  singleTaskee: {},
+  taskeeReviews: [],
   workSchedule: [],
   taskeeSkills: [],
 };
 
 export default function (state = initialState, action) {
-
   switch (action.type) {
     case GET_TASKEES:
       return { ...state, allTaskees: action.payload };
@@ -219,8 +222,7 @@ export default function (state = initialState, action) {
     case GET_TASKEE_SKILLS:
       return { ...state, taskeeSkills: action.payload };
     case POST_TASKEE_REVIEW:
-      state.taskeeReviews.push(action.payload);
-      return state;
+      return { ...state, taskeeReviews: action.payload };
     case EDIT_TASKEE_REVIEW:
       return {
         taskeeReviews: state.taskeeReviews.map((review) =>
@@ -249,5 +251,4 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-
 }

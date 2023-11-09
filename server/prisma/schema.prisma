@@ -28,6 +28,7 @@ model TaskerReview {
   rating     Int
   text       String
   date       DateTime
+  Task       Task[]
 }
 
 model Taskee {
@@ -65,6 +66,7 @@ model TaskeeReview {
   rating     Int
   text       String
   date       DateTime
+  Task       Task[]
 }
 
 model Category {
@@ -97,20 +99,24 @@ model Skills {
 }
 
 model Task {
-  id                Int         @id @default(autoincrement())
+  id                Int           @id @default(autoincrement())
   taskerId          Int
-  tasker            Tasker      @relation(fields: [taskerId], references: [id])
+  tasker            Tasker        @relation(fields: [taskerId], references: [id])
   subcategoryId     Int
-  subcategory       Subcategory @relation(fields: [subcategoryId], references: [id])
+  subcategory       Subcategory   @relation(fields: [subcategoryId], references: [id])
   description       String
   isCompleted       Boolean
   vehicleRequired   Boolean
   isAssigned        Boolean
   assignedTo        Int?
-  taskee            Taskee?     @relation(fields: [assignedTo], references: [id])
+  taskee            Taskee?       @relation(fields: [assignedTo], references: [id])
   estTimeCommitment Int
   startTime         String?
   date              String?
+  reviewTaskee      Int?
+  taskeeReview      TaskeeReview? @relation(fields: [reviewTaskee], references: [id])
+  reviewTasker      Int?
+  taskerReview      TaskerReview? @relation(fields: [reviewTasker], references: [id])
   startingStreet    String
   startingCity      String
   startingState     String
