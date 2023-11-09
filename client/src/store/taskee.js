@@ -6,10 +6,13 @@ const GET_TASKEES = "GET_TASKEES";
 const GET_TASKEE = "GET_TASKEE";
 const GET_TASKEE_REVIEWS = "GET_TASKEE_REVIEWS";
 const GET_TASKEE_SCHEDULE = "GET_TASKEE_SCHEDULE";
+const GET_TASKEE_SKILLS = "GET_TASKEE_SKILLS"
 const POST_TASKEE_REVIEW = "POST_TASKEE_REVIEW";
 const EDIT_TASKEE_REVIEW = "EDIT_TASKEE_REVIEW";
 const DELETE_TASKEE_REVIEW = "DELETE_TASKEE_REVIEW";
 const POST_TASKEE_SCHEDULE = "POST_TASKEE_SCHEDULE";
+const DELETE_TASKEE_SCHEDULE = "DELETE_TASKEE_SCHEDULE";
+
 
 const getTaskees = (taskees) => ({
   type: GET_TASKEES,
@@ -31,6 +34,11 @@ const getTaskeeSchedule = (schedule) => ({
   payload: schedule,
 });
 
+const getTaskeeSkills = (skills) => ({
+  type: GET_TASKEE_SKILLS,
+  payload: skills
+})
+
 const postTaskeeReview = (review) => ({
   type: POST_TASKEE_REVIEW,
   payload: review,
@@ -50,6 +58,13 @@ const postTaskeeSchedule = (schedule) => ({
   type: POST_TASKEE_SCHEDULE,
   payload: schedule,
 });
+
+
+const deleteTaskeeSchedule = (schedule) => ({
+  type: DELETE_TASKEE_SCHEDULE,
+  payload: schedule,
+})
+
 
 //All TASKEES
 export const getTaskeesThunk = () => async (dispatch) => {
@@ -83,18 +98,31 @@ export const getTaskeeReviewsThunk = (id) => async (dispatch) => {
   }
 };
 
+// GET TASKEE SCHEDULE
 export const getTaskeeScheduleThunk = (id) => async (dispatch) => {
   try {
-    console.log(`Attempting to fetch schedule for taskee with id: ${id}`);
     const { data: schedule } = await axios.get(
       `${BASE_URL}/api/taskee/schedule/${id}`
     );
-    console.log("Received schedule data:", schedule);
+
     return dispatch(getTaskeeSchedule(schedule));
   } catch (error) {
-    console.error("Error fetching schedule:", error);
+    console.error(error);
   }
 };
+
+// GET TASKEE SKILLS
+export const getTaskeeSkillsThunk = (id) => async (dispatch) => {
+  try {
+    const { data: skills } = await axios.get(
+      `${BASE_URL}/api/taskee/skills/${id}`
+    );
+    dispatch(getTaskeeSkills(skills));
+  } catch (error) {
+      console.error(error)
+  }
+}
+
 
 // CREATE NEW TASKEE REVIEW
 export const postTaskeeReviewThunk = (data) => async (dispatch) => {
@@ -134,23 +162,38 @@ export const deleteTaskeeReviewThunk = (id) => async (dispatch) => {
 };
 
 // POST TASKEE WORK SCHEDULE
-export const postTaskeeScheduleThunk =
-  (taskeeId, workSchedules) => async (dispatch) => {
-    console.log("Taskee Id", taskeeId);
-    console.log("WorkSchedules", workSchedules);
 
-    try {
-      const payload = {
-        taskeeId: taskeeId,
-        workSchedules: workSchedules,
-      };
+export const postTaskeeScheduleThunk = (taskeeId, workSchedules) => async (dispatch) => {
+  
+  try {
 
-      console.log("Sending payload:", payload);
+    const payload = {
+      taskeeId: taskeeId,
+      workSchedules: workSchedules  
+    };
 
-      const { data: schedule } = await axios.post(
-        `${BASE_URL}/api/taskee/schedule/new`,
-        payload
-      );
+    const { data: schedule } = await axios.post(
+      `${BASE_URL}/api/taskee/schedule/new`, payload
+    );
+
+    return dispatch(postTaskeeSchedule(schedule))
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// DELETE TASKEE WORK SCHEDULE
+export const deleteTaskeeScheduleThunk = (scheduleId) => async (dispatch) => {
+  try {
+    const { data: schedule } = await axios.delete(
+      `${BASE_URL}/api/taskee/schedule/delete/${scheduleId}`
+    );
+    return dispatch(deleteTaskeeSchedule(schedule))
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
       return dispatch(postTaskeeSchedule(schedule));
     } catch (error) {
@@ -163,6 +206,7 @@ const initialState = {
   singleTaskee: {},
   taskeeReviews: [],
   workSchedule: [],
+  taskeeSkills: [],
 };
 
 export default function (state = initialState, action) {
@@ -175,6 +219,8 @@ export default function (state = initialState, action) {
       return { ...state, taskeeReviews: action.payload };
     case GET_TASKEE_SCHEDULE:
       return { ...state, workSchedule: action.payload };
+    case GET_TASKEE_SKILLS:
+      return { ...state, taskeeSkills: action.payload };
     case POST_TASKEE_REVIEW:
       return { ...state, taskeeReviews: action.payload };
     case EDIT_TASKEE_REVIEW:
@@ -194,6 +240,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         workSchedule: [...state.workSchedule, action.payload],
+      };
+    case DELETE_TASKEE_SCHEDULE:
+      return {
+        ...state,
+        workSchedule: state.workSchedule.filter(
+        (schedule) => schedule.id !== action.payload.id
+        ),
       };
     default:
       return state;
