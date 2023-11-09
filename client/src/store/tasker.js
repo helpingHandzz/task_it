@@ -54,6 +54,7 @@ export const getTaskersThunk = () => async (dispatch) => {
 export const getTaskerThunk = (id) => async (dispatch) => {
   try {
     const { data: tasker } = await axios.get(`${BASE_URL}/api/tasker/${id}`);
+    console.log("taskerthunk", tasker);
     return dispatch(getTasker(tasker));
   } catch (error) {
     console.error(error);
@@ -127,11 +128,7 @@ export default function (state = initialState, action) {
     case POST_TASKER_REVIEW:
       return { ...state, taskerReviews: action.payload };
     case EDIT_TASKER_REVIEW:
-      return {
-        taskerReviews: state.taskerReviews.map((review) =>
-          review.id === action.payload.id ? action.payload : review
-        ),
-      };
+      return { ...state, taskerReviews: action.payload };
     case DELETE_TASKER_REVIEW:
       return {
         ...state,
