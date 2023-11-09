@@ -128,11 +128,7 @@ export default function (state = initialState, action) {
     case POST_TASKER_REVIEW:
       return { ...state, taskerReviews: action.payload };
     case EDIT_TASKER_REVIEW:
-      return {
-        taskerReviews: state.taskerReviews.map((review) =>
-          review.id === action.payload.id ? action.payload : review
-        ),
-      };
+      return { ...state, taskerReviews: action.payload };
     case DELETE_TASKER_REVIEW:
       return {
         ...state,

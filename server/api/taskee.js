@@ -31,7 +31,17 @@ router.get("/:id", async (req, res, next) => {
         id: +req.params.id,
       },
       include: {
-        Skills: true,
+        Task: {
+          include: {
+            subcategory: true,
+            taskerReview: true,
+            tasker: {
+              include: {
+                TaskerReview: true,
+              },
+            },
+          },
+        },
       },
     });
     res.status(200).json(singleTaskee);
@@ -62,12 +72,12 @@ router.get("/reviews/:id", async (req, res, next) => {
 //   try {
 //     const taskeeScheduleById = await prisma.workSchedule.findMany({
 //       where: {
-//         taskeeId: +req.params.id,  
+//         taskeeId: +req.params.id,
 //       }
 //     });
-//     res.status(200).json(taskeeScheduleById);  
+//     res.status(200).json(taskeeScheduleById);
 //   } catch (error) {
-//     next(error);  
+//     next(error);
 //   }
 // });
 
@@ -76,15 +86,13 @@ router.get("/schedule/:id", async (req, res, next) => {
   try {
     const taskeeId = parseInt(req.params.id); // Defaults to base 10
     const taskeeScheduleById = await prisma.workSchedule.findMany({
-      where: { taskeeId: taskeeId }
+      where: { taskeeId: taskeeId },
     });
     res.json(taskeeScheduleById);
   } catch (error) {
     next(error);
   }
 });
-
-
 
 // Create taskee review
 router.post("/reviews/new", async (req, res, next) => {
@@ -145,7 +153,6 @@ router.delete("/reviews/delete/:id", async (req, res, next) => {
 
 // Post to Taskee Work Schedule
 router.post("/schedule/new", async (req, res, next) => {
-
   const { taskeeId, workSchedules } = req.body;
 
   if (!Array.isArray(workSchedules)) {
@@ -166,19 +173,19 @@ router.post("/schedule/new", async (req, res, next) => {
       const existingSchedule = await prisma.workSchedule.findFirst({
         where: {
           taskeeId: taskeeId,
-          date: date
+          date: date,
         },
       });
       let newOrUpdatedSchedule;
       if (existingSchedule) {
         newOrUpdatedSchedule = await prisma.workSchedule.update({
           where: {
-            id: existingSchedule.id
+            id: existingSchedule.id,
           },
           data: {
             startTime: startDateTime,
-            endTime: endDateTime
-          }
+            endTime: endDateTime,
+          },
         });
       } else {
         newOrUpdatedSchedule = await prisma.workSchedule.create({
@@ -186,17 +193,16 @@ router.post("/schedule/new", async (req, res, next) => {
             ...schedule,
             startTime: startDateTime,
             endTime: endDateTime,
-            taskeeId: taskeeId
+            taskeeId: taskeeId,
           },
         });
       }
-      createdOrUpdatedSchedules.push(newOrUpdatedSchedule)
+      createdOrUpdatedSchedules.push(newOrUpdatedSchedule);
     }
     res.status(200).send(createdOrUpdatedSchedules);
   } catch (error) {
-    next (error)
+    next(error);
   }
 });
-
 
 module.exports = router;

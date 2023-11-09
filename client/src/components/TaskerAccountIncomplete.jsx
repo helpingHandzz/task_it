@@ -1,6 +1,8 @@
-import React from "react";
+import { editTaskThunk } from "../store/task";
+import { useDispatch } from "react-redux";
 
 function TaskerAccountIncomplete({ task }) {
+  const dispatch = useDispatch();
   const months = [
     "January",
     "February",
@@ -16,10 +18,19 @@ function TaskerAccountIncomplete({ task }) {
     "December",
   ];
 
+  const handleSetCompleted = () => {
+    dispatch(
+      editTaskThunk({
+        ...task,
+        isCompleted: true,
+      })
+    );
+  };
+
   const formattedDate = task.date?.split("-");
 
   if (!formattedDate) {
-    return <div>LOADING...</div>;
+    return "";
   }
 
   const amPm = Number(task.startTime?.slice(0, 2)) <= 12 ? "A.M." : "P.M.";
@@ -90,6 +101,12 @@ function TaskerAccountIncomplete({ task }) {
         <h2 className="font-bold">Vehicle Required?</h2>
         <h2>{vehicleRequired}</h2>
       </div>
+      <button
+        onClick={handleSetCompleted}
+        className="rounded-full p-3 font-bold text-white bg-cyan-700 hover:bg-cyan-900"
+      >
+        Mark as Completed
+      </button>
     </div>
   );
 }

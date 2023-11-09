@@ -10,10 +10,12 @@ function TaskerAccount() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const tasker = useSelector((state) => state.tasker.singleTasker);
+  const postedTask = useSelector((state) => state.task.postedTask);
   console.log("tasker", tasker);
+
   useEffect(() => {
     dispatch(getTaskerThunk(id));
-  }, []);
+  }, [postedTask]);
 
   const completedTasks = tasker.Task.filter(
     (task) => task.isCompleted === true

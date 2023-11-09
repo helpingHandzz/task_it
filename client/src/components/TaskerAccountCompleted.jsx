@@ -31,6 +31,12 @@ function TaskerAccountCompleted({ task }) {
 
   const amPm = Number(task.startTime?.slice(0, 2)) <= 12 ? "A.M." : "P.M.";
 
+  const taskReview = task.taskee.TaskeeReview.filter(
+    (review) => review.reviewedBy === task.taskerId
+  );
+
+  console.log("task review", taskReview);
+
   const formattedTime =
     Number(task.startTime?.slice(0, 2)) <= 12
       ? task.startTime
