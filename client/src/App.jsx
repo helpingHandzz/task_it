@@ -16,15 +16,13 @@ import TaskeeAccount from "./pages/TaskeeAccount";
 import { useSelector } from "react-redux";
 import TaskeeSkills from "./pages/TaskeeSkills";
 import TaskeeProfile from "./pages/TaskeeProfile";
-import AboutMe from "./components/TaskeeAboutMe";
-import OtherFacts from "./components/TaskeeOtherFacts";
 import TaskerAccount from "./pages/TaskerAccount";
-
 
 function App() {
   const token = useSelector((state) => state.auth.user?.token);
   const isTasker = useSelector((state) => state.auth.user?.isTasker);
   const isTaskee = useSelector((state) => state.auth.user?.isTaskee);
+
   
 	  return (
       <>
@@ -60,8 +58,6 @@ function App() {
                     <Route path="/account" element={<TaskeeAccount />} />
                     <Route path="/skills" element={<TaskeeSkills />} />
                     <Route path="/profile" element={<TaskeeProfile />} />
-                    <Route path="/about" element={<AboutMe />} />
-                    <Route path="/facts" element={<OtherFacts />} />
                   </>
                 )}
               </>
@@ -79,6 +75,7 @@ function App() {
         </section>
       </>
     );
+
 
 }
 
