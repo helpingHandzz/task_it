@@ -7,6 +7,7 @@ const GET_TASKEE = "GET_TASKEE";
 const GET_TASKEE_REVIEWS = "GET_TASKEE_REVIEWS";
 const GET_TASKEE_SCHEDULE = "GET_TASKEE_SCHEDULE";
 const GET_TASKEE_SKILLS = "GET_TASKEE_SKILLS"
+const GET_TASKEE_TASKS = "GET_TASKEE_TASKS"
 const POST_TASKEE_REVIEW = "POST_TASKEE_REVIEW";
 const EDIT_TASKEE_REVIEW = "EDIT_TASKEE_REVIEW";
 const DELETE_TASKEE_REVIEW = "DELETE_TASKEE_REVIEW";
@@ -38,6 +39,11 @@ const getTaskeeSchedule = (schedule) => ({
 const getTaskeeSkills = (skills) => ({
   type: GET_TASKEE_SKILLS,
   payload: skills
+})
+
+const getTaskeeTasks = (tasks) => ({
+  type: GET_TASKEE_TASKS,
+  payload: tasks,
 })
 
 const postTaskeeReview = (review) => ({
@@ -124,8 +130,19 @@ export const getTaskeeSkillsThunk = (id) => async (dispatch) => {
   } catch (error) {
       console.error(error)
   }
-}
+};
 
+// GET TASKEE TASKS
+export const getTaskeeTasksThunk = (id) => async (dispatch) => {
+  try {
+    const { data: tasks } = await axios.get(
+      `${BASE_URL}/api/taskee/tasks/${id}`
+    );
+    dispatch(getTaskeeTasks(tasks));
+  } catch (error) {
+      console.error(error)
+  }
+};
 
 // CREATE NEW TASKEE REVIEW
 export const postTaskeeReviewThunk = (data) => async (dispatch) => {
@@ -203,6 +220,7 @@ const initialState = {
 	taskeeReviews: [],
   workSchedule: [],
   taskeeSkills: [],
+  taskeeTasks: [],
 };
 
 export default function (state = initialState, action) {
@@ -218,6 +236,8 @@ export default function (state = initialState, action) {
       return { ...state, workSchedule: action.payload };
     case GET_TASKEE_SKILLS:
       return { ...state, taskeeSkills: action.payload };
+    case GET_TASKEE_TASKS:
+      return { ...state, taskeeTasks: action.payload };
     case POST_TASKEE_REVIEW:
       state.taskeeReviews.push(action.payload);
       return state;
