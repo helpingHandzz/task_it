@@ -212,12 +212,6 @@ export const deleteTaskeeScheduleThunk = (scheduleId) => async (dispatch) => {
 };
 
 
-      return dispatch(postTaskeeSchedule(schedule));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
 const initialState = {
   allTaskees: [],
   singleTaskee: {},
