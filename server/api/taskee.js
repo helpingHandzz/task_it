@@ -34,7 +34,6 @@ router.get("/:id", async (req, res, next) => {
         Task: {
           include: {
             subcategory: true,
-            taskerReview: true,
             tasker: {
               include: {
                 TaskerReview: true,
