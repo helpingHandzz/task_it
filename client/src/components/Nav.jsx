@@ -6,6 +6,7 @@ import { logoutTaskerThunk } from "../store/auth";
 function Nav({ isAuthenticated, isTasker, isTaskee }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const taskerId = useSelector((state) => state.auth?.user?.taskerId);
 
   // handler for log out
   const logout = async (e) => {
@@ -52,7 +53,7 @@ function Nav({ isAuthenticated, isTasker, isTaskee }) {
             </section>
             <Link
               className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
-              to={"/account"}
+              to={`/tasker/${taskerId}`}
             >
               Account
             </Link>

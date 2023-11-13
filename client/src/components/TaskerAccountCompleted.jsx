@@ -71,7 +71,10 @@ function TaskerAccountCompleted({ task, forceUpdate }) {
   // console.log("test", price);
 
   return (
-    <div key={task.id} className="border shadow-md bg-white m-4 p-3">
+    <div
+      key={task.id}
+      className="border shadow-md bg-white m-4 p-3 md:w-[45%] lg:w-[30%]"
+    >
       <h3 className="text-xl font-bold pb-5">{task.subcategory.subName}</h3>
       {task.taskee && (
         <div>
@@ -131,7 +134,7 @@ function TaskerAccountCompleted({ task, forceUpdate }) {
         <h2>{vehicleRequired}</h2>
       </div>
       {task.taskeeReview ? (
-        <div className="p-2 bg-slate-300">
+        <div className="p-2 bg-slate-300 mt-3">
           <h2 className="font-bold">Review</h2>
           <div className="flex pt-2">
             <h2 className="pr-1 text-md">

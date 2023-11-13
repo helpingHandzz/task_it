@@ -37,18 +37,22 @@ function TaskerAccount() {
       <h1 className="text-center font-bold text-3xl py-3">
         Hi, {tasker.fName} {tasker.lName}
       </h1>
-      <h2 className="font-bold text-center text-lg">Open Tasks</h2>
-      {incompleteTasks.map((task) => (
-        <TaskerAccountIncomplete key={task.id} task={task} />
-      ))}
-      <h2 className="font-bold text-center text-lg">Completed Tasks</h2>
-      {completedTasks.map((task) => (
-        <TaskerAccountCompleted
-          key={task.id}
-          task={task}
-          forceUpdate={forceUpdate}
-        />
-      ))}
+      <h2 className="font-bold text-center text-lg py-3">Open Tasks</h2>
+      <div className="md:flex md:flex-wrap md:mx-auto">
+        {incompleteTasks.map((task) => (
+          <TaskerAccountIncomplete key={task.id} task={task} />
+        ))}
+      </div>
+      <h2 className="font-bold text-center text-lg py-3">Completed Tasks</h2>
+      <div className="md:flex md:flex-wrap md:mx-auto">
+        {completedTasks.map((task) => (
+          <TaskerAccountCompleted
+            key={task.id}
+            task={task}
+            forceUpdate={forceUpdate}
+          />
+        ))}
+      </div>
     </div>
   );
 }

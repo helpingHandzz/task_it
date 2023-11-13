@@ -45,7 +45,10 @@ function TaskerAccountIncomplete({ task }) {
 
   const vehicleRequired = task.vehicleRequired ? "Yes" : "No";
   return (
-    <div key={task.id} className="border shadow-md bg-white m-4 p-3">
+    <div
+      key={task.id}
+      className="border shadow-md bg-white my-4 mx-4 p-3 md:w-[45%] lg:w-[30%]"
+    >
       <h3 className="text-xl font-bold pb-5">{task.subcategory.subName}</h3>
       {task.taskee && (
         <div>
