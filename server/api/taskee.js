@@ -34,7 +34,6 @@ router.get("/:id", async (req, res, next) => {
         Task: {
           include: {
             subcategory: true,
-            taskerReview: true,
             tasker: {
               include: {
                 TaskerReview: true,
@@ -68,31 +67,19 @@ router.get("/reviews/:id", async (req, res, next) => {
 });
 
 // Get Taskee Work Schedule by id
-// router.get("/schedule/:id", async (req, res, next) => {
-//   try {
-//     const taskeeScheduleById = await prisma.workSchedule.findMany({
-//       where: {
-//         taskeeId: +req.params.id,
-//       }
-//     });
-//     res.status(200).json(taskeeScheduleById);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
-// Get Taskee Work Schedule by id
 router.get("/schedule/:id", async (req, res, next) => {
   try {
-    const taskeeId = parseInt(req.params.id); // Defaults to base 10
+    const taskeeId = parseInt(req.params.id);
     const taskeeScheduleById = await prisma.workSchedule.findMany({
       where: { taskeeId: taskeeId },
     });
-    res.json(taskeeScheduleById);
+    res.status(200).json(taskeeScheduleById);
   } catch (error) {
     next(error);
   }
 });
+
 
 // Create taskee review
 router.post("/reviews/new", async (req, res, next) => {
