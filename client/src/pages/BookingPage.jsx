@@ -43,57 +43,63 @@ function BookingPage() {
 
   const vehicleRequired = currentTask.vehicleRequired ? "Yes" : "No";
   return (
-    <div>
-      <div className="border rounded bg-white shadow-md m-5">
-        <h1 className="text-2xl font-bold">Task</h1>
-        <h2>{currentTask.subcategory.subName}</h2>
-        <h1 className="text-2xl font-bold">Starting Address</h1>
+    <div className="lg:flex lg:justify-around lg:mx-10">
+      <div className="border rounded bg-white shadow-md m-5 p-4 lg:w-2/5">
+        {/* <h1 className="text-2xl font-bold">Task</h1> */}
+        <h2 className="text-2xl font-bold">
+          {currentTask.subcategory.subName}
+        </h2>
+        <h1 className="text-lg font-bold mt-2">Starting Address</h1>
         <h2>
           {currentTask.startingStreet}, {currentTask.startingSuite},{" "}
           {currentTask.startingCity}, {currentTask.startingState}{" "}
           {currentTask.startingZip}
         </h2>
-        <h1 className="text-2xl font-bold">Ending Address</h1>
+        <h1 className="text-lg font-bold mt-2">Ending Address</h1>
         <h2>
           {currentTask.endingStreet}, {currentTask.endingSuite},{" "}
           {currentTask.endingCity}, {currentTask.endingState}{" "}
           {currentTask.endingZip}
         </h2>
-        <h1 className="text-2xl font-bold">Date & Time</h1>
+        <h1 className="text-lg font-bold mt-2">Date & Time</h1>
         <h2>
           {months[formattedDate[1] - 1]} {formattedDate[2]}th,{" "}
           {formattedDate[0]} {formattedTime} {amPm}
         </h2>
-        <h1 className="text-2xl font-bold">Vehicle Required?</h1>
+        <h1 className="text-lg font-bold mt-2">Vehicle Required?</h1>
         <h2>{vehicleRequired}</h2>
-        <h1 className="text-2xl font-bold">Description</h1>
+        <h1 className="text-lg font-bold mt-2">Description</h1>
         <h2>{currentTask.description}</h2>
       </div>
-      <div className="border rounded bg-white shadow-md m-5">
-        <div>
+      <div className="border rounded bg-white shadow-md m-5 flex justify-between lg:w-2/5 lg:flex-col lg:p-4">
+        <div className="ml-4 mt-4 lg:flex lg:justify-between lg:p-4">
           <img src={currentTask.taskee.photo} className="rounded-full" />
-          <h2>
+          <h2 className="text-2xl font-bold mt-3">
             {currentTask.taskee.fName} {currentTask.taskee.lName}
           </h2>
         </div>
-        <div className="flex justify-between">
-          <h1>Price per Hour</h1>
-          <h2>${(filtered[0].price / 100).toFixed(2)}</h2>
-        </div>
-        <div className="flex justify-between">
-          <h1>Est. Time Commitment</h1>
-          <h2>{currentTask.estTimeCommitment} Hours</h2>
-        </div>
-        <div className="flex justify-between">
-          <h1>Total Cost</h1>
-          <h2>
-            $
-            {(
-              (currentTask.estTimeCommitment * filtered[0].price) /
-              100
-            ).toFixed(2)}
-          </h2>
-          <PayButton currentTask={currentTask} filteredSkill={filtered} />
+        <div className="flex flex-col pt-3 mr-4 lg:p-4">
+          <div className="flex justify-between">
+            <h1 className="text-lg font-bold">Price per Hour</h1>
+            <h2>${(filtered[0].price / 100).toFixed(2)}</h2>
+          </div>
+          <div className="flex justify-between border-b border-black my-2">
+            <h1 className="text-lg font-bold mr-4">Est. Time Commitment</h1>
+            <h2>{currentTask.estTimeCommitment} Hours</h2>
+          </div>
+          <div className="flex justify-between">
+            <h1 className="text-lg font-bold">Total Cost</h1>
+            <h2>
+              $
+              {(
+                (currentTask.estTimeCommitment * filtered[0].price) /
+                100
+              ).toFixed(2)}
+            </h2>
+          </div>
+          <div className="mt-10 flex justify-center mb-3">
+            <PayButton currentTask={currentTask} filteredSkill={filtered} />
+          </div>
         </div>
       </div>
     </div>

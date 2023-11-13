@@ -64,8 +64,13 @@ router.get("/reviews/:id", async (req, res, next) => {
 // create tasker review
 
 router.post("/reviews/new", async (req, res, next) => {
-  const { taskerId, rating, reviewedBy, text, date } = req.body;
+  const { taskerId, rating, reviewedBy, text, date, taskId } = req.body;
   try {
+    await prisma.$executeRaw`
+            SELECT setval((
+                SELECT PG_GET_SERIAL_SEQUENCE('"TaskerReview"', 'id')),
+                (SELECT (MAX("id") + 1) FROM "TaskerReview"),
+                false) FROM "TaskerReview"`;
     const newReview = await prisma.taskerReview.create({
       data: {
         taskerId,
@@ -73,6 +78,14 @@ router.post("/reviews/new", async (req, res, next) => {
         reviewedBy,
         text,
         date,
+      },
+    });
+    await prisma.task.update({
+      where: {
+        id: taskId,
+      },
+      data: {
+        reviewTasker: newReview.id,
       },
     });
     res.status(200).json(newReview);
