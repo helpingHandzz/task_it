@@ -119,7 +119,7 @@ function Nav({ isAuthenticated, isTasker, isTaskee }) {
     }
   } else {
     return (
-      <nav className="h-14 bg-amber-100 w-full flex justify-between fixed">
+      <nav className="h-14 bg-white w-full flex justify-between fixed">
         <div className="flex flex-col justify-center ml-2">
           <img className="h-10" src={logo} alt="logo" />
         </div>

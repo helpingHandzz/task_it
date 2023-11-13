@@ -34,14 +34,14 @@ function TaskerAccount() {
 
   return (
     <div>
-      <h1>
+      <h1 className="text-center font-bold text-3xl py-3">
         Hi, {tasker.fName} {tasker.lName}
       </h1>
-      <h2 className="font-bold">Open Tasks</h2>
+      <h2 className="font-bold text-center text-lg">Open Tasks</h2>
       {incompleteTasks.map((task) => (
         <TaskerAccountIncomplete key={task.id} task={task} />
       ))}
-      <h2 className="font-bold">Completed Tasks</h2>
+      <h2 className="font-bold text-center text-lg">Completed Tasks</h2>
       {completedTasks.map((task) => (
         <TaskerAccountCompleted
           key={task.id}
