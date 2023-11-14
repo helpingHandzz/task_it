@@ -19,21 +19,25 @@ import TaskeeProfile from "./pages/TaskeeProfile";
 import TaskerAccount from "./pages/TaskerAccount";
 import TaskeeTasks from "./pages/TaskeeTasks";
 import TaskeeReviews from "./pages/TaskeeReviews";
+import { useState } from "react";
 
 function App() {
   const token = useSelector((state) => state.auth.user?.token);
   const isTasker = useSelector((state) => state.auth.user?.isTasker);
   const isTaskee = useSelector((state) => state.auth.user?.isTaskee);
+  const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
-
-	  return (
-      <>
-        <Nav
-          isAuthenticated={!!token}
-          isTasker={isTasker}
-          isTaskee={isTaskee}
-        />
-        <section className="pt-14">
+  return (
+    <>
+      <Nav
+        isAuthenticated={!!token}
+        isTasker={isTasker}
+        isTaskee={isTaskee}
+        openMobileMenu={openMobileMenu}
+        setOpenMobileMenu={setOpenMobileMenu}
+      />
+      <section className="pt-14">
+        <div onClick={() => setOpenMobileMenu(false)}>
           <Routes>
             {token ? (
               <>
@@ -42,8 +46,10 @@ function App() {
                     {/* Tasker Routes */}
                     <Route path="/" element={<Home />} />
                     <Route path="/categories" element={<Categories />} />
-                    <Route path="/categories/:id" element={<SingleCategory />}/>
-                    <Route path="/tasks" element={<Tasks />} />
+                    <Route
+                      path="/categories/:id"
+                      element={<SingleCategory />}
+                    />
                     <Route path="/booking" element={<BookingPage />} />
                     <Route path="/create" element={<CreateTask />} />
                     <Route path="/pick" element={<PickATaskee />} />
@@ -60,7 +66,7 @@ function App() {
                     <Route path="/skills" element={<TaskeeSkills />} />
                     <Route path="/profile" element={<TaskeeProfile />} />
                     <Route path="/taskee/tasks" element={<TaskeeTasks />} />
-                    <Route path="/taskee/reviews" element={<TaskeeReviews/>} />
+                    <Route path="/taskee/reviews" element={<TaskeeReviews />} />
                   </>
                 )}
               </>
@@ -75,9 +81,9 @@ function App() {
               </>
             )}
           </Routes>
-        </section>
-      </>
-    );
-
+        </div>
+      </section>
+    </>
+  );
 }
 export default App;

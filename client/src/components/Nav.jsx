@@ -3,7 +3,13 @@ import logo from "../assets/taskit-high-resolution-logo-color-on-transparent-bac
 import { useDispatch, useSelector } from "react-redux";
 import { logoutTaskerThunk } from "../store/auth";
 
-function Nav({ isAuthenticated, isTasker, isTaskee }) {
+function Nav({
+  isAuthenticated,
+  isTasker,
+  isTaskee,
+  openMobileMenu,
+  setOpenMobileMenu,
+}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const taskerId = useSelector((state) => state.auth?.user?.taskerId);
@@ -19,139 +25,164 @@ function Nav({ isAuthenticated, isTasker, isTaskee }) {
   if (isAuthenticated) {
     if (isTasker) {
       return (
-        <nav className="h-14 bg-white w-full flex justify-between fixed">
-          <div className="flex flex-col justify-center ml-2">
-            <img className="h-10" src={logo} alt="logo" />
-          </div>
-          <div className="flex align-middle">
-            <Link
-              className="flex flex-col justify-center ml-5 text-xl font-bold hover:text-cyan-700"
-              to={"/"}
-            >
-              Home
+        <nav className=" bg-white w-full fixed py-2 border-b">
+          <div className="flex max-w-full justify-between items-center ml-2 px-[8%] flex-wrap w-full">
+            <Link to={"/"}>
+              <img className="h-10" src={logo} alt="logo" />
             </Link>
-            <section className="flex flex-col justify-center ml-5">
-              {"|"}
-            </section>
-            <Link
-              className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
-              to={"/categories"}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-8 h-8 block my-auto mr-5 md:hidden cursor-pointer hover:text-cyan-900"
+              onClick={() => setOpenMobileMenu(!openMobileMenu)}
             >
-              Categories
-            </Link>
-            <section className="flex flex-col justify-center mr-5">
-              {"|"}
-            </section>
-            <Link
-              className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
-              to={"/tasks"}
+              <path
+                fillRule="evenodd"
+                d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                clipRule="evenodd"
+              />
+            </svg>
+
+            <div
+              className={`${
+                openMobileMenu ? "block" : "hidden"
+              } w-full md:flex md:items-center md:w-auto`}
             >
-              Tasks
-            </Link>
-            <section className="flex flex-col justify-center mr-5">
-              {"|"}
-            </section>
-            <Link
-              className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
-              to={`/tasker/${taskerId}`}
-            >
-              Account
-            </Link>
-            <section className="flex flex-col justify-center mr-5">
-              {"|"}
-            </section>
-            <button
-              className="flex flex-col justify-center mr-3 text-xl font-bold  hover:text-cyan-700"
-              onClick={logout}
-            >
-              Logout
-            </button>
+              <div className="md:flex md:justify-between">
+                <Link
+                  className="md:mx-3 text-xl font-bold py-2 md:py-0 text-cyan-700  hover:text-cyan-900 "
+                  to={"/categories"}
+                >
+                  Categories
+                </Link>
+                <section className="hidden md:block">{"|"}</section>
+                <Link
+                  className="flex flex-col justify-center md:mx-3 text-xl py-2 pt-4 md:pt-0 md:py-0 font-bold text-cyan-700  hover:text-cyan-900"
+                  to={`/tasker/${taskerId}`}
+                >
+                  Account
+                </Link>
+                <section className="hidden md:block">{"|"}</section>
+                <button
+                  className="flex flex-col justify-center md:mx-3 text-xl py-2 md:py-0 font-bold text-cyan-700  hover:text-cyan-900"
+                  onClick={logout}
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
           </div>
         </nav>
       );
     } else if (isTaskee) {
       return (
-        <nav className="h-14 bg-white w-full flex justify-between fixed">
-          <div className="flex flex-col justify-center ml-2">
-            <img className="h-10" src={logo} alt="logo" />
-          </div>
-          <div className="flex align-middle">
-            <Link
-              className="flex flex-col justify-center ml-5 text-xl font-bold hover:text-cyan-700"
-              to={"/"}
-            >
-              Home
+        <nav className=" bg-white w-full fixed py-2 border-b">
+          <div className="flex max-w-full justify-between items-center ml-2 px-[8%] flex-wrap w-full">
+            <Link to={"/"}>
+              <img className="h-10" src={logo} alt="logo" />
             </Link>
-            <section className="flex flex-col justify-center ml-5">
-              {"|"}
-            </section>
-            <Link
-              className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
-              to={"/taskee/tasks"}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-8 h-8 block my-auto mr-5 md:hidden cursor-pointer hover:text-cyan-900"
+              onClick={() => setOpenMobileMenu(!openMobileMenu)}
             >
-              Tasks
-            </Link>
-            <section className="flex flex-col justify-center">{"|"}</section>
-            <Link
-              className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
-              to={"/schedule"}
+              <path
+                fillRule="evenodd"
+                d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                clipRule="evenodd"
+              />
+            </svg>
+
+            <div
+              className={`${
+                openMobileMenu ? "block" : "hidden"
+              } w-full md:flex md:items-center md:w-auto`}
             >
-              Schedule
-            </Link>
-            <section className="flex flex-col justify-center">{"|"}</section>
-            <Link
-              className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
-              to={"/account"}
-            >
-              Account
-            </Link>
-            <section className="flex flex-col justify-center mr-5">
-              {"|"}
-            </section>
-            <button
-              className="flex flex-col justify-center mr-3 text-xl font-bold  hover:text-cyan-700"
-              onClick={logout}
-            >
-              Logout
-            </button>
+              <div className="md:flex md:justify-between">
+                <Link
+                  className="md:mx-3 text-xl font-bold py-2 md:py-0 text-cyan-700  hover:text-cyan-900 "
+                  to={"/taskee/tasks"}
+                >
+                  Tasks
+                </Link>
+                <section className="hidden md:block">{"|"}</section>
+                <Link
+                  className="flex flex-col justify-center md:mx-3 text-xl py-2 pt-4 md:pt-0 md:py-0 font-bold text-cyan-700  hover:text-cyan-900"
+                  to={"/schedule"}
+                >
+                  Schedule
+                </Link>
+                <section className="hidden md:block">{"|"}</section>
+                <Link
+                  className="flex flex-col justify-center md:mx-3 text-xl py-2 pt-4 md:pt-0 md:py-0 font-bold text-cyan-700  hover:text-cyan-900"
+                  to={"/account"}
+                >
+                  Account
+                </Link>
+                <button
+                  className="flex flex-col justify-center md:mx-3 text-xl py-2 md:py-0 font-bold text-cyan-700  hover:text-cyan-900"
+                  onClick={logout}
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
           </div>
         </nav>
       );
     }
   } else {
     return (
-      <nav className="h-14 bg-white w-full flex justify-between fixed">
-        <div className="flex flex-col justify-center ml-2">
-          <img className="h-10" src={logo} alt="logo" />
-        </div>
-        <div className="flex align-middle">
-          <Link
-            className="flex flex-col justify-center ml-5 text-xl font-bold hover:text-cyan-700"
-            to={"/"}
-          >
-            Home
+      <nav className=" bg-white w-full fixed py-2 border-b">
+        <div className="flex max-w-full justify-between items-center ml-2 px-[8%] flex-wrap w-full">
+          <Link to={"/"}>
+            <img className="h-10" src={logo} alt="logo" />
           </Link>
-          <section className="flex flex-col justify-center ml-5">{"|"}</section>
-          <Link
-            className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
-            to={"/categories"}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-8 h-8 block my-auto mr-5 md:hidden cursor-pointer hover:text-cyan-900"
+            onClick={() => setOpenMobileMenu(!openMobileMenu)}
           >
-            Categories
-          </Link>
-          <section className="flex flex-col justify-center mr-5">{"|"}</section>
-          <Link
-            className="flex flex-col justify-center mr-3 text-xl font-bold  hover:text-cyan-700"
-            to={"/auth_tasker"}
+            <path
+              fillRule="evenodd"
+              d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+              clipRule="evenodd"
+            />
+          </svg>
+
+          <div
+            className={`${
+              openMobileMenu ? "block" : "hidden"
+            } w-full md:flex md:items-center md:w-auto`}
           >
-            Login/Sign Up
-          </Link>
-          <section className="flex flex-col justify-center mr-5">{"|"}</section>
-          <Link
-            className="flex flex-col justify-center mr-3 text-xl font-bold  hover:text-cyan-700"
-            to={"/auth_taskee"}
-          >
-            Become a Taskee
-          </Link>
+            <div className="md:flex md:justify-between">
+              <Link
+                className="md:mx-3 text-xl font-bold py-2 md:py-0 text-cyan-700  hover:text-cyan-900 "
+                to={"/categories"}
+              >
+                Categories
+              </Link>
+              <section className="hidden md:block">{"|"}</section>
+              <Link
+                className="flex flex-col justify-center md:mx-3 text-xl py-2 pt-4 md:pt-0 md:py-0 font-bold text-cyan-700  hover:text-cyan-900"
+                to={"/auth_tasker"}
+              >
+                Login / Signup
+              </Link>
+              <section className="hidden md:block">{"|"}</section>
+              <Link
+                className="flex flex-col justify-center md:mx-3 text-xl py-2 pt-4 md:pt-0 md:py-0 font-bold text-cyan-700  hover:text-cyan-900"
+                to={"/auth_taskee"}
+              >
+                Become a Taskee
+              </Link>
+            </div>
+          </div>
         </div>
       </nav>
     );
