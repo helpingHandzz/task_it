@@ -8,7 +8,6 @@ function SingleCategory() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const category = useSelector((state) => state.category.singleCategory);
-  // console.log("test", category);
 
   useEffect(() => {
     dispatch(getCategoryThunk(id));
