@@ -3,10 +3,10 @@ import logo from "../assets/taskit-high-resolution-logo-color-on-transparent-bac
 import { useDispatch, useSelector } from "react-redux";
 import { logoutTaskerThunk } from "../store/auth";
 
-function Nav( { isAuthenticated, isTasker, isTaskee } ) {
-
+function Nav({ isAuthenticated, isTasker, isTaskee }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const taskerId = useSelector((state) => state.auth?.user?.taskerId);
 
   // handler for log out
   const logout = async (e) => {
@@ -14,7 +14,6 @@ function Nav( { isAuthenticated, isTasker, isTaskee } ) {
     dispatch(logoutTaskerThunk());
     navigate("/");
   };
-
 
   // if token is present && isTasker is true, render Navbar with Logout
   if (isAuthenticated) {
@@ -54,7 +53,7 @@ function Nav( { isAuthenticated, isTasker, isTaskee } ) {
             </section>
             <Link
               className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
-              to={"/account"}
+              to={`/tasker/${taskerId}`}
             >
               Account
             </Link>
@@ -92,18 +91,14 @@ function Nav( { isAuthenticated, isTasker, isTaskee } ) {
             >
               Tasks
             </Link>
-            <section className="flex flex-col justify-center">
-              {"|"}
-            </section>
+            <section className="flex flex-col justify-center">{"|"}</section>
             <Link
               className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
               to={"/schedule"}
             >
               Schedule
             </Link>
-            <section className="flex flex-col justify-center">
-              {"|"}
-            </section>
+            <section className="flex flex-col justify-center">{"|"}</section>
             <Link
               className="flex flex-col justify-center mx-3 text-xl font-bold  hover:text-cyan-700"
               to={"/account"}
@@ -125,7 +120,7 @@ function Nav( { isAuthenticated, isTasker, isTaskee } ) {
     }
   } else {
     return (
-      <nav className="h-14 bg-amber-100 w-full flex justify-between fixed">
+      <nav className="h-14 bg-white w-full flex justify-between fixed">
         <div className="flex flex-col justify-center ml-2">
           <img className="h-10" src={logo} alt="logo" />
         </div>
@@ -160,6 +155,6 @@ function Nav( { isAuthenticated, isTasker, isTaskee } ) {
         </div>
       </nav>
     );
-  };
+  }
 }
 export default Nav;

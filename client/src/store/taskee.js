@@ -6,14 +6,15 @@ const GET_TASKEES = "GET_TASKEES";
 const GET_TASKEE = "GET_TASKEE";
 const GET_TASKEE_REVIEWS = "GET_TASKEE_REVIEWS";
 const GET_TASKEE_SCHEDULE = "GET_TASKEE_SCHEDULE";
+
 const GET_TASKEE_SKILLS = "GET_TASKEE_SKILLS"
 const GET_TASKEE_TASKS = "GET_TASKEE_TASKS"
+
 const POST_TASKEE_REVIEW = "POST_TASKEE_REVIEW";
 const EDIT_TASKEE_REVIEW = "EDIT_TASKEE_REVIEW";
 const DELETE_TASKEE_REVIEW = "DELETE_TASKEE_REVIEW";
 const POST_TASKEE_SCHEDULE = "POST_TASKEE_SCHEDULE";
 const DELETE_TASKEE_SCHEDULE = "DELETE_TASKEE_SCHEDULE";
-
 
 const getTaskees = (taskees) => ({
   type: GET_TASKEES,
@@ -37,8 +38,8 @@ const getTaskeeSchedule = (schedule) => ({
 
 const getTaskeeSkills = (skills) => ({
   type: GET_TASKEE_SKILLS,
-  payload: skills
-})
+  payload: skills,
+});
 
 const getTaskeeTasks = (tasks) => ({
   type: GET_TASKEE_TASKS,
@@ -65,12 +66,10 @@ const postTaskeeSchedule = (schedule) => ({
   payload: schedule,
 });
 
-
 const deleteTaskeeSchedule = (schedule) => ({
   type: DELETE_TASKEE_SCHEDULE,
   payload: schedule,
-})
-
+});
 
 //All TASKEES
 export const getTaskeesThunk = () => async (dispatch) => {
@@ -125,9 +124,10 @@ export const getTaskeeSkillsThunk = (id) => async (dispatch) => {
     );
     dispatch(getTaskeeSkills(skills));
   } catch (error) {
-      console.error(error)
+    console.error(error);
   }
 };
+
 
 // GET TASKEE TASKS
 export const getTaskeeTasksThunk = (id) => async (dispatch) => {
@@ -140,6 +140,7 @@ export const getTaskeeTasksThunk = (id) => async (dispatch) => {
       console.error(error)
   }
 };
+
 
 // CREATE NEW TASKEE REVIEW
 export const postTaskeeReviewThunk = (data) => async (dispatch) => {
@@ -180,24 +181,24 @@ export const deleteTaskeeReviewThunk = (id) => async (dispatch) => {
 
 // POST TASKEE WORK SCHEDULE
 
-export const postTaskeeScheduleThunk = (taskeeId, workSchedules) => async (dispatch) => {
-  
-  try {
+export const postTaskeeScheduleThunk =
+  (taskeeId, workSchedules) => async (dispatch) => {
+    try {
+      const payload = {
+        taskeeId: taskeeId,
+        workSchedules: workSchedules,
+      };
 
-    const payload = {
-      taskeeId: taskeeId,
-      workSchedules: workSchedules  
-    };
+      const { data: schedule } = await axios.post(
+        `${BASE_URL}/api/taskee/schedule/new`,
+        payload
+      );
 
-    const { data: schedule } = await axios.post(
-      `${BASE_URL}/api/taskee/schedule/new`, payload
-    );
-
-    return dispatch(postTaskeeSchedule(schedule))
-  } catch (error) {
-    console.error(error);
-  }
-};
+      return dispatch(postTaskeeSchedule(schedule));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 // DELETE TASKEE WORK SCHEDULE
 export const deleteTaskeeScheduleThunk = (scheduleId) => async (dispatch) => {
@@ -205,7 +206,7 @@ export const deleteTaskeeScheduleThunk = (scheduleId) => async (dispatch) => {
     const { data: schedule } = await axios.delete(
       `${BASE_URL}/api/taskee/schedule/delete/${scheduleId}`
     );
-    return dispatch(deleteTaskeeSchedule(schedule))
+    return dispatch(deleteTaskeeSchedule(schedule));
   } catch (error) {
     console.error(error);
   }
@@ -259,7 +260,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         workSchedule: state.workSchedule.filter(
-        (schedule) => schedule.id !== action.payload.id
+          (schedule) => schedule.id !== action.payload.id
         ),
       };
     default:
