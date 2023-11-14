@@ -14,7 +14,7 @@ function Nav({
   const navigate = useNavigate();
   const taskerId = useSelector((state) => state.auth?.user?.taskerId);
 
-  // handler for log out
+  // handler for logout
   const logout = async (e) => {
     e.preventDefault();
     dispatch(logoutTaskerThunk());
