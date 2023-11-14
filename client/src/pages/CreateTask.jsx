@@ -25,7 +25,6 @@ function CreateTask({ sub }) {
   const [description, setDescription] = useState("");
 
   const handleCreateTask = () => {
-    // e.preventDefault();
     dispatch(
       postTaskThunk({
         subcategoryId: state.subcat.id,

@@ -63,13 +63,6 @@ function TaskerAccountCompleted({ task, forceUpdate }) {
     forceUpdate();
   };
 
-  // const filteredPrice = task.taskee.Skills.filter(
-  //   (skill) => skill.subcategoryId === task.subcategoryId
-  // );
-
-  // const price = filteredPrice[0].price;
-  // console.log("test", price);
-
   return (
     <div
       key={task.id}

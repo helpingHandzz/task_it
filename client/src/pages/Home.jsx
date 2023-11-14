@@ -15,8 +15,6 @@ function Home() {
     dispatch(getCategoriesThunk());
   }, [dispatch]);
 
-  // console.log(`categories: `, categories);
-
   const popularCategories = categories.slice(0, 4);
 
   return (

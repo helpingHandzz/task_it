@@ -5,7 +5,6 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 // get all taskers
-
 router.get("/", async (req, res, next) => {
   try {
     const allTaskers = await prisma.tasker.findMany();
@@ -44,7 +43,6 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // get reviews by tasker id
-
 router.get("/reviews/:id", async (req, res, next) => {
   try {
     const singleTaskerReviews = await prisma.taskerReview.findMany({
@@ -62,7 +60,6 @@ router.get("/reviews/:id", async (req, res, next) => {
 });
 
 // create tasker review
-
 router.post("/reviews/new", async (req, res, next) => {
   const { taskerId, rating, reviewedBy, text, date, taskId } = req.body;
   try {
@@ -95,7 +92,6 @@ router.post("/reviews/new", async (req, res, next) => {
 });
 
 // edit tasker review
-
 router.put("/reviews/edit/:id", async (req, res, next) => {
   const { id } = req.params;
   const { taskerId, rating, reviewedBy, text, date } = req.body;
@@ -119,7 +115,6 @@ router.put("/reviews/edit/:id", async (req, res, next) => {
 });
 
 // delete tasker review
-
 router.delete("reviews/delete/:id", async (req, res, next) => {
   const { id } = req.params;
   try {

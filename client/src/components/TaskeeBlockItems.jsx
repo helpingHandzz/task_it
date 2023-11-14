@@ -1,7 +1,6 @@
 import { useState } from "react";
 import StarRatings from "react-star-ratings";
 import ProfilePopup from "./ProfilePopup";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { editTaskThunk } from "../store/task";
 import { useSelector } from "react-redux";

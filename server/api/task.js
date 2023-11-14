@@ -50,7 +50,6 @@ router.post("/new", verify, async (req, res, next) => {
     }
 
     const {
-      // taskerId,
       subcategoryId,
       description,
       isCompleted,
@@ -132,6 +131,7 @@ router.put("/edit/:id", verify, async (req, res, next) => {
   try {
     const { tasker } = req;
     console.log(req.body);
+    
     // Check if person is tasker
     const foundTasker = await prisma.tasker.findUnique({
       where: { email: tasker },

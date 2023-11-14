@@ -386,7 +386,6 @@ const AuthTaskee = () => {
 				<form
 					className="space-y-6"
 					onSubmit={loginHandler}
-					// action="#"
 				>
 					<div>
 						<label
