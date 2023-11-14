@@ -22,9 +22,16 @@ import TaskeeReviews from "./pages/TaskeeReviews";
 import Contact from "./pages/Contact";
 
 function App() {
-  const token = useSelector((state) => state.auth.user?.token);
-  const isTasker = useSelector((state) => state.auth.user?.isTasker);
-  const isTaskee = useSelector((state) => state.auth.user?.isTaskee);
+	const token = useSelector(
+		(state) => state.auth.user?.token
+	);
+	const isTasker = useSelector(
+		(state) => state.auth.user?.isTasker
+	);
+	const isTaskee = useSelector(
+		(state) => state.auth.user?.isTaskee
+	);
+
 
 
 	  return (
