@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 const prismaClient = new PrismaClient();
 const SALT_ROUNDS = 5;
 const { body } = require("express-validator");
-const fileUploadAvatars = require("../middleware/file-upload");
 
 // login handler for taskee
 router.post(
@@ -39,6 +38,7 @@ router.post(
 					res.status(404).json({
 						message: "Invalid password",
 					});
+					return
 				}
 
 				const token = jwt.sign(

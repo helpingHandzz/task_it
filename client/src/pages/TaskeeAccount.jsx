@@ -16,9 +16,11 @@ export default function Account() {
         <Link to="/taskee/reviews">
         <h1 className="border-4 rounded-lg p-4 text-3xl font-bold flex items-center justify-center hover:bg-cyan-600 cursor-pointer">Reviews</h1>
         </Link>
-        <h1 className="border-4 rounded-lg p-4 text-3xl font-bold flex items-center justify-center hover:bg-cyan-600 cursor-pointer">Earnings</h1>
         <Link to="/schedule">
         <h1 className="border-4 rounded-lg p-4 text-3xl font-bold flex items-center justify-center hover:bg-cyan-600 cursor-pointer">Schedule</h1>
+        </Link>
+        <Link to="/contact">
+        <h1 className="border-4 rounded-lg p-4 text-3xl font-bold flex items-center justify-center hover:bg-cyan-600 cursor-pointer">Contact Support</h1>
         </Link>
     </div>
   );

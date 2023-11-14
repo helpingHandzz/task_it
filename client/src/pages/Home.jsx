@@ -5,21 +5,24 @@ import { Link } from "react-router-dom";
 import HomeCategories from "../components/HomeCategories";
 import home_image from "../assets/home_image.png";
 
+import Search from "../components/Search";
+
 function Home() {
-  const disptach = useDispatch();
+  const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.allCategories);
 
   useEffect(() => {
-    disptach(getCategoriesThunk());
-  }, []);
+    dispatch(getCategoriesThunk());
+  }, [dispatch]);
+
   const popularCategories = categories.slice(0, 4);
-  console.log(popularCategories);
 
   return (
     <div>
-      <div className="m-8 bg-white border rounded h-80">
-        <h2>What can we help you with?</h2>
+      <div className="m-8 bg-white border rounded h-80 flex flex-col justify-center">
+        <Search categories={categories} />
       </div>
+
       <div className="m-5">
         {popularCategories.map((category) => (
           <Link key={category.id} to={`/categories/${category.id}`}>
@@ -32,18 +35,22 @@ function Home() {
           <img src={home_image} alt="home image" className="w-full" />
         </div>
         <div className="flex flex-col justify-around ml-3">
-          <h2>About us</h2>
+          <h2 className="text-3xl">About Us</h2>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum
-            ducimus nostrum quam perferendis, tempore harum vitae ad quaerat
-            repudiandae quasi vel provident voluptatibus placeat aspernatur
-            maiores libero aliquam, doloremque ipsum?
+            TaskIt is a dynamic and innovative company that revolutionizes the
+            way individuals get things done. Specializing in on-demand services,
+            we connect users with a network of skilled and reliable Taskers who
+            are ready to tackle a wide range of tasks. Whether you need help
+            with home repairs, errands, office tasks, or other odd jobs, TaskIt
+            has a diverse and talented pool of Taskers to meet your specific
+            needs.
           </p>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam itaque
-            delectus cum voluptates, sint neque, atque nostrum ratione
-            cupiditate magni debitis veniam unde repellat fugiat incidunt,
-            sapiente facilis obcaecati laudantium?
+            The company's mission is to empower individuals to outsource tasks
+            efficiently, saving time and reducing stress in their daily lives.
+            TaskIt is more than just a service platform; it's a community of
+            skilled individuals helping each other succeed in their personal and
+            professional endeavors.
           </p>
         </div>
       </div>

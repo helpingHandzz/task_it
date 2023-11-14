@@ -19,6 +19,7 @@ import TaskeeProfile from "./pages/TaskeeProfile";
 import TaskerAccount from "./pages/TaskerAccount";
 import TaskeeTasks from "./pages/TaskeeTasks";
 import TaskeeReviews from "./pages/TaskeeReviews";
+
 import { useState } from "react";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
   const isTasker = useSelector((state) => state.auth.user?.isTasker);
   const isTaskee = useSelector((state) => state.auth.user?.isTaskee);
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
+
 
   return (
     <>
@@ -66,7 +68,8 @@ function App() {
                     <Route path="/skills" element={<TaskeeSkills />} />
                     <Route path="/profile" element={<TaskeeProfile />} />
                     <Route path="/taskee/tasks" element={<TaskeeTasks />} />
-                    <Route path="/taskee/reviews" element={<TaskeeReviews />} />
+                    <Route path="/taskee/reviews" element={<TaskeeReviews/>} />
+                    <Route path="/contact" element={<Contact/>} />
                   </>
                 )}
               </>
