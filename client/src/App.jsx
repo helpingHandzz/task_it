@@ -19,6 +19,7 @@ import TaskeeProfile from "./pages/TaskeeProfile";
 import TaskerAccount from "./pages/TaskerAccount";
 import TaskeeTasks from "./pages/TaskeeTasks";
 import TaskeeReviews from "./pages/TaskeeReviews";
+import Contact from "./pages/Contact";
 
 function App() {
   const token = useSelector((state) => state.auth.user?.token);
@@ -60,6 +61,7 @@ function App() {
                     <Route path="/profile" element={<TaskeeProfile />} />
                     <Route path="/taskee/tasks" element={<TaskeeTasks />} />
                     <Route path="/taskee/reviews" element={<TaskeeReviews/>} />
+                    <Route path="/contact" element={<Contact/>} />
                   </>
                 )}
               </>

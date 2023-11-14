@@ -21,13 +21,14 @@ export default function TaskeeSkills() {
     
   return (
     <div>
-      <h1>MY SKILLS</h1>
+      <h1 className='text-2xl font-bold m-4 text-center border-4 m-4 rounded-lg bg-cyan-600 border-cyan-600'>MY SKILLS</h1>
         {taskeeSkills && taskeeSkills.map((skill) => (
-            <div className="tasksAndSkills" key={skill.subcategoryId}>
-                 {skill.subcategory.subName} - {skill.experience}
+            <div className="tasksAndSkills border-4 m-4 rounded-lg text-xl" key={skill.subcategoryId}>
+                 <h2 className='m-2'>{skill.subcategory.subName}</h2>
+                 <h3 className='m-2'>My Experience: {skill.experience}</h3>
             </div>
         ))}
-      <button onClick={handleBack}>Back</button>
+      <button onClick={handleBack} className='text-xl font-bold'>BACK</button>
     </div>
   )
 }
