@@ -6,7 +6,7 @@ function ReviewByTaskerPopup({ trigger, setTrigger, children }) {
       className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-100"
       style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}
     >
-      <div className="relative w-full h-full rounded-lg bg-white md:h-3/5 md:mx-[20%] md:my-auto overflow-auto">
+      <div className="relative w-full h-full rounded-lg bg-slate-100 md:h-3/5 md:mx-[20%] md:my-auto overflow-auto">
         <button
           onClick={() => setTrigger(false)}
           className="absolute top-0 right-0 pt-5 pr-5"

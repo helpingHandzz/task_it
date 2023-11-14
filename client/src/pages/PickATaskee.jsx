@@ -24,6 +24,7 @@ function PickATaskee() {
   const filteredBySkill = filteredBySubcat.filter(
     (taskee) => taskee.Skills.length > 0
   );
+  console.log(filteredBySkill);
 
   return (
     <div className="flex-col lg:flex lg:flex-row min-w-screen lg:mx-5 xl:mx-20 2xl:mx-44 bg-slate-100">
