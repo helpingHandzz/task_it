@@ -43,35 +43,34 @@ function BookingPage() {
 
   const vehicleRequired = currentTask.vehicleRequired ? "Yes" : "No";
   return (
-    <div className="lg:flex lg:justify-around lg:mx-10">
+    <div className="lg:flex lg:justify-center lg:mx-10 mt-10">
       <div className="border rounded bg-white shadow-md m-5 p-4 lg:w-2/5">
-        {/* <h1 className="text-2xl font-bold">Task</h1> */}
         <h2 className="text-2xl font-bold">
           {currentTask.subcategory.subName}
         </h2>
-        <h1 className="text-lg font-bold mt-2">Starting Address</h1>
-        <h2>
+        <h1 className="text-lg font-bold mt-7">Starting Address</h1>
+        <h2 className="pt-2">
           {currentTask.startingStreet}, {currentTask.startingSuite},{" "}
           {currentTask.startingCity}, {currentTask.startingState}{" "}
           {currentTask.startingZip}
         </h2>
-        <h1 className="text-lg font-bold mt-2">Ending Address</h1>
-        <h2>
+        <h1 className="text-lg font-bold mt-7">Ending Address</h1>
+        <h2 className="pt-2">
           {currentTask.endingStreet}, {currentTask.endingSuite},{" "}
           {currentTask.endingCity}, {currentTask.endingState}{" "}
           {currentTask.endingZip}
         </h2>
-        <h1 className="text-lg font-bold mt-2">Date & Time</h1>
-        <h2>
+        <h1 className="text-lg font-bold mt-7">Date & Time</h1>
+        <h2 className="pt-2">
           {months[formattedDate[1] - 1]} {formattedDate[2]}th,{" "}
           {formattedDate[0]} {formattedTime} {amPm}
         </h2>
-        <h1 className="text-lg font-bold mt-2">Vehicle Required?</h1>
-        <h2>{vehicleRequired}</h2>
-        <h1 className="text-lg font-bold mt-2">Description</h1>
-        <h2>{currentTask.description}</h2>
+        <h1 className="text-lg font-bold mt-7">Vehicle Required?</h1>
+        <h2 className="pt-2">{vehicleRequired}</h2>
+        <h1 className="text-lg font-bold mt-7">Description</h1>
+        <h2 className="pt-2">{currentTask.description}</h2>
       </div>
-      <div className="border rounded bg-white shadow-md m-5 flex justify-between lg:w-2/5 lg:flex-col lg:p-4">
+      <div className="border rounded bg-white shadow-md m-5 flex justify-between lg:w-2/5 lg:flex-col lg:p-4 h-min">
         <div className="ml-4 mt-4 lg:flex lg:justify-between lg:p-4">
           <img src={currentTask.taskee.photo} className="rounded-full" />
           <h2 className="text-2xl font-bold mt-3">
@@ -83,9 +82,13 @@ function BookingPage() {
             <h1 className="text-lg font-bold">Price per Hour</h1>
             <h2>${(filtered[0].price / 100).toFixed(2)}</h2>
           </div>
-          <div className="flex justify-between border-b border-black my-2">
-            <h1 className="text-lg font-bold mr-4">Est. Time Commitment</h1>
-            <h2>{currentTask.estTimeCommitment} Hours</h2>
+          <div className="flex justify-between  my-2">
+            <h1 className="text-lg font-bold mr-4 border-b border-black">
+              Est. Time Commitment
+            </h1>
+            <h2 className="border-b border-black">
+              {currentTask.estTimeCommitment} Hours
+            </h2>
           </div>
           <div className="flex justify-between">
             <h1 className="text-lg font-bold">Total Cost</h1>

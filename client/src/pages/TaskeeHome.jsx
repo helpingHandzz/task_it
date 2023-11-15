@@ -14,7 +14,7 @@ export default function TaskeeHome() {
       <div>
         <Link to="/calendar">
         <h1>Set Your Availability</h1>
-        <p>Make sure your availability is up to date so Clients can hire you for tasks.</p>
+        <p>Make sure your availability is up to date so clients can hire you for tasks.</p>
         </Link>
       </div>
     </div>

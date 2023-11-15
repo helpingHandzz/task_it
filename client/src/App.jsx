@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 import Categories from "./pages/Categories";
 import AuthTasker from "./pages/AuthTasker";
 import AuthTaskee from "./pages/AuthTaskee";
-import Tasks from "./pages/Tasks";
 import SingleCategory from "./pages/SingleCategory";
 import Calendar from "./components/Calendar";
 import ViewSked from "./pages/ViewSked";
@@ -22,26 +21,23 @@ import TaskeeReviews from "./pages/TaskeeReviews";
 import TaskeeContact from "./pages/TaskeeContact";
 
 function App() {
-	const token = useSelector(
-		(state) => state.auth.user?.token
-	);
-	const isTasker = useSelector(
-		(state) => state.auth.user?.isTasker
-	);
-	const isTaskee = useSelector(
-		(state) => state.auth.user?.isTaskee
-	);
+  const token = useSelector((state) => state.auth.user?.token);
+  const isTasker = useSelector((state) => state.auth.user?.isTasker);
+  const isTaskee = useSelector((state) => state.auth.user?.isTaskee);
+  const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
 
-
-	  return (
-      <>
-        <Nav
-          isAuthenticated={!!token}
-          isTasker={isTasker}
-          isTaskee={isTaskee}
-        />
-        <section className="pt-14">
+  return (
+    <>
+      <Nav
+        isAuthenticated={!!token}
+        isTasker={isTasker}
+        isTaskee={isTaskee}
+        openMobileMenu={openMobileMenu}
+        setOpenMobileMenu={setOpenMobileMenu}
+      />
+      <section className="pt-14">
+        <div onClick={() => setOpenMobileMenu(false)}>
           <Routes>
             {token ? (
               <>
@@ -50,8 +46,10 @@ function App() {
                     {/* Tasker Routes */}
                     <Route path="/" element={<Home />} />
                     <Route path="/categories" element={<Categories />} />
-                    <Route path="/categories/:id" element={<SingleCategory />}/>
-                    <Route path="/tasks" element={<Tasks />} />
+                    <Route
+                      path="/categories/:id"
+                      element={<SingleCategory />}
+                    />
                     <Route path="/booking" element={<BookingPage />} />
                     <Route path="/create" element={<CreateTask />} />
                     <Route path="/pick" element={<PickATaskee />} />
@@ -84,9 +82,9 @@ function App() {
               </>
             )}
           </Routes>
-        </section>
-      </>
-    );
-
+        </div>
+      </section>
+    </>
+  );
 }
 export default App;

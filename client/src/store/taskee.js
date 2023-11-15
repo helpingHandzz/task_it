@@ -71,7 +71,7 @@ const deleteTaskeeSchedule = (schedule) => ({
   payload: schedule,
 });
 
-//All TASKEES
+// All TASKEES
 export const getTaskeesThunk = () => async (dispatch) => {
   try {
     const { data: taskees } = await axios.get(`${BASE_URL}/api/taskee`);
@@ -81,7 +81,7 @@ export const getTaskeesThunk = () => async (dispatch) => {
   }
 };
 
-//SINGLE TASKEE
+// SINGLE TASKEE
 export const getTaskeeThunk = (id) => async (dispatch) => {
   try {
     const { data: taskee } = await axios.get(`${BASE_URL}/api/taskee/${id}`);
@@ -91,7 +91,7 @@ export const getTaskeeThunk = (id) => async (dispatch) => {
   }
 };
 
-//SINGLE TASKEE REVIEWS
+// SINGLE TASKEE REVIEWS
 export const getTaskeeReviewsThunk = (id) => async (dispatch) => {
   try {
     const { data: reviews } = await axios.get(
@@ -180,7 +180,6 @@ export const deleteTaskeeReviewThunk = (id) => async (dispatch) => {
 };
 
 // POST TASKEE WORK SCHEDULE
-
 export const postTaskeeScheduleThunk =
   (taskeeId, workSchedules) => async (dispatch) => {
     try {

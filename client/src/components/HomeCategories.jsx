@@ -10,7 +10,7 @@ function HomeCategories({ category }) {
 	const sortedPrices = concatPrices.sort(function (a, b) {
 		return a - b;
 	});
-	// console.log("prices", sortedPrices);
+
 	return (
 		<div className="border rounded shadow-md bg-white m-3 h-28 flex">
 			<div className="w-[30%] h-full">

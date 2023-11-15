@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { getTaskersThunk } from "../store/tasker";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"; // Note: This should be react-router-dom
 
 export default function AllTaskers() {
   const dispatch = useDispatch();

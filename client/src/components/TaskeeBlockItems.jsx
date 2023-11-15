@@ -1,7 +1,5 @@
 import { useState } from "react";
-import StarRatings from "react-star-ratings";
 import ProfilePopup from "./ProfilePopup";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { editTaskThunk } from "../store/task";
 import { useSelector } from "react-redux";
@@ -13,8 +11,6 @@ function TaskeeBlockItems({ taskee }) {
   const dispatch = useDispatch();
   const currentTask = useSelector((state) => state.task.postedTask);
 
-  console.log("currentTask", currentTask);
-  console.log("taskee id", taskee.id);
   const handleUpdateTask = () => {
     dispatch(
       editTaskThunk({
@@ -31,7 +27,7 @@ function TaskeeBlockItems({ taskee }) {
       className="border-2 rounded my-5 mx-5 min-h-min lg:w-full lg:mr-5 bg-white shadow-md"
     >
       <div className="h-1/2 w-full flex justify-around sm:justify-normal">
-        <div className="text-center flex px-3 items-center sm:mb-4">
+        <div className="text-center flex px-3 items-center sm:mb-4 mt-4">
           <img
             src={taskee.photo}
             alt={taskee.lName}
@@ -47,21 +43,27 @@ function TaskeeBlockItems({ taskee }) {
               ${taskee.Skills.map((skill) => skill.price) / 100} / hr
             </h3>
           </div>
-          <div
-            className={`my-4 ${profileButtonPopup === true ? "hidden" : ""}`}
-          >
-            <StarRatings
-              rating={
+          <div className="py-7 flex">
+            <h3 className="font-bold text-xl mr-3">
+              {(
                 taskee.TaskeeReview.reduce(
                   (acc, curr) => (acc += curr.rating),
                   0
                 ) / taskee.TaskeeReview.length
-              }
-              starRatedColor="gold"
-              numberOfStars={5}
-              starDimension="25px"
-              starSpacing="1px"
-            />
+              ).toFixed(1)}
+            </h3>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                clipRule="evenodd"
+              />
+            </svg>
           </div>
           <button
             onClick={() => setProfileButtonPopup(true)}
@@ -105,19 +107,27 @@ function TaskeeBlockItems({ taskee }) {
             <h3 className="text-2xl lg:text-2xl pt-7">
               ${taskee.Skills.map((skill) => skill.price) / 100} / hr
             </h3>
-            <div className="pt-7">
-              <StarRatings
-                rating={
+            <div className="pt-7 flex">
+              <h3 className="font-bold text-xl mr-3">
+                {(
                   taskee.TaskeeReview.reduce(
                     (acc, curr) => (acc += curr.rating),
                     0
                   ) / taskee.TaskeeReview.length
-                }
-                starRatedColor="gold"
-                numberOfStars={5}
-                starDimension="25px"
-                starSpacing="1px"
-              />
+                ).toFixed(1)}
+              </h3>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </div>
           </div>
         </div>
@@ -134,14 +144,22 @@ function TaskeeBlockItems({ taskee }) {
               <h3 className="text-xl font-bold">
                 {review.tasker.fName} {review.tasker.lName}
               </h3>
-              <div className="pt-2">
-                <StarRatings
-                  rating={review.rating}
-                  starRatedColor="gold"
-                  numberOfStars={5}
-                  starDimension="25px"
-                  starSpacing="1px"
-                />
+              <div className="pt-7 flex">
+                <h3 className="font-bold text-xl mr-3">
+                  {review.rating.toFixed(1)}
+                </h3>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                    clipRule="evenodd"
+                  />
+                </svg>
               </div>
               <h3 className="pt-2">{review.date.split("T")[0]}</h3>
               <p className="pt-2">{review.text}</p>

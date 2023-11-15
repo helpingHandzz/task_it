@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 
 const taskers = [
   {
-    // id: 1,
     fName: "John",
     lName: "Miller",
     email: "johnmiller@gmail.com",
@@ -13,7 +12,6 @@ const taskers = [
     phone: "917-555-9898",
   },
   {
-    // id: 2,
     fName: "Calvin",
     lName: "Johnson",
     email: "calvinjohnson@gmail.com",
@@ -21,7 +19,6 @@ const taskers = [
     phone: "874-456-9834",
   },
   {
-    // id: 3,
     fName: "Kevin",
     lName: "Borger",
     email: "kevinborger@gmail.com",
@@ -29,7 +26,6 @@ const taskers = [
     phone: "784-345-9874",
   },
   {
-    // id: 4,
     fName: "Garrett",
     lName: "Goldberg",
     email: "garrettgoldberg@gmail.com",
@@ -37,7 +33,6 @@ const taskers = [
     phone: "917-567-9865",
   },
   {
-    // id: 5,
     fName: "Shaheer",
     lName: "Finkle",
     email: "shaheerfinkle@gmail.com",
@@ -45,7 +40,6 @@ const taskers = [
     phone: "342-987-4563",
   },
   {
-    // id: 6,
     fName: "Chris",
     lName: "Jones",
     email: "chrisjones@gmail.com",
@@ -53,7 +47,6 @@ const taskers = [
     phone: "435-097-3658",
   },
   {
-    // id: 7,
     fName: "Luke",
     lName: "Smith",
     email: "lukesmith@gmail.com",
@@ -61,7 +54,6 @@ const taskers = [
     phone: "567-987-8973",
   },
   {
-    // id: 8,
     fName: "Emma",
     lName: "Kravitz",
     email: "emmakravtiz@gmail.com",
@@ -69,7 +61,6 @@ const taskers = [
     phone: "473-753-8964",
   },
   {
-    // id: 9,
     fName: "Sara",
     lName: "Phillips",
     email: "saraphillips@gmail.com",
@@ -77,7 +68,6 @@ const taskers = [
     phone: "555-987-4572",
   },
   {
-    // id: 10,
     fName: "Krista",
     lName: "Rich",
     email: "kristarich@gmail.com",
@@ -88,7 +78,6 @@ const taskers = [
 
 const taskees = [
   {
-    // id: 1,
     fName: "John",
     lName: "Doe",
     email: "john.doe@example.com",
@@ -99,7 +88,6 @@ const taskees = [
     password: "test",
   },
   {
-    // id: 2,
     fName: "Jane",
     lName: "Smith",
     email: "jane.smith@example.com",
@@ -110,7 +98,6 @@ const taskees = [
     password: "test",
   },
   {
-    // id: 3,
     fName: "Michael",
     lName: "Johnson",
     email: "michael.j@example.com",
@@ -121,7 +108,6 @@ const taskees = [
     password: "test",
   },
   {
-    // id: 4,
     fName: "Sarah",
     lName: "Brown",
     email: "sarah.b@example.com",
@@ -132,7 +118,6 @@ const taskees = [
     password: "test",
   },
   {
-    // id: 5,
     fName: "David",
     lName: "Lee",
     email: "david.lee@example.com",
@@ -143,7 +128,6 @@ const taskees = [
     password: "test",
   },
   {
-    // id: 6,
     fName: "Emily",
     lName: "Wilson",
     email: "emily.w@example.com",
@@ -154,7 +138,6 @@ const taskees = [
     password: "test",
   },
   {
-    // id: 7,
     fName: "Robert",
     lName: "Taylor",
     email: "robert.t@example.com",
@@ -165,7 +148,6 @@ const taskees = [
     password: "test",
   },
   {
-    // id: 8,
     fName: "Megan",
     lName: "Hall",
     email: "megan.h@example.com",
@@ -176,7 +158,6 @@ const taskees = [
     password: "test",
   },
   {
-    // id: 9,
     fName: "William",
     lName: "Wilson",
     email: "william.w@example.com",
@@ -187,7 +168,6 @@ const taskees = [
     password: "test",
   },
   {
-    // id: 10,
     fName: "Linda",
     lName: "Martinez",
     email: "linda.m@example.com",

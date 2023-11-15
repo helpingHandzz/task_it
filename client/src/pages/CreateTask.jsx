@@ -6,26 +6,25 @@ import { postTaskThunk } from "../store/task";
 function CreateTask({ sub }) {
   let { state } = useLocation();
   const dispatch = useDispatch();
-  //STARTING
+  // STARTING
   const [startStreet, setStartStreet] = useState("");
   const [startCity, setStartCity] = useState("");
   const [startState, setStartState] = useState("");
   const [startZip, setStartZip] = useState("");
   const [startSuite, setStartSuite] = useState("");
-  //ENDING
+  // ENDING
   const [endStreet, setEndStreet] = useState("");
   const [endCity, setEndCity] = useState("");
   const [endState, setEndState] = useState("");
   const [endZip, setEndZip] = useState("");
   const [endSuite, setEndSuite] = useState("");
 
-  //OTHER INFORMATION
+  // OTHER INFORMATION
   const [vehicleRequired, setVehicleRequired] = useState(false);
   const [estTimeCommit, setEstTimeCommit] = useState("");
   const [description, setDescription] = useState("");
 
   const handleCreateTask = () => {
-    // e.preventDefault();
     dispatch(
       postTaskThunk({
         subcategoryId: state.subcat.id,

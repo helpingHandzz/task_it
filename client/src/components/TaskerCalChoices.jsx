@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function TaskerCalChoices({ selectedDates, currentTask }) {
-  // const currentTask = useSelector((state) => state.task.postedTask);
   console.log("currTask", currentTask);
   const dispatch = useDispatch();
   const [startTime, setStartTime] = useState({

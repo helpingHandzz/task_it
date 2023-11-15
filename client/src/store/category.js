@@ -21,7 +21,6 @@ export const getCategoriesThunk =
 			const { data: categories } = await axios.get(
 				`${BASE_URL}/api/category`
 			);
-			// console.log("data", categories);
 			return dispatch(getCategories(categories));
 		} catch (error) {
 			console.error(error);
@@ -34,7 +33,6 @@ export const getCategoryThunk =
 			const { data: category } = await axios.get(
 				`${BASE_URL}/api/category/${id}`
 			);
-			// console.log("single cat", category);
 			return dispatch(getCategory(category));
 		} catch (error) {
 			console.error(error);

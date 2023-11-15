@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
-// const { daysToWeeks } = require("date-fns");
 const prisma = new PrismaClient();
 
 // Get all taskees
@@ -67,7 +66,6 @@ router.get("/reviews/:id", async (req, res, next) => {
 });
 
 // Get Taskee Work Schedule by id
-
 router.get("/schedule/:id", async (req, res, next) => {
   try {
     const taskeeId = parseInt(req.params.id);

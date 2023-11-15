@@ -39,7 +39,6 @@ export default function ViewSked() {
 		}
 	  };
 	  
-
 	useEffect(() => {
 		if (taskeeId) {
 			dispatch(getTaskeeScheduleThunk(taskeeId));
