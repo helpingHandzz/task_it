@@ -13,13 +13,14 @@ export default function TaskeeReviews() {
       dispatch(getTaskeeReviewsThunk(taskeeId));
     }
   }, [dispatch, taskeeId]);
-
+ 
   return (
     <div>
-      <h1>Reviews</h1>
+      <h1 className='text-3xl font-bold text-center p-4'>Reviews</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {reviews.length > 0 ? (
         reviews.map((review, index) => (
-          <div key={index} className="mb-4">
+          <div key={index} className="border shadow-md bg-white my-4 mx-4 p-3 mb-4">
             <p>Review by: {review.tasker?.fName} {review.tasker?.lName.charAt(0)}.</p>
             <StarRatings
               rating={review.rating}
@@ -35,6 +36,7 @@ export default function TaskeeReviews() {
       ) : (
         <p>No reviews yet.</p>
       )}
+    </div>
     </div>
   );
 }

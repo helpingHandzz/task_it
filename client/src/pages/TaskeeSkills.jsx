@@ -21,7 +21,7 @@ export default function TaskeeSkills() {
     
   return (
     <div>
-      <h1 className='text-2xl font-bold m-4 text-center border-4 m-4 rounded-lg bg-cyan-600 border-cyan-600'>MY SKILLS</h1>
+      <h1 className='text-3xl font-bold text-center p-4'>My Skills</h1>
         {taskeeSkills && taskeeSkills.map((skill) => (
             <div className="tasksAndSkills border-4 m-4 rounded-lg text-xl" key={skill.subcategoryId}>
                  <h2 className='m-2'>{skill.subcategory.subName}</h2>

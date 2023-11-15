@@ -206,4 +206,19 @@ router.post("/schedule/new", async (req, res, next) => {
   }
 });
 
+// Delete Taskee Work Schedule
+router.delete("/schedule/delete/:id", async (req, res, next) => {
+  const { id } = req.params
+  try {
+    const deleteTaskeeSchedule = await prisma.workSchedule.delete({
+      where:{
+        id: +id,
+      },
+    })
+    res.status(200).json(deleteTaskeeSchedule);
+  } catch (error) {
+    next(error);
+  }
+})
+
 module.exports = router;

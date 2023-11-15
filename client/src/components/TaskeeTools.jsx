@@ -82,7 +82,7 @@ export default function TaskeeTools() {
           ))}
           <button
             onClick={handleSaveTools}
-            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+            className="mt-4 bg-cyan-600 text-white px-4 py-2 rounded font-bold"
           >
             Save
           </button>

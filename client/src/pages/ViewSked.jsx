@@ -14,6 +14,9 @@ export default function ViewSked() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedTaskeeSchedule, setSelectedTaskeeSchedule] = useState(null);
 
+	console.log("Taskee Schedule Id", selectedTaskeeSchedule)
+	console.log("TaskeeId", taskeeId)
+
 	const handleDeleteClick = (taskeeId) => {
 		setSelectedTaskeeSchedule(taskeeId);
 		setIsModalOpen(true);
@@ -43,7 +46,7 @@ export default function ViewSked() {
 		}	
 	}, [dispatch, taskeeId]);
 
-	const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	// const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 	function formatDate(dateString) {
 		const date = parseISO(dateString);
@@ -114,22 +117,22 @@ export default function ViewSked() {
               <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
               <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
             </svg>
-            <div className="popUp">
-              <ConfirmationPopup
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                onConfirm={confirmDelete}
-              />
-            </div>
           </div>
         </div>
       ))}
+      <div className="popUp">
+        <ConfirmationPopup
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          onConfirm={confirmDelete}
+        />
+      </div>
       <div className="flex justify-center p-10">
-		<Link to="/calendar">
-        <button className="bg-cyan-700 hover:bg-cyan-900 text-white font-bold py-2 px-4 rounded">
-          Set More Availability
-        </button>
-		</Link>
+        <Link to="/calendar">
+          <button className="bg-cyan-700 hover:bg-cyan-900 text-white font-bold py-2 px-4 rounded">
+            Set More Availability
+          </button>
+        </Link>
       </div>
     </div>
   );
