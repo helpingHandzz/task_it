@@ -6,7 +6,7 @@ import { postTaskThunk } from "../store/task";
 function CreateTask({ sub }) {
   let { state } = useLocation();
   const dispatch = useDispatch();
-  //STARTING
+  // STARTING
   const [startStreet, setStartStreet] = useState("");
   const [startCity, setStartCity] = useState("");
   const [startState, setStartState] = useState("");
