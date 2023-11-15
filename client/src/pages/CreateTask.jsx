@@ -120,15 +120,15 @@ function CreateTask({ sub }) {
             <div className="flex justify-between mx-3 mt-5">
               <input
                 className="border border-black rounded h-9 pl-2 w-[45%]"
-                placeholder="Zip Code"
-                type="text"
-                onChange={(e) => setEndZip(e.target.value)}
-              />
-              <input
-                className="border border-black rounded h-9 pl-2 w-[45%]"
                 placeholder="Apt / Suite"
                 type="text"
                 onChange={(e) => setEndSuite(e.target.value)}
+              />
+              <input
+                className="border border-black rounded h-9 pl-2 w-[45%]"
+                placeholder="Zip Code"
+                type="text"
+                onChange={(e) => setEndZip(e.target.value)}
               />
             </div>
           </div>
