@@ -11,7 +11,6 @@ function TaskeeBlockItems({ taskee }) {
   const dispatch = useDispatch();
   const currentTask = useSelector((state) => state.task.postedTask);
 
-  // console.log("taskee id", taskee.id);
   const handleUpdateTask = () => {
     dispatch(
       editTaskThunk({
