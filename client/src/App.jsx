@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 import Categories from "./pages/Categories";
 import AuthTasker from "./pages/AuthTasker";
 import AuthTaskee from "./pages/AuthTaskee";
-import Tasks from "./pages/Tasks";
 import SingleCategory from "./pages/SingleCategory";
 import Calendar from "./components/Calendar";
 import ViewSked from "./pages/ViewSked";
