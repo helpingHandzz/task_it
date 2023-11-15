@@ -45,7 +45,6 @@ function BookingPage() {
   return (
     <div className="lg:flex lg:justify-center lg:mx-10 mt-10">
       <div className="border rounded bg-white shadow-md m-5 p-4 lg:w-2/5">
-        {/* <h1 className="text-2xl font-bold">Task</h1> */}
         <h2 className="text-2xl font-bold">
           {currentTask.subcategory.subName}
         </h2>
