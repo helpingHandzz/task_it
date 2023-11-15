@@ -33,7 +33,7 @@ const deleteTask = (task) => ({
   payload: task,
 });
 
-//ALL TASKS
+// ALL TASKS
 export const getTasksThunk = () => async (dispatch) => {
   try {
     const { data: tasks } = await axios.get(`${BASE_URL}/api/task`);
@@ -44,7 +44,7 @@ export const getTasksThunk = () => async (dispatch) => {
   }
 };
 
-//SINGLE TASK
+// SINGLE TASK
 export const getTaskThunk = (id) => async (dispatch) => {
   try {
     const { data: task } = await axios.get(`${BASE_URL}/api/task/${id}`);
@@ -55,7 +55,7 @@ export const getTaskThunk = (id) => async (dispatch) => {
   }
 };
 
-//POST TASK
+// POST TASK
 export const postTaskThunk = (data) => async (dispatch) => {
   try {
     const { data: task } = await axios.post(
@@ -75,7 +75,7 @@ export const postTaskThunk = (data) => async (dispatch) => {
   }
 };
 
-//EDIT TASK
+// EDIT TASK
 export const editTaskThunk = (data) => async (dispatch) => {
   console.log("data", data);
   try {
@@ -95,7 +95,7 @@ export const editTaskThunk = (data) => async (dispatch) => {
   }
 };
 
-//DELETE TASK
+// DELETE TASK
 export const deleteTaskThunk = (id) => async (dispatch) => {
   try {
     const { data: task } = await axios.delete(
