@@ -12,7 +12,7 @@ function CreateTask({ sub }) {
   const [startState, setStartState] = useState("");
   const [startZip, setStartZip] = useState("");
   const [startSuite, setStartSuite] = useState("");
-  //ENDING
+  // ENDING
   const [endStreet, setEndStreet] = useState("");
   const [endCity, setEndCity] = useState("");
   const [endState, setEndState] = useState("");
