@@ -1,9 +1,7 @@
 import React from 'react'
 
 export default function Contact() {
-
   
-    
   return (
     <div className='m-4'>
       <h1 className='text-3xl font-bold text-center p-4'>Support</h1>
