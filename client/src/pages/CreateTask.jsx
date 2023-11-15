@@ -19,7 +19,7 @@ function CreateTask({ sub }) {
   const [endZip, setEndZip] = useState("");
   const [endSuite, setEndSuite] = useState("");
 
-  //OTHER INFORMATION
+  // OTHER INFORMATION
   const [vehicleRequired, setVehicleRequired] = useState(false);
   const [estTimeCommit, setEstTimeCommit] = useState("");
   const [description, setDescription] = useState("");
