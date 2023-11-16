@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:prod": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node db/seed.js",
     "watch": "nodemon index.js"
@@ -12,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ngneat/falso": "^7.1.1",
     "@prisma/client": "^5.4.2",
     "axios": "^1.5.1",
     "bcrypt": "^5.1.1",
@@ -31,7 +33,6 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@ngneat/falso": "^7.1.1",
     "nodemon": "^3.0.1",
     "prisma": "^5.4.2",
     "supertest": "^6.3.3"

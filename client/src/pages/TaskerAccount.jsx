@@ -8,19 +8,27 @@ import TaskerAccountCompleted from "../components/TaskerAccountCompleted";
 import TaskerAccountIncomplete from "../components/TaskerAccountIncomplete";
 
 function TaskerAccount() {
-  const { id } = useParams();
-  const dispatch = useDispatch();
+	const { id } = useParams();
+	const dispatch = useDispatch();
 
-  const tasker = useSelector((state) => state.tasker.singleTasker);
-  const postedTask = useSelector((state) => state.task.postedTask);
-  console.log("tasker", tasker);
+	const tasker = useSelector(
+		(state) => state.tasker.singleTasker
+	);
+	const postedTask = useSelector(
+		(state) => state.task.postedTask
+	);
+	console.log("tasker", tasker);
 
-  const [_, updateState] = useState();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
+	const [_, updateState] = useState();
+	const forceUpdate = React.useCallback(
+		() => updateState({}),
+		[]
+	);
 
-  useEffect(() => {
-    dispatch(getTaskerThunk(id));
-  }, [postedTask]);
+	useEffect(() => {
+		dispatch(getTaskerThunk(id));
+	}, [postedTask]);
+
 
   // const completedTasks = tasker.Task?.filter(
   //   (task) => task.isCompleted === true
@@ -31,6 +39,7 @@ function TaskerAccount() {
   // );
   // console.log("completed tasks", completedTasks);
   // console.log("incomplete tasks", incompleteTasks);
+
 
   return (
     <div>
@@ -63,6 +72,7 @@ function TaskerAccount() {
       </div> */}
     </div>
   );
+
 }
 
 export default TaskerAccount;
