@@ -8,57 +8,71 @@ import TaskerAccountCompleted from "../components/TaskerAccountCompleted";
 import TaskerAccountIncomplete from "../components/TaskerAccountIncomplete";
 
 function TaskerAccount() {
-  const { id } = useParams();
-  const dispatch = useDispatch();
+	const { id } = useParams();
+	const dispatch = useDispatch();
 
-  const tasker = useSelector((state) => state.tasker.singleTasker);
-  const postedTask = useSelector((state) => state.task.postedTask);
-  console.log("tasker", tasker);
+	const tasker = useSelector(
+		(state) => state.tasker.singleTasker
+	);
+	const postedTask = useSelector(
+		(state) => state.task.postedTask
+	);
+	console.log("tasker", tasker);
 
-  const [_, updateState] = useState();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
+	const [_, updateState] = useState();
+	const forceUpdate = React.useCallback(
+		() => updateState({}),
+		[]
+	);
 
-  useEffect(() => {
-    dispatch(getTaskerThunk(id));
-  }, [postedTask]);
+	useEffect(() => {
+		dispatch(getTaskerThunk(id));
+	}, [postedTask]);
 
-  const completedTasks = tasker.Task?.filter(
-    (task) => task.isCompleted === true
-  );
+	const completedTasks = tasker.Task?.filter(
+		(task) => task.isCompleted === true
+	);
 
-  const incompleteTasks = tasker.Task?.filter(
-    (task) => task.isCompleted === false
-  );
-  // console.log("completed tasks", completedTasks);
-  // console.log("incomplete tasks", incompleteTasks);
+	const incompleteTasks = tasker.Task?.filter(
+		(task) => task.isCompleted === false
+	);
+	// console.log("completed tasks", completedTasks);
+	// console.log("incomplete tasks", incompleteTasks);
 
-  return (
-    <div>
-      <h1 className="text-center font-bold text-3xl py-3">
-        Hi, {tasker.fName} {tasker.lName}
-      </h1>
-      <h2 className="font-bold text-center text-lg py-3">Open Tasks</h2>
-      <div className="md:flex md:flex-wrap md:mx-auto">
-        {incompleteTasks.length > 0 ? (
-          incompleteTasks.map((task) => (
-            <TaskerAccountIncomplete key={task.id} task={task} />
-          ))
-        ) : (
-          <h2>No Open Tasks</h2>
-        )}
-      </div>
-      <h2 className="font-bold text-center text-lg py-3">Completed Tasks</h2>
-      <div className="md:flex md:flex-wrap md:mx-auto">
-        {completedTasks.map((task) => (
-          <TaskerAccountCompleted
-            key={task.id}
-            task={task}
-            forceUpdate={forceUpdate}
-          />
-        ))}
-      </div>
-    </div>
-  );
+	return (
+		<div>
+			<h1 className="text-center font-bold text-3xl py-3">
+				Hi, {tasker.fName} {tasker.lName}
+			</h1>
+			<h2 className="font-bold text-center text-lg py-3">
+				Open Tasks
+			</h2>
+			<div className="md:flex md:flex-wrap md:mx-auto">
+				{incompleteTasks.length > 0 ? (
+					incompleteTasks.map((task) => (
+						<TaskerAccountIncomplete
+							key={task.id}
+							task={task}
+						/>
+					))
+				) : (
+					<h2>No Open Tasks</h2>
+				)}
+			</div>
+			<h2 className="font-bold text-center text-lg py-3">
+				Completed Tasks
+			</h2>
+			<div className="md:flex md:flex-wrap md:mx-auto">
+				{completedTasks.map((task) => (
+					<TaskerAccountCompleted
+						key={task.id}
+						task={task}
+						forceUpdate={forceUpdate}
+					/>
+				))}
+			</div>
+		</div>
+	);
 }
 
 export default TaskerAccount;
