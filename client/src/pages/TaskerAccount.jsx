@@ -22,11 +22,11 @@ function TaskerAccount() {
     dispatch(getTaskerThunk(id));
   }, [postedTask]);
 
-  const completedTasks = tasker.Task.filter(
+  const completedTasks = tasker.Task?.filter(
     (task) => task.isCompleted === true
   );
 
-  const incompleteTasks = tasker.Task.filter(
+  const incompleteTasks = tasker.Task?.filter(
     (task) => task.isCompleted === false
   );
   // console.log("completed tasks", completedTasks);
@@ -39,9 +39,13 @@ function TaskerAccount() {
       </h1>
       <h2 className="font-bold text-center text-lg py-3">Open Tasks</h2>
       <div className="md:flex md:flex-wrap md:mx-auto">
-        {incompleteTasks.map((task) => (
-          <TaskerAccountIncomplete key={task.id} task={task} />
-        ))}
+        {incompleteTasks.length > 0 ? (
+          incompleteTasks.map((task) => (
+            <TaskerAccountIncomplete key={task.id} task={task} />
+          ))
+        ) : (
+          <h2>No Open Tasks</h2>
+        )}
       </div>
       <h2 className="font-bold text-center text-lg py-3">Completed Tasks</h2>
       <div className="md:flex md:flex-wrap md:mx-auto">

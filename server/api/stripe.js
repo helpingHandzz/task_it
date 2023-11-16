@@ -1,13 +1,10 @@
-// This example sets up an endpoint using the Express framework.
-// Watch this video to get started: https://youtu.be/rPR2aJ6XnAc.
-
 const express = require("express");
 const router = express.Router();
 const Stripe = require("stripe");
 
-require("dotenv").config();
-
-const stripe = Stripe(process.env.STRIPE_KEY);
+STRIPE_KEY =
+  "sk_test_51O6xXwA70cTu8rF3nhAA0jw3cTMF3W0WYqsTI8opBsj8RkzrDbP70u62zICpCSWDjpBfb4DKaCKOmrYmxfAUXAwN00Tm3f84wN";
+const stripe = Stripe(STRIPE_KEY);
 
 router.post("/create-checkout-session", async (req, res) => {
   const currentTask = req.body.currentTask;
