@@ -98,7 +98,7 @@ function TaskeeBlockItems({ taskee }) {
           <img
             src={taskee.photo}
             alt={taskee.lName}
-            className="rounded-full pt-5 pl-5 h-44 w-44"
+            className="rounded-full mt-5 ml-5 h-44 w-44"
           />
           <div className="ml-10">
             <h3 className="text-2xl font-bold pt-5">
