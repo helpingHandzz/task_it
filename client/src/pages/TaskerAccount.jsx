@@ -39,8 +39,6 @@ function TaskerAccount() {
 	// console.log("completed tasks", completedTasks);
 	// console.log("incomplete tasks", incompleteTasks);
 
-
-=======
   return (
     <div>
       <h1 className="text-center font-bold text-3xl py-3">
