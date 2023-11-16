@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://taskit-client.onrender.com";
+const BASE_URL = "https://taskit-server.onrender.com";
 
 const REGISTER_TASKER = "REGISTER_TASKER";
 const LOGIN_TASKER = "LOGIN_TASKER";

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://taskit-client.onrender.com";
+const BASE_URL = "https://taskit-server.onrender.com";
 
 const GET_TASKEES = "GET_TASKEES";
 const GET_TASKEE = "GET_TASKEE";
