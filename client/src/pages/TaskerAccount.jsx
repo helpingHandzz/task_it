@@ -29,8 +29,8 @@ function TaskerAccount() {
   const incompleteTasks = tasker.Task.filter(
     (task) => task.isCompleted === false
   );
-  console.log("completed tasks", completedTasks);
-  console.log("incomplete tasks", incompleteTasks);
+  // console.log("completed tasks", completedTasks);
+  // console.log("incomplete tasks", incompleteTasks);
 
   return (
     <div>
