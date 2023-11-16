@@ -41,10 +41,10 @@ model Taskee {
   photo         String
   city          String
   state         String
-  tools         String
-  vehicles      String
-  facts         String
-  about         String
+  tools         String?
+  vehicles      String?
+  facts         String?
+  about         String?
   workSchedules WorkSchedule[]
   TaskeeReview  TaskeeReview[]
   Skills        Skills[]

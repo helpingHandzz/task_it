@@ -13,8 +13,14 @@ const GET_TASKEE_TASKS = "GET_TASKEE_TASKS"
 const POST_TASKEE_REVIEW = "POST_TASKEE_REVIEW";
 const EDIT_TASKEE_REVIEW = "EDIT_TASKEE_REVIEW";
 const DELETE_TASKEE_REVIEW = "DELETE_TASKEE_REVIEW";
+
 const POST_TASKEE_SCHEDULE = "POST_TASKEE_SCHEDULE";
 const DELETE_TASKEE_SCHEDULE = "DELETE_TASKEE_SCHEDULE";
+
+const POST_TASKEE_TOOLS = "POST_TASKEE_TOOLS";
+const POST_TASKEE_VEHICLES = "POST_TASKEE_VEHICLES";
+const POST_TASKEE_FACTS = "POST_TASKEE_FACTS";
+const POST_TASKEE_ABOUT = "POST_TASKEE_ABOUT";
 
 const getTaskees = (taskees) => ({
   type: GET_TASKEES,
@@ -71,6 +77,27 @@ const deleteTaskeeSchedule = (schedule) => ({
   payload: schedule,
 });
 
+const postTaskeeTools = (tools) => ({
+  type: POST_TASKEE_TOOLS,
+  payload: tools,
+});
+
+const postTaskeeVehicles = (vehicles) => ({
+  type: POST_TASKEE_VEHICLES,
+  payload: vehicles,
+});
+
+const postTaskeeFacts = (facts) => ({
+  type: POST_TASKEE_FACTS,
+  payload: facts,
+});
+
+const postTaskeeAbout = (about) => ({
+  type: POST_TASKEE_ABOUT,
+  payload: about,
+});
+
+
 // All TASKEES
 export const getTaskeesThunk = () => async (dispatch) => {
   try {
@@ -117,10 +144,10 @@ export const getTaskeeScheduleThunk = (id) => async (dispatch) => {
 };
 
 // GET TASKEE SKILLS
-export const getTaskeeSkillsThunk = (id) => async (dispatch) => {
+export const getTaskeeSkillsThunk = (taskeeId) => async (dispatch) => {
   try {
     const { data: skills } = await axios.get(
-      `${BASE_URL}/api/taskee/skills/${id}`
+      `${BASE_URL}/api/taskee/skills/${taskeeId}`
     );
     dispatch(getTaskeeSkills(skills));
   } catch (error) {
@@ -211,6 +238,57 @@ export const deleteTaskeeScheduleThunk = (scheduleId) => async (dispatch) => {
   }
 };
 
+// POST TASKEE TOOLS
+export const postTaskeeToolsThunk = (taskeeId, tools) => async (dispatch) => {
+  try {
+    const { data: updatedTaskee } = await axios.put(
+      `${BASE_URL}/api/taskee/tools/${taskeeId}`,
+      { tools }
+    );
+    dispatch(postTaskeeTools(updatedTaskee))
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// POST TASKEE VEHICLES
+export const postTaskeeVehiclesThunk = (taskeeId, vehicles) => async (dispatch) => {
+  try {
+    const { data: updatedTaskee } = await axios.put(
+      `${BASE_URL}/api/taskee/vehicles/${taskeeId}`,
+      { vehicles }
+    );
+    dispatch(postTaskeeVehicles(updatedTaskee))
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// POST TASKEE FACTS
+export const postTaskeeFactsThunk = (taskeeId, facts) => async (dispatch) => {
+  try {
+    const { data: updatedTaskee } = await axios.put(
+      `${BASE_URL}/api/taskee/facts/${taskeeId}`,
+      { facts }
+    );
+    dispatch(postTaskeeFacts(updatedTaskee))
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// POST TASKEE ABOUT
+export const postTaskeeAboutThunk = (taskeeId, about) => async (dispatch) => {
+  try {
+    const { data: updatedTaskee } = await axios.put(
+      `${BASE_URL}/api/taskee/about/${taskeeId}`,
+      { about }
+    );
+    dispatch(postTaskeeAbout(updatedTaskee))
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 const initialState = {
   allTaskees: [],
@@ -262,6 +340,38 @@ export default function (state = initialState, action) {
           (schedule) => schedule.id !== action.payload.id
         ),
       };
+    case POST_TASKEE_TOOLS:
+      return {
+        ...state,
+        singleTaskee: {
+          ...state.singleTaskee,
+          tools: action.payload.tools
+        }
+      } ; 
+    case POST_TASKEE_VEHICLES:
+      return {
+        ...state,
+        singleTaskee: {
+          ...state.singleTaskee,
+          tools: action.payload.vehicles
+        }
+      } ; 
+    case POST_TASKEE_FACTS:
+      return {
+        ...state,
+        singleTaskee: {
+          ...state.singleTaskee,
+          tools: action.payload.facts
+        }
+      } ; 
+    case POST_TASKEE_ABOUT:
+      return {
+        ...state,
+        singleTaskee: {
+          ...state.singleTaskee,
+          tools: action.payload.about
+        }
+      } ; 
     default:
       return state;
   }

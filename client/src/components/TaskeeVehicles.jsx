@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { postTaskeeVehiclesThunk } from '../store/taskee';
 
 export default function TaskeeVehicles() {
-    const [showVehiclesDropdown, setShowVehiclesDropdown] = useState(false);
+  const dispatch = useDispatch();
+  const taskeeId = useSelector((state => state.auth.user.taskeeId));
+  
+  const [showVehiclesDropdown, setShowVehiclesDropdown] = useState(false);
     const [selectedVehicles, setSelectedVehicles] = useState([]);
   
     const vehicleList = [
@@ -26,6 +31,8 @@ export default function TaskeeVehicles() {
     
       const handleSaveVehicles = () => {
         console.log("Selected Tools:", selectedVehicles);
+        
+        dispatch(postTaskeeVehiclesThunk(taskeeId, selectedVehicles.join(', ')));
         setShowVehiclesDropdown(false);
       };
       

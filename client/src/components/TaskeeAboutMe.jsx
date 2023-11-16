@@ -1,15 +1,23 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { postTaskeeAboutThunk } from '../store/taskee';
 
 export default function AboutMe() {
+  const dispatch = useDispatch();
+  const taskeeId = useSelector((state => state.auth.user.taskeeId));
+  
   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
   const [aboutInfo, setAboutInfo] = useState('');
 
   const handleInputChange = (e) => {
     setAboutInfo(e.target.value);
   };
-  
+
   const handleSaveAbout = () => {
     console.log("About Me:", aboutInfo);
+    if (aboutInfo) {
+      dispatch(postTaskeeAboutThunk(taskeeId, aboutInfo));
+    }
     setShowAboutDropdown(false);
   };
 

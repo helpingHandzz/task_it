@@ -219,4 +219,66 @@ router.delete("/schedule/delete/:id", async (req, res, next) => {
   }
 })
 
+// Update Taskee Tools
+router.put("/tools/:id", async (req, res, next) => {
+  const { id } = req.params;
+  const { tools } = req.body;
+
+  try {
+    const updatedTaskee = await prisma.taskee.update({
+      where: { id: parseInt(id)},
+      data: { tools },
+    });
+    res.status(200).json(updatedTaskee);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Update Taskee Vehicles
+router.put("/vehicles/:id", async (req, res, next) => {
+  const { id } = req.params;
+  const { vehicles } = req.body;
+  try {
+    const updatedTaskee = await prisma.taskee.update({
+      where: { id: parseInt(id) },
+      data: { vehicles },
+    });
+    res.status(200).json(updatedTaskee);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Update Taskee Facts
+router.put("/facts/:id", async (req, res, next) => {
+  const { id } = req.params;
+  const { facts } = req.body;
+  try {
+    const updatedTaskee = await prisma.taskee.update({
+      where: { id: parseInt(id) },
+      data: { facts },
+    });
+    res.status(200).json(updatedTaskee);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Update Taskee About
+router.put("/about/:id", async (req, res, next) => {
+  const { id } = req.params;
+  const { about } = req.body;
+  try {
+    const updatedTaskee = await prisma.taskee.update({
+      where: { id: parseInt(id) },
+      data: { about },
+    });
+    res.status(200).json(updatedTaskee);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 module.exports = router;

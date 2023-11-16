@@ -30,9 +30,8 @@ export default function TaskeeTasks() {
             Hi, {taskee.fName} {taskee.lName}
           </h1>
 
-          <h2 className="border-4 m-4 rounded-lg bg-green-400 border-green-400 text-center text-2xl font-bold">
-            Tasks In Progress
-          </h2>
+
+          <h2 className='border-4 m-4 rounded-lg bg-green-400 border-green-400 text-center text-2xl font-bold'>Tasks In Progress</h2>
           {incompleteTasks?.length > 0 ? (
             incompleteTasks.map((task) => (
               <div key={task.id} className="border-4 m-4 rounded-lg p-4">
@@ -49,9 +48,8 @@ export default function TaskeeTasks() {
             </p>
           )}
 
-          <h2 className="border-4 m-4 rounded-lg bg-sky-400 border-sky-400 text-center text-2xl font-bold">
-            Completed Tasks
-          </h2>
+
+          <h2 className='border-4 m-4 rounded-lg bg-sky-400 border-sky-400 text-center text-2xl font-bold'>Completed Tasks</h2>
           {completedTasks?.length > 0 ? (
             completedTasks.map((task) => (
               <div key={task.id} className="border-4 m-4 rounded-lg p-4">

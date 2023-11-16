@@ -1,5 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import { useState } from "react";
 import Nav from "./components/Nav";
 import Home from "./pages/Home";
 import Categories from "./pages/Categories";
@@ -20,6 +21,7 @@ import TaskeeTasks from "./pages/TaskeeTasks";
 import TaskeeReviews from "./pages/TaskeeReviews";
 import TaskeeContact from "./pages/TaskeeContact";
 import { useState } from "react";
+
 
 function App() {
   const token = useSelector((state) => state.auth.user?.token);
@@ -59,7 +61,7 @@ function App() {
                 {isTaskee && (
                   <>
                     {/* Taskee Routes */}
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<TaskeeTasks />} />
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/schedule" element={<ViewSked />} />
                     <Route path="/account" element={<TaskeeAccount />} />
