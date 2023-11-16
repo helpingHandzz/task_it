@@ -1,14 +1,14 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = "https://taskit-client.onrender.com";
 
 const GET_TASKEES = "GET_TASKEES";
 const GET_TASKEE = "GET_TASKEE";
 const GET_TASKEE_REVIEWS = "GET_TASKEE_REVIEWS";
 const GET_TASKEE_SCHEDULE = "GET_TASKEE_SCHEDULE";
 
-const GET_TASKEE_SKILLS = "GET_TASKEE_SKILLS"
-const GET_TASKEE_TASKS = "GET_TASKEE_TASKS"
+const GET_TASKEE_SKILLS = "GET_TASKEE_SKILLS";
+const GET_TASKEE_TASKS = "GET_TASKEE_TASKS";
 
 const POST_TASKEE_REVIEW = "POST_TASKEE_REVIEW";
 const EDIT_TASKEE_REVIEW = "EDIT_TASKEE_REVIEW";
@@ -50,7 +50,7 @@ const getTaskeeSkills = (skills) => ({
 const getTaskeeTasks = (tasks) => ({
   type: GET_TASKEE_TASKS,
   payload: tasks,
-})
+});
 
 const postTaskeeReview = (review) => ({
   type: POST_TASKEE_REVIEW,
@@ -96,7 +96,6 @@ const postTaskeeAbout = (about) => ({
   type: POST_TASKEE_ABOUT,
   payload: about,
 });
-
 
 // All TASKEES
 export const getTaskeesThunk = () => async (dispatch) => {
@@ -155,7 +154,6 @@ export const getTaskeeSkillsThunk = (taskeeId) => async (dispatch) => {
   }
 };
 
-
 // GET TASKEE TASKS
 export const getTaskeeTasksThunk = (id) => async (dispatch) => {
   try {
@@ -164,10 +162,9 @@ export const getTaskeeTasksThunk = (id) => async (dispatch) => {
     );
     dispatch(getTaskeeTasks(tasks));
   } catch (error) {
-      console.error(error)
+    console.error(error);
   }
 };
-
 
 // CREATE NEW TASKEE REVIEW
 export const postTaskeeReviewThunk = (data) => async (dispatch) => {
@@ -245,24 +242,25 @@ export const postTaskeeToolsThunk = (taskeeId, tools) => async (dispatch) => {
       `${BASE_URL}/api/taskee/tools/${taskeeId}`,
       { tools }
     );
-    dispatch(postTaskeeTools(updatedTaskee))
+    dispatch(postTaskeeTools(updatedTaskee));
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 // POST TASKEE VEHICLES
-export const postTaskeeVehiclesThunk = (taskeeId, vehicles) => async (dispatch) => {
-  try {
-    const { data: updatedTaskee } = await axios.put(
-      `${BASE_URL}/api/taskee/vehicles/${taskeeId}`,
-      { vehicles }
-    );
-    dispatch(postTaskeeVehicles(updatedTaskee))
-  } catch (error) {
-    console.error(error);
-  }
-}
+export const postTaskeeVehiclesThunk =
+  (taskeeId, vehicles) => async (dispatch) => {
+    try {
+      const { data: updatedTaskee } = await axios.put(
+        `${BASE_URL}/api/taskee/vehicles/${taskeeId}`,
+        { vehicles }
+      );
+      dispatch(postTaskeeVehicles(updatedTaskee));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 // POST TASKEE FACTS
 export const postTaskeeFactsThunk = (taskeeId, facts) => async (dispatch) => {
@@ -271,11 +269,11 @@ export const postTaskeeFactsThunk = (taskeeId, facts) => async (dispatch) => {
       `${BASE_URL}/api/taskee/facts/${taskeeId}`,
       { facts }
     );
-    dispatch(postTaskeeFacts(updatedTaskee))
+    dispatch(postTaskeeFacts(updatedTaskee));
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 // POST TASKEE ABOUT
 export const postTaskeeAboutThunk = (taskeeId, about) => async (dispatch) => {
@@ -284,11 +282,11 @@ export const postTaskeeAboutThunk = (taskeeId, about) => async (dispatch) => {
       `${BASE_URL}/api/taskee/about/${taskeeId}`,
       { about }
     );
-    dispatch(postTaskeeAbout(updatedTaskee))
+    dispatch(postTaskeeAbout(updatedTaskee));
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 const initialState = {
   allTaskees: [],
@@ -345,33 +343,33 @@ export default function (state = initialState, action) {
         ...state,
         singleTaskee: {
           ...state.singleTaskee,
-          tools: action.payload.tools
-        }
-      } ; 
+          tools: action.payload.tools,
+        },
+      };
     case POST_TASKEE_VEHICLES:
       return {
         ...state,
         singleTaskee: {
           ...state.singleTaskee,
-          tools: action.payload.vehicles
-        }
-      } ; 
+          tools: action.payload.vehicles,
+        },
+      };
     case POST_TASKEE_FACTS:
       return {
         ...state,
         singleTaskee: {
           ...state.singleTaskee,
-          tools: action.payload.facts
-        }
-      } ; 
+          tools: action.payload.facts,
+        },
+      };
     case POST_TASKEE_ABOUT:
       return {
         ...state,
         singleTaskee: {
           ...state.singleTaskee,
-          tools: action.payload.about
-        }
-      } ; 
+          tools: action.payload.about,
+        },
+      };
     default:
       return state;
   }
