@@ -44,18 +44,22 @@ function TaskerAccount() {
             <TaskerAccountIncomplete key={task.id} task={task} />
           ))
         ) : (
-          <h2>No Open Tasks</h2>
+          <h2 className="text-center">No Open Tasks</h2>
         )}
       </div>
       <h2 className="font-bold text-center text-lg py-3">Completed Tasks</h2>
       <div className="md:flex md:flex-wrap md:mx-auto">
-        {completedTasks.map((task) => (
-          <TaskerAccountCompleted
-            key={task.id}
-            task={task}
-            forceUpdate={forceUpdate}
-          />
-        ))}
+        {completedTasks.length > 0 ? (
+          completedTasks.map((task) => (
+            <TaskerAccountCompleted
+              key={task.id}
+              task={task}
+              forceUpdate={forceUpdate}
+            />
+          ))
+        ) : (
+          <h2 className="text-center">No Completed Tasks</h2>
+        )}
       </div>
     </div>
   );
