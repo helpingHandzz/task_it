@@ -14,7 +14,7 @@ export default function TaskeeProfile() {
   return (
     <>
       <div className="profileContainer border-4 rounded-lg m-4 p-4 flex flex-col items-center justify-between">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full md:w-3/4 lg:w-1/2">
+        <div className="grid grid-cols-1 gap-4 w-full">
           <TaskeeTools />
           <TaskeeVehicles />
           <TaskeeOtherFacts />
