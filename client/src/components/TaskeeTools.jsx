@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { postTaskeeToolsThunk } from '../store/taskee';
 
 export default function TaskeeTools() {
+  const dispatch = useDispatch();
+  const taskeeId = useSelector((state => state.auth.user.taskeeId));
+
   const [showToolsDropdown, setShowToolsDropdown] = useState(false);
   const [selectedTools, setSelectedTools] = useState([]);
 
@@ -29,6 +34,8 @@ export default function TaskeeTools() {
 
   const handleSaveTools = () => {
     console.log("Selected Tools:", selectedTools);
+
+    dispatch(postTaskeeToolsThunk(taskeeId, selectedTools.join(', ')));
     setShowToolsDropdown(false);
   };
 

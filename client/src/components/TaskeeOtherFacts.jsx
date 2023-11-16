@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { postTaskeeFactsThunk } from '../store/taskee';
 
 export default function OtherFacts() {
+  const dispatch = useDispatch();
+  const taskeeId = useSelector((state => state.auth.user.taskeeId));
+  
   const [showFactsDropdown, setShowFactsDropdown] = useState(false);
   const [selectedFacts, setSelectedFacts] = useState([]);
   const [showLanguageInput, setShowLanguageInput] = useState(false);
@@ -31,6 +36,7 @@ export default function OtherFacts() {
     if (showLanguageInput && language) {
       console.log("Languages Spoken:", language);
     }
+    dispatch(postTaskeeFactsThunk(taskeeId, selectedFacts.join(', ')));
     setShowFactsDropdown(false);
     setShowLanguageInput(false);
   };
@@ -58,7 +64,7 @@ export default function OtherFacts() {
 
       {showFactsDropdown && (
         <div className="dropdown-menu bg-F2F5F9 rounded p-4 flex flex-col">
-          {factsList.map((fact, index) => {
+          {factsList.map((fact) => {
             return (
               <>
                 <div

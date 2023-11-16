@@ -122,6 +122,7 @@ function Nav({
                 >
                   Account
                 </Link>
+                <section className="hidden md:block">{"|"}</section>
                 <button
                   className="flex flex-col justify-center md:mx-3 text-xl py-2 md:py-0 font-bold text-cyan-700  hover:text-cyan-900"
                   onClick={logout}
