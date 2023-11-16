@@ -22,19 +22,19 @@ function TaskerAccount() {
     dispatch(getTaskerThunk(id));
   }, [postedTask]);
 
-  const completedTasks = tasker.Task?.filter(
-    (task) => task.isCompleted === true
-  );
+  // const completedTasks = tasker.Task?.filter(
+  //   (task) => task.isCompleted === true
+  // );
 
-  const incompleteTasks = tasker.Task?.filter(
-    (task) => task.isCompleted === false
-  );
+  // const incompleteTasks = tasker.Task?.filter(
+  //   (task) => task.isCompleted === false
+  // );
   // console.log("completed tasks", completedTasks);
   // console.log("incomplete tasks", incompleteTasks);
 
   return (
     <div>
-      <h1 className="text-center font-bold text-3xl py-3">
+      {/* <h1 className="text-center font-bold text-3xl py-3">
         Hi, {tasker.fName} {tasker.lName}
       </h1>
       <h2 className="font-bold text-center text-lg py-3">Open Tasks</h2>
@@ -60,7 +60,7 @@ function TaskerAccount() {
         ) : (
           <h2 className="text-center">No Completed Tasks</h2>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
